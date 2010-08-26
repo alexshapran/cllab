@@ -44,10 +44,10 @@ return array(
 //		DATABASE CONFIG
  
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=cllab',
+			'connectionString' => 'mysql:host=piogroup.net;dbname=piogroup_clab',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'piogroup_cluser',
+			'password' => 'nFtGQGLd9E32',
 			'charset' => 'utf8',
 		),
 		
