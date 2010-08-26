@@ -5,19 +5,53 @@ class SiteController extends Controller
 	/**
 	 * Declares class-based actions.
 	 */
+
+
+	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+		);
+	}
+
+	/*
+	 * @param
+	 * @return	array();
+	 */
+	public function accessRules()
+	{
+		return array(
+		
+		array('allow',
+				'actions'=>array('login'),
+				'users'=>array('*')),
+		
+		array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','page', 'contact', 'logout'),
+				'users'=>array('@'),
+		),
+		array('deny',  // deny all users
+				'users'=>array('*'),
+		),
+		);
+	}
+
 	public function actions()
 	{
 		return array(
-			// captcha action renders the CAPTCHA image displayed on the contact page
+		// captcha action renders the CAPTCHA image displayed on the contact page
 			'captcha'=>array(
 				'class'=>'CCaptchaAction',
 				'backColor'=>0xFFFFFF,
-			),
-			// page action renders "static" pages stored under 'protected/views/site/pages'
-			// They can be accessed via: index.php?r=site/page&view=FileName
+		),
+		// page action renders "static" pages stored under 'protected/views/site/pages'
+		// They can be accessed via: index.php?r=site/page&view=FileName
 			'page'=>array(
 				'class'=>'CViewAction',
-			),
+		),
 		);
 	}
 
@@ -37,13 +71,13 @@ class SiteController extends Controller
 	 */
 	public function actionError()
 	{
-	    if($error=Yii::app()->errorHandler->error)
-	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
-	    	else
-	        	$this->render('error', $error);
-	    }
+		if($error=Yii::app()->errorHandler->error)
+		{
+			if(Yii::app()->request->isAjaxRequest)
+			echo $error['message'];
+			else
+			$this->render('error', $error);
+		}
 	}
 
 	/**
@@ -86,7 +120,7 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+			$this->redirect(Yii::app()->user->returnUrl);
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
