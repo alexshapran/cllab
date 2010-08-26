@@ -61,7 +61,7 @@ return array(
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
-		        	'logPath'	=>dirname(_FILE_).'../logs',
+		        	'logPath'	=> dirname(_FILE_).'../logs',
 		        	'logFile'	=>'error_log.txt',
 				),
 				// uncomment the following to show log messages on web pages

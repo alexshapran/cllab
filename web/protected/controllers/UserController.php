@@ -36,7 +36,7 @@ class UserController extends Controller
 				'users'=>array('*'),
 		),
 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'admin', 'view'),
+				'actions'=>array('create','update', 'admin', 'view', 'accounts'),
 				'users'=>array('admin'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -180,4 +180,16 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	/*
+	 * Provides Admin to manage accounts
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionAccounts() 
+	{
+		//$accForm = new Account::
+	} 
 }

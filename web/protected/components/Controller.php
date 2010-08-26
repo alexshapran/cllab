@@ -20,4 +20,19 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+	/*
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param
+	 * @return
+	 */
+
+	public function init() {
+
+		if (Yii::app()->request->isAjaxRequest == false) {
+			Yii::app()->getClientScript()->registerCoreScript('jquery');
+		} else {
+			Yii::app()->clientscript->scriptMap['jquery.js'] = false;
+			Yii::app()->clientscript->scriptMap['jquery.min.js'] = false;
+		}
+	}
 }
