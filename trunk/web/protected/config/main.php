@@ -26,14 +26,14 @@ return array(
 		),
 		// uncomment the following to enable URLs in path-format
 		
-		'urlManager'=>array(
+		/*'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
-		),
+		),*/
 
 		
 		/* 'db'=>array(
@@ -74,6 +74,21 @@ return array(
 		),
 	),
 
+	// GII
+	
+	'import'=>array(
+        'application.models.*',
+        'application.components.*',
+    ),
+ 
+    'modules'=>array(
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'password'=>'root116',
+        ),
+    ),
+	
+	
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
