@@ -99,13 +99,13 @@ class UserController extends Controller
 			$model->password = md5($model->password);
 
 			if($model->save())
-			$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('user/users',));
 		}
-
-		$this->
 		
 		$this->render('update',array(
 			'model'=>$model,
+			'aAcc'=> Account::model()->findAll(),
+			'aPriv'=>Privilege::model()->findAll()
 		));
 	}
 

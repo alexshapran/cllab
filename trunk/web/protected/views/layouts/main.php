@@ -30,6 +30,8 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
+				array('label'=>'Manage Accounts', 'url'=>array('/user/accounts') ),
+				array('label'=>'Manage Users', 'url'=>array('/user/users') ),
 //				array('label'=>'Home', 'url'=>array('/site/index')),
 //				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 //				array('label'=>'Contact', 'url'=>array('/site/contact')),

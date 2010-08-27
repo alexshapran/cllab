@@ -35,18 +35,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'account_id'); ?>
-		<?php echo $form->dropDownList($model, 'account_id', $aData,array()) ?>
+		<?php echo $form->dropDownList($model, 'account_id', CHtml::listData($aAcc, 'id','value'), array()) ?>
 		<?php echo $form->error($model,'account_id'); ?>
 	</div>
-	<!-- <div class="row">
-		<?php echo $form->labelEx($model,'account_id'); ?>
-		<?php echo $form->textField($model,'account_id'); ?>
-		<?php echo $form->error($model,'account_id'); ?>
-	</div> -->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'privilege_id'); ?>
-		<?php echo $form->textField($model,'privilege_id'); ?>
+		<?php echo $form->dropDownList($model, 'privilege_id', CHtml::listData($aPriv, 'id','value'), array()) ?>
 		<?php echo $form->error($model,'privilege_id'); ?>
 	</div>
 
