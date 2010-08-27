@@ -45,6 +45,8 @@ class ConfGeneral extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('company_name, phone, email, address, city, state, zip, default_currency','required'),
+			array('email','email'),
 			array('company_name, phone, email, website, address, city, state', 'length', 'max'=>255),
 			array('zip, default_currency', 'length', 'max'=>45),
 			array('header, footer, privacy_policy', 'safe'),
@@ -78,9 +80,9 @@ class ConfGeneral extends CActiveRecord
 			'website' => 'Website',
 			'address' => 'Address',
 			'city' => 'City',
-			'state' => 'State',
-			'zip' => 'Zip',
-			'default_currency' => 'Default Currency',
+			'state' => 'State/Province',
+			'zip' => 'ZIP/Postal',
+			'default_currency' => 'Default Currency Symbol',
 			'header' => 'Header',
 			'footer' => 'Footer',
 			'privacy_policy' => 'Privacy Policy',
