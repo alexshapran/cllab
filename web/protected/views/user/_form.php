@@ -35,9 +35,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'account_id'); ?>
-		<?php echo $form->textField($model,'account_id'); ?>
+		<?php echo $form->dropDownList($model, 'account_id', $aData,array()) ?>
 		<?php echo $form->error($model,'account_id'); ?>
 	</div>
+	<!-- <div class="row">
+		<?php echo $form->labelEx($model,'account_id'); ?>
+		<?php echo $form->textField($model,'account_id'); ?>
+		<?php echo $form->error($model,'account_id'); ?>
+	</div> -->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'privilege_id'); ?>
