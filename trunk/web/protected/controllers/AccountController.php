@@ -31,12 +31,13 @@ class AccountController extends Controller
 	public function accessRules()
 	{
 		return array(
+			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index', 'view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('createAjax','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -63,7 +64,7 @@ class AccountController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreateAjax()
 	{
 		$model=new Account;
 
@@ -73,13 +74,30 @@ class AccountController extends Controller
 		if(isset($_POST['Account']))
 		{
 			$model->attributes=$_POST['Account'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$model->date_created = time();
+			if(!$model->save())
+			{
+			$data = array();
+			$data['errors'] = $model->getErrors();
+			$this->renderPartial('_errors', $data, false, true);
+			}
+			else
+			{
+				$dataProvider = new CActiveDataProvider('Account');
+				$data['dataProvider'] = $dataProvider;
+				$this->renderPartial('_accounts', $data);
+			}
+		}
+		else
+		{
+			$dataProvider = new CActiveDataProvider('Account');
+			$data['dataProvider'] = $dataProvider;
+			$this->renderPartial('_accounts', $data);
 		}
 
-		$this->render('create',array(
+/*		$this->render('create',array(
 			'model'=>$model,
-		));
+		));*/
 	}
 
 	/**
@@ -97,7 +115,7 @@ class AccountController extends Controller
 		{
 			$model->attributes=$_POST['Account'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('user/accounts'));
 		}
 
 		$this->render('update',array(

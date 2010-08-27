@@ -36,7 +36,7 @@ class UserController extends Controller
 				'users'=>array('*'),
 		),
 		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'admin', 'view', 'accounts'),
+				'actions'=>array('create','update', 'admin', 'view', 'accounts','users'),
 				'users'=>array('admin'),
 		),
 		array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -99,9 +99,11 @@ class UserController extends Controller
 			$model->password = md5($model->password);
 
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
+		$this->
+		
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -168,6 +170,35 @@ class UserController extends Controller
 		return $this->_model;
 	}
 
+	/*
+	 * Provides Admin to manage accounts
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param
+	 * @return
+	 */
+
+	public function actionAccounts()
+	{
+		$accModel = new Account;
+		//$dataProvider = new CActiveDataProvider('Account');
+
+		$this->render('accounts',array(
+			'model'=>$accModel,
+		));
+	}
+	/*
+	 * Provides Admin to manage Users
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionUsers() 
+	{
+		$dataProvider = new CActiveDataProvider('User');
+		$this->render('users');
+	}
+	
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
@@ -180,16 +211,5 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 	}
-
-	/*
-	 * Provides Admin to manage accounts
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param		
-	 * @return		
-	 */
 	
-	public function actionAccounts() 
-	{
-		//$accForm = new Account::
-	} 
 }
