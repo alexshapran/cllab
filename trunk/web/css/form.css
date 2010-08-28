@@ -193,3 +193,14 @@ display: inline;
 
 }
 /*END OF General parameters page and forms styles*/
+
+/* USER EDITING FORM */
+.userEdit {
+	width: 330px;
+}
+
+.userEdit LABEL {
+	float: left;
+	width: 120px;
+}
+/* USER EDITING FORM END */
