@@ -83,6 +83,9 @@ body
 float:left;
 width:345px;
 }
+#confgen_form_left label{
+width:130px;
+}
 #confgen_form_right{
 float:right;
 }
