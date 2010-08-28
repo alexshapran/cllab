@@ -255,3 +255,12 @@ div.search-form
 {
 	background: #80CFFF;
 }
+.userEdit LABEL
+{
+	float:left;
+	width: 120px;
+}
+.userEdit
+{
+	width: 330px;
+}
