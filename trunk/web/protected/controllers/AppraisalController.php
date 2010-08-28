@@ -31,12 +31,13 @@ class AppraisalController extends Controller
 	public function accessRules()
 	{
 		return array(
+			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index', 'view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('edit','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -59,14 +60,15 @@ class AppraisalController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
+//	/**
+//	 * Creates a new model.
+//	 * If creation is successful, the browser will be redirected to the 'view' page.
+//	 */
+	public function actionEdit()
 	{
-		$model=new Appraisal;
+		$model=$this->loadModel();
 
+		$aClient = Client::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -77,8 +79,9 @@ class AppraisalController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('create',array(
+		$this->render('edit',array(
 			'model'=>$model,
+			'aClient'=>$aClient,
 		));
 	}
 
@@ -89,7 +92,7 @@ class AppraisalController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
-
+		$aClient = Client::model()->findAll();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -99,11 +102,34 @@ class AppraisalController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+var_dump($aClient);
+die;
 		$this->render('update',array(
 			'model'=>$model,
+			'aClient'=>$aClient,
 		));
 	}
+	
+//	public function actionEdit()
+//	{
+//		$model=$this->loadModel();
+//		$aClient = Client::model()->findAll();
+//		// Uncomment the following line if AJAX validation is needed
+//		// $this->performAjaxValidation($model);
+//
+//		if(isset($_POST['Appraisal']))
+//		{
+//			$model->attributes=$_POST['Appraisal'];
+//			if($model->save())
+//				$this->redirect(array('view','id'=>$model->id));
+//		}
+//var_dump($aClient);
+//die;
+//		$this->render('update',array(
+//			'model'=>$model,
+//			'aClient'=>$aClient,
+//		));
+//	}
 
 	/**
 	 * Deletes a particular model.
@@ -129,9 +155,13 @@ class AppraisalController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Appraisal');
+		$model=new Appraisal('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Appraisal']))
+			$model->attributes=$_GET['Appraisal'];
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
