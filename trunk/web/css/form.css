@@ -181,15 +181,37 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	margin: 2px !important;
 }
 #configuration_tabs ul{
-list-style: none;
+	list-style: none;
 }
 #configuration_tabs li{
-display: inline;
+	display: inline;
 }
-#type_of_value{
-
+#type_of_value {
+	float: left;
+	width: 350px;
 }
-#purpose_of_apparsial{
+#purpose_of_apparsial {
+	float: left;
+	width: 350px;
+	margin-left:130px;
+}
+#type_of_value table{
+	width: 350px;
+}
+#confgen_center{
+	margin: 30px 0 0 30px;
+}
+#confgen_button{
+	float:left;
+	margin-left:420px;
+}
+#purpose_of_apparsial table{
+	width: 350px;
+}
+#privacy_policy{
+	margin-left:30px;
+}
+#privacy_policy label{
 
 }
 /*END OF General parameters page and forms styles*/

@@ -89,6 +89,10 @@ class ConfGeneralController extends Controller
 	public function actionUpdate()
 	{
 		
+		$purpose = new Purpose;
+		$ConfTypeOfValue = new ConfTypeOfValue;
+	
+		
 		$model=$this->loadModel();
 
 		// Uncomment the following line if AJAX validation is needed
@@ -103,6 +107,8 @@ class ConfGeneralController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+			'oConfTypeOfValue'=> $ConfTypeOfValue,
+			'oPurpose'=> $purpose,
 		));
 	}
 
