@@ -11,59 +11,59 @@
 	<div id="confgen_form_left">
 				
 			<div class="row">
-							<?php echo $form->labelEx($model,'company_name'); ?>
-							<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'company_name'); ?>
+				<?php echo $form->labelEx($model,'company_name'); ?>
+				<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'company_name'); ?>
 			</div>
 			<div class="row">
-							<?php echo $form->labelEx($model,'phone'); ?>
-							<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'phone'); ?>
+				<?php echo $form->labelEx($model,'phone'); ?>
+				<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'phone'); ?>
 			</div>
 			<div class="row">		
-							<?php echo $form->labelEx($model,'company_name'); ?>
-							<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'company_name'); ?>
+				<?php echo $form->labelEx($model,'company_name'); ?>
+				<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'company_name'); ?>
 			</div>
 			<div class="row">				
-							<?php echo $form->labelEx($model,'phone'); ?>
-							<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'phone'); ?>
+				<?php echo $form->labelEx($model,'phone'); ?>
+				<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'phone'); ?>
 			</div>
 			<div class="row">			
-							<?php echo $form->labelEx($model,'email'); ?>
-							<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'email'); ?>
+				<?php echo $form->labelEx($model,'email'); ?>
+				<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'email'); ?>
 			</div>
 			<div class="row">			
-							<?php echo $form->labelEx($model,'website'); ?>
-							<?php echo $form->textField($model,'website',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'website'); ?>
+				<?php echo $form->labelEx($model,'website'); ?>
+				<?php echo $form->textField($model,'website',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'website'); ?>
 			</div>		
 			<div class="row">	
-							<?php echo $form->labelEx($model,'address'); ?>
-							<?php echo $form->textField($model,'address',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'address'); ?>
+				<?php echo $form->labelEx($model,'address'); ?>
+				<?php echo $form->textField($model,'address',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'address'); ?>
 			</div>
 			<div class="row">			
-							<?php echo $form->labelEx($model,'city'); ?>
-							<?php echo $form->textField($model,'city',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'city'); ?>
+				<?php echo $form->labelEx($model,'city'); ?>
+				<?php echo $form->textField($model,'city',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'city'); ?>
 			</div>
 			<div class="row">							
-							<?php echo $form->labelEx($model,'state'); ?>
-							<?php echo $form->textField($model,'state',array('size'=>30,'maxlength'=>255)); ?>
-							<?php echo $form->error($model,'state'); ?>
+				<?php echo $form->labelEx($model,'state'); ?>
+				<?php echo $form->textField($model,'state',array('size'=>30,'maxlength'=>255)); ?>
+				<?php echo $form->error($model,'state'); ?>
 			</div>
 			<div class="row">	
-							<?php echo $form->labelEx($model,'zip'); ?>
-							<?php echo $form->textField($model,'zip',array('size'=>30,'maxlength'=>45)); ?>
-							<?php echo $form->error($model,'zip'); ?>
+				<?php echo $form->labelEx($model,'zip'); ?>
+				<?php echo $form->textField($model,'zip',array('size'=>30,'maxlength'=>45)); ?>
+				<?php echo $form->error($model,'zip'); ?>
 			</div>		
 			<div class="row">	
-							<?php echo $form->labelEx($model,'default_currency'); ?>
-							<?php echo $form->textField($model,'default_currency',array('size'=>10,'maxlength'=>45)); ?>
-							<?php echo $form->error($model,'default_currency'); ?>
+				<?php echo $form->labelEx($model,'default_currency'); ?>
+				<?php echo $form->textField($model,'default_currency',array('size'=>10,'maxlength'=>45)); ?>
+				<?php echo $form->error($model,'default_currency'); ?>
 			</div>
 	</div>	
 	
