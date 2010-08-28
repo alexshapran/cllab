@@ -7,13 +7,16 @@
  * @property integer $id
  * @property string $username
  * @property string $password
+ * @property string $password2
  * @property string $name
  * @property string $date_added
  * @property integer $account_id
  * @property integer $privilege_id
  */
+
 class User extends CActiveRecord
 {
+	public $password_repeat; 	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
@@ -43,6 +46,10 @@ class User extends CActiveRecord
 			array('account_id, privilege_id', 'numerical', 'integerOnly'=>true),
 			array('username, name', 'length', 'max'=>255),
 			array('username','required'),
+			
+			array('password_repeat', 'required', 'on'=>'update'),
+			array('password','compare', 'on'=>'update'),
+			
 			array('password', 'length', 'max'=>45),
 			array('date_added', 'safe'),
 			// The following rule is used by search().
@@ -73,6 +80,7 @@ class User extends CActiveRecord
 			'id' => 'ID',
 			'username' => 'Username',
 			'password' => 'Password',
+			'password_repeat'=> 'Confirm',
 			'name' => 'Name',
 			'date_added' => 'Date Added',
 			'account_id' => 'Account',

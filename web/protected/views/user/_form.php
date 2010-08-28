@@ -2,6 +2,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
+	'htmlOptions' => array('autocomplete'=>'off'),
 	'enableAjaxValidation'=>false,
 )); ?>
 

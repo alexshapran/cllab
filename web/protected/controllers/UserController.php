@@ -30,22 +30,17 @@ class UserController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index'),
-				'users'=>array('*'),
-		),
-		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'admin', 'view', 'accounts','users'),
-				'users'=>array('admin'),
-		),
-		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-		),
-		array('deny',  // deny all users
-				'users'=>array('*'),
-		),
+		return 	array(
+					array('allow', // allow admin to perform 'create' and 'update' actions
+							'actions'=>array('create','update', 'admin', 'view', 'accounts','users'),
+							'roles'=>array('Superadmin'),
+					),
+					array('deny', // allow admin user to perform 'admin' and 'delete' actions
+							'actions'=>array('admin','delete'),
+					),
+					array('deny',  // deny all users
+							'users'=>array('*'),
+					),
 		);
 	}
 
@@ -96,16 +91,47 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes = $_POST['User'];
-			$model->password = md5($model->password);
+			$model->setAttribute('password_repeat',$_POST['User']['password_repeat']);
 
-			if($model->save())
-				$this->redirect(array('user/users',));
+			if($model->password)
+			{
+				if($model->validate('update'))
+				{
+					$model->password = md5($model->password);
+				}
+				else
+				{
+					//					$model->unsetAttributes('password_repeat');
+
+					$this->render('update',array(
+						'model'=>$model,
+						'aAcc'=> Account::model()->findAll(),
+						'aPriv'=>Privilege::model()->findAll(),
+					));
+					die();
+				}
+			}
+			else
+			{
+				$thisModel = User::model()->findByPk($model->id);
+				$model->password = $thisModel->password;
+			}
+
+			if($model->validate(array('id, username, password, name, account_id, privilege_id')))
+			{
+				if($model->save(false))
+				$this->redirect(array('user/users'));
+			}
+
 		}
-		
+
+		$model->password = '';
+		//		$model->password_repeat = '';
+
 		$this->render('update',array(
 			'model'=>$model,
 			'aAcc'=> Account::model()->findAll(),
-			'aPriv'=>Privilege::model()->findAll()
+			'aPriv'=>Privilege::model()->findAll(),
 		));
 	}
 
@@ -189,16 +215,16 @@ class UserController extends Controller
 	/*
 	 * Provides Admin to manage Users
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param		
-	 * @return		
+	 * @param
+	 * @return
 	 */
-	
-	public function actionUsers() 
+
+	public function actionUsers()
 	{
 		$dataProvider = new CActiveDataProvider('User');
 		$this->render('users');
 	}
-	
+
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
@@ -211,5 +237,5 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 	}
-	
+
 }
