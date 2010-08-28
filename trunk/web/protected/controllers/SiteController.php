@@ -24,18 +24,17 @@ class SiteController extends Controller
 	public function accessRules()
 	{
 		return array(
-		
-		array('allow',
-				'actions'=>array('login'),
-				'users'=>array('*')),
-		
-		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','page', 'contact', 'logout'),
-				'users'=>array('@'),
-		),
-		array('deny',  // deny all users
-				'users'=>array('*'),
-		),
+				array('allow',
+						'actions'=>array('login', 'error'),
+						'users'=>array('*')),
+				
+				array('allow',  // allow all users to perform 'index' and 'view' actions
+						'actions'=>array('index','page', 'contact', 'logout'),
+						'users'=>array('@'),
+				),
+				array('deny',  // deny all users
+						'users'=>array('*'),
+				),
 		);
 	}
 
@@ -120,9 +119,8 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-			{
+			{		
 				Yii::app()->user->setName($model->username);
-				//Yii::app()->user->
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}

@@ -7,6 +7,8 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	protected $_id;
+	
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -35,8 +37,21 @@ class UserIdentity extends CUserIdentity
 		else
 		{
 			$this->errorCode=self::ERROR_NONE;
-			$this->setState('title', $this->username);
+			
+			// AUTH
+	$auth=Yii::app()->authManager;
+    $auth->revoke($account->privilege->value, $account->id);
+    $auth->assign($account->privilege->value, $account->id);
+    $auth->save();
+			// AUTH END
+			
+			$this->_id = $account->id;
 		}
 		return !$this->errorCode;
 	}
+	
+	public function getId(){
+        return $this->_id;
+    }
+	
 }
