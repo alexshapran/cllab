@@ -3,7 +3,7 @@ body
 	margin: 0;
 	padding: 0;
 	color: #555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
+	font: normal 12px Arial,Helvetica,sans-serif;
 	background: #EFEFEF;
 }
 
@@ -79,7 +79,35 @@ body
 	background-color:#EFF4FA;
 	text-decoration:none;
 }
+#confgen_form_left{
+float:left;
+width:345px;
+}
+#confgen_form_right{
+float:right;
+}
+#confgen_form_left_label{
+float:left;
+}
+#confgen_form_left_form{
+float:right;
+}
+#clearboth{
+clear:both;
+}
 
+#configuration_tabs ul{
+list-style: none;
+}
+#configuration_tabs li{
+display: inline;
+}
+#type_of_value{
+
+}
+#purpose_of_apparsial{
+
+}
 div.flash-error, div.flash-notice, div.flash-success
 {
 	padding:.8em;
