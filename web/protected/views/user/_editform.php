@@ -23,12 +23,12 @@
 <?php echo $form->error($model,'name'); ?>
 
 <?php echo $form->labelEx($model,'account_id'); ?>
-<?php echo $form->dropDownList($model, 'account_id', CHtml::listData($aAcc, 'id','value'), array()) ?>
+<?php echo $form->dropDownList($model, 'account_id', CHtml::listData($aAccounts, 'id','value'), array()) ?>
 <?php echo $form->error($model,'account_id'); ?>
 
 
 <?php echo $form->labelEx($model,'privilege_id'); ?>
-<?php echo $form->dropDownList($model, 'privilege_id', CHtml::listData($aPriv, 'id','value'), array()) ?>
+<?php echo $form->dropDownList($model, 'privilege_id', CHtml::listData($aPrivileges, 'id','value'), array()) ?>
 <?php echo $form->error($model,'privilege_id'); ?>
 
 </div>

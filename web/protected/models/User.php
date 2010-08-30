@@ -16,7 +16,7 @@
 
 class User extends CActiveRecord
 {
-	public $password_repeat; 	
+	public $password_repeat;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return User the static model class
@@ -47,9 +47,9 @@ class User extends CActiveRecord
 			array('username, name', 'length', 'max'=>255),
 			array('username','required'),
 			
-			array('password_repeat', 'required', 'on'=>'update'),
-			array('password','compare', 'on'=>'update'),
-			
+//			array('password_repeat', 'required', 'on'=>'update'),
+			array('password', 'compare', 'compareAttribute'=>'password_repeat'),
+
 			array('password', 'length', 'max'=>45),
 			array('date_added', 'safe'),
 			// The following rule is used by search().

@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 ?>
 
 <h3>Users</h3>
+<?php echo CHtml::button('Add User', array('onClick'=>'location.replace(\''.yii::app()->createUrl("user/update").'\')')) ?>
 
 <?php
 $dataProvider = new CActiveDataProvider('User');

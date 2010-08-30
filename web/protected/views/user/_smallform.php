@@ -25,4 +25,4 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
-<div style='clear:both'></div>
+<div class='clear'></div>

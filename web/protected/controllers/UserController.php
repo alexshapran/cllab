@@ -31,16 +31,13 @@ class UserController extends Controller
 	public function accessRules()
 	{
 		return 	array(
-					array('allow', // allow admin to perform 'create' and 'update' actions
-							'actions'=>array('create','update', 'admin', 'view', 'accounts','users'),
+		array('allow', // allow admin to perform 'create' and 'update' actions
+							'actions'=>array('create','update', 'admin', 'view', 'accounts','users','delete'),
 							'roles'=>array('Superadmin'),
-					),
-					array('deny', // allow admin user to perform 'admin' and 'delete' actions
-							'actions'=>array('admin','delete'),
-					),
-					array('deny',  // deny all users
+		),
+		array('deny',  // deny all users
 							'users'=>array('*'),
-					),
+		),
 		);
 	}
 
@@ -51,29 +48,6 @@ class UserController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel(),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new User;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			if($model->save())
-			$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
 		));
 	}
 
@@ -95,21 +69,8 @@ class UserController extends Controller
 
 			if($model->password)
 			{
-				if($model->validate('update'))
-				{
 					$model->password = md5($model->password);
-				}
-				else
-				{
-					//					$model->unsetAttributes('password_repeat');
-
-					$this->render('update',array(
-						'model'=>$model,
-						'aAcc'=> Account::model()->findAll(),
-						'aPriv'=>Privilege::model()->findAll(),
-					));
-					die();
-				}
+					$model->password_repeat = md5($model->password_repeat);
 			}
 			else
 			{
@@ -117,7 +78,7 @@ class UserController extends Controller
 				$model->password = $thisModel->password;
 			}
 
-			if($model->validate(array('id, username, password, name, account_id, privilege_id')))
+			if($model->validate())
 			{
 				if($model->save(false))
 				$this->redirect(array('user/users'));
@@ -126,7 +87,7 @@ class UserController extends Controller
 		}
 
 		$model->password = '';
-		//		$model->password_repeat = '';
+		$model->password_repeat = '';
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -191,7 +152,7 @@ class UserController extends Controller
 			if(isset($_GET['id']))
 			$this->_model=User::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			$this->_model = new User();
 		}
 		return $this->_model;
 	}
