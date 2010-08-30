@@ -13,4 +13,4 @@ $this->menu=array(
 );
 ?>
 
-<?php echo $this->renderPartial('_editform', array('model'=>$model, 'aAcc'=>$aAcc, 'aPriv'=>$aPriv)); ?>
+<?php echo $this->renderPartial('_editform', array('model'=>$model, 'aAccounts'=>$aAcc, 'aPrivileges'=>$aPriv)); ?>
