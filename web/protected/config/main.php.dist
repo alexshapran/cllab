@@ -20,6 +20,12 @@ return array(
 
 	// application components
 	'components'=>array(
+	'authManager' => array(
+		    // Будем использовать свой менеджер авторизации
+		    'class' => 'PhpAuthManager',
+		    // Роль по умолчанию. User
+		    'defaultRoles' => array('User'),
+),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
