@@ -1,6 +1,6 @@
 <?php
 
-class ConfGeneralController extends Controller
+class ConfgeneralController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -88,7 +88,7 @@ class ConfGeneralController extends Controller
 	 */
 	public function actionUpdate()
 	{
-		
+
 		$purpose = new Purpose;
 		$ConfTypeOfValue = new ConfTypeOfValue;
 	

@@ -137,22 +137,33 @@
 			</div>
 			
 			<div id="purpose_of_apparsial">
-			<?php $dataProviderP = new CActiveDataProvider('Purpose');
+			<?php echo $this->renderPartial('_smallform', array('model'=>new Purpose)); ?>
+			<div id="allpurposes">
+			<?php 
+				$dataProviderPurpose = new CActiveDataProvider('Purpose', array('pagination'=>false));
 				$this->widget('zii.widgets.grid.CGridView', array(
 					'id'=>'PurposeTable',
 					'summaryText'=>false,
-					'dataProvider'=>$dataProviderP,
+					'dataProvider'=>$dataProviderPurpose,
 					'ajaxUpdate'=>true,
-					'columns' => array('value',
+					'columns' => array(
+//					'value',
+//					CHtml::textField('val','hello')
+										array(	'name'=>'value',
+												'type'=>'raw', 
+												'value'=>'"<span id=\"span".$data->id."\">$data->value</span>".CHtml::textField("text".$data->id,$data->value,array("style"=>"display:none"))' ),
+										
 										array(	'class'			=>'CButtonColumn',
 												'template'		=>'{update} {delete}',
-												'updateButtonUrl'	=>'Yii::app()->controller->createUrl("purpose/update", array("id"=>$data->id))',
+												'updateButtonUrl'	=>'#',
+												'$updateButtonOptions'=>array('onclick'=>'$("#span").ToggleClass()'),
 												'deleteButtonUrl'	=>'Yii::app()->controller->createUrl("purpose/delete", array("id"=>$data->id))' 
 										)),
 					'hideHeader' => true
 					));
-				?>
-				<?php $this->endWidget(); ?>
+			
+			$this->endWidget(); ?>
+			</div>
 			</div>
 		</div>
 		

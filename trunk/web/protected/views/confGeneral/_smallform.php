@@ -17,11 +17,10 @@
 
 	<div style='float:left; margin-left:20px;'>
 		<?php echo CHtml::ajaxSubmitButton("Add new",
-                              CController::createUrl('account/createAjax'), 
-                              array('update'=>'#accountsTable'));
+                              CController::createUrl('purpose/createAjax'), 
+                              array('update'=>'#allpurposes'));
 		 ?>
 	</div>
-
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

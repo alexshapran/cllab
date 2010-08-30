@@ -36,8 +36,9 @@ class PurposeController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'actions'=>array('createAjax','update'),
+//				'users'=>array('@'),
+				'roles'=>array('Superadmin')
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -63,7 +64,7 @@ class PurposeController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreateAjax()
 	{
 		$model=new Purpose;
 
@@ -74,7 +75,10 @@ class PurposeController extends Controller
 		{
 			$model->attributes=$_POST['Purpose'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			{
+				$this->renderPartial('create');
+				die();
+			}
 		}
 
 		$this->render('create',array(
