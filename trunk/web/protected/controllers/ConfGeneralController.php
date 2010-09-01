@@ -32,7 +32,7 @@ class ConfgeneralController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'fontsandimages'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -88,15 +88,15 @@ class ConfgeneralController extends Controller
 	 */
 	public function actionUpdate()
 	{
-
 		$purpose = new Purpose;
 		$ConfTypeOfValue = new ConfTypeOfValue;
-	
-		
-		$model=$this->loadModel();
+
+		$oUserModel = User::model()->findByPk(Yii::app()->user->getId());
+
+		$model = ConfGeneral::model()->findByPk($oUserModel->account_id);
 
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['ConfGeneral']))
 		{
@@ -140,6 +140,20 @@ class ConfgeneralController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+	
+	/* Provides to manage Fonts and Images settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionFontsandimages() 
+	{
+		$imageConf = ConfImg::model()->findAll();
+		$confGeneral = ConfGeneral::model()->findByPk('1');
+		$fontsConf = ConfFonts::model()->findAll();
+		$this->render('fontsandimages', array('imageConf'=>$imageConf, 'fontsConf'=>$fontsConf, 'confGeneral'=>$confGeneral));
 	}
 
 	/**

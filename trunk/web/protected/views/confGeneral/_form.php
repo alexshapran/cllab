@@ -5,6 +5,15 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
+<script type='text/javascript'>
+function displayEdit(id)
+{
+	$('#purpForm'+id).toggleClass('hidden');
+	$('#span'+id).toggleClass('hidden');  
+	$('#edit'+id).toggleClass('hidden');
+}
+</script>
+
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
@@ -25,7 +34,7 @@
 				<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
 				<?php echo $form->error($model,'company_name'); ?>
 			</div>
-			<div class="confgen_row">				
+			<div class="confgen_row">
 				<?php echo $form->labelEx($model,'phone'); ?>
 				<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
 				<?php echo $form->error($model,'phone'); ?>
@@ -84,6 +93,27 @@
 	
 	
 	<div class="clear"> </div>
+	
+	<!-- Begin PP -->
+		<div id="privacy_policy">
+		<div class="row">
+			<?php echo $form->labelEx($model,'privacy_policy'); ?>
+			<?php echo $form->textArea($model,'privacy_policy',array('rows'=>10, 'cols'=>101)); ?>
+			<?php echo $form->error($model,'privacy_policy'); ?>
+		</div> 
+		
+		<div id="confgen_button">	
+			<div class="row buttons">
+				<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Submit'); ?>
+			</div>
+		</div>
+	</div>
+	
+	<!-- PP END -->
+	<?php $this->endWidget(); ?>
+	<div class='clear'></div>
+	
+	
 		<div id="confgen_center">		
 			<div id="type_of_value">
 			
@@ -117,8 +147,9 @@
 <?php // $this->endWidget(); ?>
 
 </div>
-			
-			<?php 
+			<?php
+			echo CHtml::Button('Add new', array('onClick'=>"location.replace('".yii::app()->controller->createUrl("conftypeofvalue/create")."')"));
+			 
 			$this->widget('zii.widgets.grid.CGridView', array(
 				'id'=>'ConfTypeOfValueTable',
 				'summaryText'=>false,
@@ -127,8 +158,8 @@
 				'columns' => array('name',
 									array(	'class'			=>'CButtonColumn',
 											'template'		=>'{update} {delete}',
-											'updateButtonUrl'	=>'Yii::app()->controller->createUrl("ConfTypeOfValue/update", array("id"=>$data->id))',
-											'deleteButtonUrl'	=>'Yii::app()->controller->createUrl("ConfTypeOfValue/delete", array("id"=>$data->id))' 
+											'updateButtonUrl'	=>'Yii::app()->controller->createUrl("conftypeofvalue/update", array("id"=>$data->id))',
+											'deleteButtonUrl'	=>'Yii::app()->controller->createUrl("conftypeofvalue/delete", array("id"=>$data->id))' 
 									)),
 				'hideHeader' => true
 				));
@@ -139,50 +170,15 @@
 			<div id="purpose_of_apparsial">
 			<?php echo $this->renderPartial('_smallform', array('model'=>new Purpose)); ?>
 			<div id="allpurposes">
-			<?php 
-				$dataProviderPurpose = new CActiveDataProvider('Purpose', array('pagination'=>false));
-				$this->widget('zii.widgets.grid.CGridView', array(
-					'id'=>'PurposeTable',
-					'summaryText'=>false,
-					'dataProvider'=>$dataProviderPurpose,
-					'ajaxUpdate'=>true,
-					'columns' => array(
-//					'value',
-//					CHtml::textField('val','hello')
-										array(	'name'=>'value',
-												'type'=>'raw', 
-												'value'=>'"<span id=\"span".$data->id."\">$data->value</span>".CHtml::textField("text".$data->id,$data->value,array("style"=>"display:none"))' ),
-										
-										array(	'class'			=>'CButtonColumn',
-												'template'		=>'{update} {delete}',
-												'updateButtonUrl'	=>'#',
-												'$updateButtonOptions'=>array('onclick'=>'$("#span").ToggleClass()'),
-												'deleteButtonUrl'	=>'Yii::app()->controller->createUrl("purpose/delete", array("id"=>$data->id))' 
-										)),
-					'hideHeader' => true
-					));
-			
-			$this->endWidget(); ?>
+			<?php $this->renderPartial('/purpose/create'); ?>
 			</div>
+			<?php // $this->endWidget(); ?>
 			</div>
 		</div>
 		
 	<div class="clear"></div>
 	
-	<div id="privacy_policy">
-		<div class="row">
-			<?php echo $form->labelEx($model,'privacy_policy'); ?>
-			<?php echo $form->textArea($model,'privacy_policy',array('rows'=>10, 'cols'=>101)); ?>
-			<?php echo $form->error($model,'privacy_policy'); ?>
-		</div> 
-		
-		<div id="confgen_button">	
-			<div class="row buttons">
-				<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Submit'); ?>
-			</div>
-		</div>
 
-	</div>
 	
 
 

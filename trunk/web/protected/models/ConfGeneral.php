@@ -17,6 +17,8 @@
  * @property string $header
  * @property string $footer
  * @property string $privacy_policy
+ * @property string $global_font_type
+ * @property integer $account_id
  */
 class ConfGeneral extends CActiveRecord
 {
@@ -45,14 +47,14 @@ class ConfGeneral extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('company_name, phone, email, address, city, state, zip, default_currency','required'),
-			array('email','email'),
+			array('global_font_type', 'required'),
+			array('account_id', 'numerical', 'integerOnly'=>true),
 			array('company_name, phone, email, website, address, city, state', 'length', 'max'=>255),
 			array('zip, default_currency', 'length', 'max'=>45),
 			array('header, footer, privacy_policy', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, company_name, phone, email, website, address, city, state, zip, default_currency, header, footer, privacy_policy', 'safe', 'on'=>'search'),
+			array('id, company_name, phone, email, website, address, city, state, zip, default_currency, header, footer, privacy_policy, global_font_type, account_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +66,7 @@ class ConfGeneral extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'account' => array(self::BELONGS_TO, 'Account', 'account_id'),
 		);
 	}
 
@@ -80,12 +83,14 @@ class ConfGeneral extends CActiveRecord
 			'website' => 'Website',
 			'address' => 'Address',
 			'city' => 'City',
-			'state' => 'State/Province',
-			'zip' => 'ZIP/Postal',
-			'default_currency' => 'Default Currency Symbol',
+			'state' => 'State',
+			'zip' => 'Zip',
+			'default_currency' => 'Default Currency',
 			'header' => 'Header',
 			'footer' => 'Footer',
 			'privacy_policy' => 'Privacy Policy',
+			'global_font_type' => 'Global Font Type',
+			'account_id' => 'Account',
 		);
 	}
 
@@ -125,6 +130,10 @@ class ConfGeneral extends CActiveRecord
 		$criteria->compare('footer',$this->footer,true);
 
 		$criteria->compare('privacy_policy',$this->privacy_policy,true);
+
+		$criteria->compare('global_font_type',$this->global_font_type,true);
+
+		$criteria->compare('account_id',$this->account_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

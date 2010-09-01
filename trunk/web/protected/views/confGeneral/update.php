@@ -1,7 +1,7 @@
 <div id="configuration_tabs">
 	<ul>
-		<li><?php echo CHtml::link('General Parametsrs','/confgeneral/update/1'); ?></li>
-		<li><?php echo CHtml::link('Fonts & Images','#'); ?></li>
+		<li><?php echo CHtml::link('General Parametsrs',yii::app()->controller->createUrl('/confgeneral/update/',array('id'=>'1'))); ?></li>
+		<li><?php echo CHtml::link('Fonts & Images',yii::app()->controller->createUrl('/confgeneral/fontsandimages')); ?></li>
 		<li><?php echo CHtml::link('Property Settings','#'); ?></li>
 		<li><?php echo CHtml::link('Signed Certification Settings','#'); ?></li>
 		<li><?php echo CHtml::link('Scope of Work Settings','#'); ?></li>
