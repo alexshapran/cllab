@@ -32,8 +32,8 @@ class ConfgeneralController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'fontsandimages'),
-				'users'=>array('*'),
+				'actions'=>array('index', 'view', 'fontsandimages', 'fontsandimagessubmit'),
+				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -88,15 +88,28 @@ class ConfgeneralController extends Controller
 	 */
 	public function actionUpdate()
 	{
-		$purpose = new Purpose;
-		$ConfTypeOfValue = new ConfTypeOfValue;
-
+		//var_dump(yii::app()->user->getConfigId());
+		
 		$oUserModel = User::model()->findByPk(Yii::app()->user->getId());
+		$oConfGeneral = ConfGeneral::model()->findByPk($oUserModel->account_id);
+		
+		//TODO: HERE MUST BE if(!$model)
+		
+		
+		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
+		
+		
+		$aConfTypeDataProvider = new CActiveDataProvider('ConfTypeOfValue', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
 
-		$model = ConfGeneral::model()->findByPk($oUserModel->account_id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
+																'pagination'=>false));
+		//::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));;
 
 		if(isset($_POST['ConfGeneral']))
 		{
@@ -106,9 +119,9 @@ class ConfgeneralController extends Controller
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
-			'oConfTypeOfValue'=> $ConfTypeOfValue,
-			'oPurpose'=> $purpose,
+			'model'=>$oConfGeneral,
+			'aConfTypeDataProvider'=> $aConfTypeDataProvider,
+			'aConfPurposeDataProvider'=> $aConfPurposeDataProvider,
 		));
 	}
 
@@ -150,10 +163,28 @@ class ConfgeneralController extends Controller
 	
 	public function actionFontsandimages() 
 	{
-		$imageConf = ConfImg::model()->findAll();
-		$confGeneral = ConfGeneral::model()->findByPk('1');
-		$fontsConf = ConfFonts::model()->findAll();
+		$imageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+		
+		$confGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
+		$fontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
 		$this->render('fontsandimages', array('imageConf'=>$imageConf, 'fontsConf'=>$fontsConf, 'confGeneral'=>$confGeneral));
+	}
+	
+	
+	/*
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		array() ConfGeneral[]
+	 * @return		
+	 */
+	
+	public function actionFontsandimagessubmit() 
+	{
+		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
+		if(isset())
+		$oConfGeneral->global_font_type = 
+		
+		var_dump($_POST['ConfFonts']);
+		die();
 	}
 
 	/**

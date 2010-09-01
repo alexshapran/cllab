@@ -8,6 +8,7 @@
  * @property string $size
  * @property string $max_height
  * @property string $max_width
+ * @property integer $conf_gen_id
  */
 class ConfImg extends CActiveRecord
 {
@@ -36,11 +37,12 @@ class ConfImg extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('size', 'required'),
+			array('size, conf_gen_id', 'required'),
+			array('conf_gen_id', 'numerical', 'integerOnly'=>true),
 			array('size, max_height, max_width', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, size, max_height, max_width', 'safe', 'on'=>'search'),
+			array('id, size, max_height, max_width, conf_gen_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +54,7 @@ class ConfImg extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'confGen' => array(self::BELONGS_TO, 'ConfGeneral', 'conf_gen_id'),
 		);
 	}
 
@@ -65,6 +68,7 @@ class ConfImg extends CActiveRecord
 			'size' => 'Size',
 			'max_height' => 'Max Height',
 			'max_width' => 'Max Width',
+			'conf_gen_id' => 'Conf Gen',
 		);
 	}
 
@@ -86,6 +90,8 @@ class ConfImg extends CActiveRecord
 		$criteria->compare('max_height',$this->max_height,true);
 
 		$criteria->compare('max_width',$this->max_width,true);
+
+		$criteria->compare('conf_gen_id',$this->conf_gen_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

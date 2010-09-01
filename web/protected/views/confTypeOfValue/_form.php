@@ -26,7 +26,9 @@
 		<?php echo $form->textArea($model,'source',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'source'); ?>
 	</div>
-
+		
+		<?php echo $form->hiddenField($model,'conf_gen_id', array('value'=>Yii::app()->user->getConfigId())) ?>
+		
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

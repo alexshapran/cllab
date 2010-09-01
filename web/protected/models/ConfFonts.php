@@ -10,6 +10,7 @@
  * @property integer $bold
  * @property integer $italics
  * @property integer $underline
+ * @property integer $conf_gen_id
  */
 class ConfFonts extends CActiveRecord
 {
@@ -38,13 +39,13 @@ class ConfFonts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('section', 'required'),
-			array('bold, italics, underline', 'numerical', 'integerOnly'=>true),
+			array('section, conf_gen_id', 'required'),
+			array('bold, italics, underline, conf_gen_id', 'numerical', 'integerOnly'=>true),
 			array('section', 'length', 'max'=>255),
 			array('size', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, section, size, bold, italics, underline', 'safe', 'on'=>'search'),
+			array('id, section, size, bold, italics, underline, conf_gen_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +57,7 @@ class ConfFonts extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'confGen' => array(self::BELONGS_TO, 'ConfGeneral', 'conf_gen_id'),
 		);
 	}
 
@@ -71,6 +73,7 @@ class ConfFonts extends CActiveRecord
 			'bold' => 'Bold',
 			'italics' => 'Italics',
 			'underline' => 'Underline',
+			'conf_gen_id' => 'Conf Gen',
 		);
 	}
 
@@ -96,6 +99,8 @@ class ConfFonts extends CActiveRecord
 		$criteria->compare('italics',$this->italics);
 
 		$criteria->compare('underline',$this->underline);
+
+		$criteria->compare('conf_gen_id',$this->conf_gen_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

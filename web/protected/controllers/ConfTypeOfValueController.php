@@ -67,7 +67,6 @@ class ConfTypeOfValueController extends Controller
 	public function actionCreate()
 	{
 		$model=new ConfTypeOfValue;
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 

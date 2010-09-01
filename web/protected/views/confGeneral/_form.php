@@ -18,7 +18,7 @@ function displayEdit(id)
 
 	<?php echo $form->errorSummary($model); ?>
 	<div id="confgen_form_left">
-				
+
 			<div class="confgen_row">
 				<?php echo $form->labelEx($model,'company_name'); ?>
 				<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
@@ -118,9 +118,8 @@ function displayEdit(id)
 			<div id="type_of_value">
 			
 <div class="form">
-<?php $dataProvider = new CActiveDataProvider('ConfTypeOfValue'); ?>
-
-<?php 
+<?php // $dataProvider = new CActiveDataProvider('ConfTypeOfValue'); ?>
+<?php
 //$form=$this->beginWidget('CActiveForm', array(
 //	'id'=>'ConfTypeOfValue-form',
 //	'enableAjaxValidation'=>false,
@@ -153,7 +152,7 @@ function displayEdit(id)
 			$this->widget('zii.widgets.grid.CGridView', array(
 				'id'=>'ConfTypeOfValueTable',
 				'summaryText'=>false,
-				'dataProvider'=>$dataProvider,
+				'dataProvider'=>$aConfTypeDataProvider,
 				'ajaxUpdate'=>true,
 				'columns' => array('name',
 									array(	'class'			=>'CButtonColumn',
@@ -167,13 +166,17 @@ function displayEdit(id)
 	
 			</div>
 			
+			
+			
 			<div id="purpose_of_apparsial">
-			<?php echo $this->renderPartial('_smallform', array('model'=>new Purpose)); ?>
-			<div id="allpurposes">
-			<?php $this->renderPartial('/purpose/create'); ?>
+			<?php echo $this->renderPartial('_purpouseForm', array('model'=>new ConfPurpose)); ?>
+				<div id="allpurposes">
+				<?php $this->renderPartial('/purpose/create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider)); ?>
+				</div>
+<?php // $this->endWidget(); ?>
 			</div>
-			<?php // $this->endWidget(); ?>
-			</div>
+			
+			
 		</div>
 		
 	<div class="clear"></div>

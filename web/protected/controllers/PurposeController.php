@@ -66,24 +66,29 @@ class PurposeController extends Controller
 	 */
 	public function actionCreateajax()
 	{
-		$model=new Purpose;
+		$model=new ConfPurpose;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Purpose']))
+		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
+																'pagination'=>false));
+
+		if(isset($_POST['ConfPurpose']))
 		{
-			$model->attributes=$_POST['Purpose'];
+			$model->attributes=$_POST['ConfPurpose'];
 			if($model->save())
 			{
-				$this->renderPartial('create');
+				$this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
 				die();
 			}
 		}
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+		$this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
+		$this->renderText('ERROR');
 	}
 
 	/**
@@ -95,14 +100,20 @@ class PurposeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		
-		$m = Purpose::model()->findByPk($_POST['id']);
-		
-		if(isset($_POST['value']))
-			$m->value=$_POST['value'];
-			
+		if(isset($_POST['ConfPurpose']))
+		{
+			$m = ConfPurpose::model()->findByPk($_POST['ConfPurpose']['id']);
+			$m->value = $_POST['ConfPurpose']['value'];
 			$m->save();
-		
-		$this->renderPartial('create',array());
+		}
+
+		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
+																'pagination'=>false));
+
+		$this->renderPartial('create',array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
 	}
 
 	/**
@@ -111,11 +122,15 @@ class PurposeController extends Controller
 	 */
 	public function actionDelete()
 	{
-		$model = Purpose::model()->findByPk($_GET['id']);
+		$model = ConfPurpose::model()->findByPk($_GET['id']);
 		$model->delete();
+		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
+																'pagination'=>false));
 
-		$this->renderPartial('create');
-		die();
+		$this->renderPartial('create',array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
 	}
 
 	/**

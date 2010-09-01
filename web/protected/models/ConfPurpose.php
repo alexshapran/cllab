@@ -1,17 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "purpose".
+ * This is the model class for table "conf_purpose".
  *
- * The followings are the available columns in table 'purpose':
+ * The followings are the available columns in table 'conf_purpose':
  * @property integer $id
  * @property string $value
+ * @property integer $conf_gen_id
  */
-class Purpose extends CActiveRecord
+class ConfPurpose extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Purpose the static model class
+	 * @return ConfPurpose the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -23,7 +24,7 @@ class Purpose extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'purpose';
+		return 'conf_purpose';
 	}
 
 	/**
@@ -34,11 +35,12 @@ class Purpose extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('value', 'required'),
+			array('value, conf_gen_id', 'required'),
+			array('conf_gen_id', 'numerical', 'integerOnly'=>true),
 			array('value', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, value', 'safe', 'on'=>'search'),
+			array('id, value, conf_gen_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +53,7 @@ class Purpose extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'basicReportParameters' => array(self::HAS_MANY, 'BasicReportParameters', 'purposes_id'),
+			'confGen' => array(self::BELONGS_TO, 'ConfGeneral', 'conf_gen_id'),
 		);
 	}
 
@@ -62,6 +65,7 @@ class Purpose extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'value' => 'Value',
+			'conf_gen_id' => 'Conf Gen',
 		);
 	}
 
@@ -79,6 +83,8 @@ class Purpose extends CActiveRecord
 		$criteria->compare('id',$this->id);
 
 		$criteria->compare('value',$this->value,true);
+
+		$criteria->compare('conf_gen_id',$this->conf_gen_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

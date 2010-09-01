@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $definition
  * @property string $source
+ * @property integer $conf_gen_id
  */
 class ConfTypeOfValue extends CActiveRecord
 {
@@ -36,11 +37,13 @@ class ConfTypeOfValue extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('conf_gen_id', 'required'),
+			array('conf_gen_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			array('definition, source', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, definition, source', 'safe', 'on'=>'search'),
+			array('id, name, definition, source, conf_gen_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +55,8 @@ class ConfTypeOfValue extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'basicReportParameters' => array(self::HAS_MANY, 'BasicReportParameters', 'types_of_value_id'),
+			'confGen' => array(self::BELONGS_TO, 'ConfGeneral', 'conf_gen_id'),
 		);
 	}
 
@@ -65,6 +70,7 @@ class ConfTypeOfValue extends CActiveRecord
 			'name' => 'Name',
 			'definition' => 'Definition',
 			'source' => 'Source',
+			'conf_gen_id' => 'Conf Gen',
 		);
 	}
 
@@ -86,6 +92,8 @@ class ConfTypeOfValue extends CActiveRecord
 		$criteria->compare('definition',$this->definition,true);
 
 		$criteria->compare('source',$this->source,true);
+
+		$criteria->compare('conf_gen_id',$this->conf_gen_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
