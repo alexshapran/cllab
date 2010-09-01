@@ -36,7 +36,7 @@ class PurposeController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('createAjax','update'),
+				'actions'=>array('createajax','update', 'delete'),
 //				'users'=>array('@'),
 				'roles'=>array('Superadmin')
 			),
@@ -64,7 +64,7 @@ class PurposeController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreateAjax()
+	public function actionCreateajax()
 	{
 		$model=new Purpose;
 
@@ -92,21 +92,17 @@ class PurposeController extends Controller
 	 */
 	public function actionUpdate()
 	{
-		$model=$this->loadModel();
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Purpose']))
-		{
-			$model->attributes=$_POST['Purpose'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		
+		$m = Purpose::model()->findByPk($_POST['id']);
+		
+		if(isset($_POST['value']))
+			$m->value=$_POST['value'];
+			
+			$m->save();
+		
+		$this->renderPartial('create',array());
 	}
 
 	/**
@@ -115,17 +111,11 @@ class PurposeController extends Controller
 	 */
 	public function actionDelete()
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel()->delete();
+		$model = Purpose::model()->findByPk($_GET['id']);
+		$model->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		$this->renderPartial('create');
+		die();
 	}
 
 	/**

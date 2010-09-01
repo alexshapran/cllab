@@ -3,7 +3,6 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'account-form',
 	'enableAjaxValidation'=>false,
-//	'action' => 'account/create',
 	'method' => 'post'
 )); ?>
 

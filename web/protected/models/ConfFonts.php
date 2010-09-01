@@ -6,8 +6,10 @@
  * The followings are the available columns in table 'conf_fonts':
  * @property integer $id
  * @property string $section
- * @property string $font_size
- * @property string $font_type
+ * @property string $size
+ * @property integer $bold
+ * @property integer $italics
+ * @property integer $underline
  */
 class ConfFonts extends CActiveRecord
 {
@@ -37,10 +39,12 @@ class ConfFonts extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('section', 'required'),
-			array('section, font_size, font_type', 'length', 'max'=>255),
+			array('bold, italics, underline', 'numerical', 'integerOnly'=>true),
+			array('section', 'length', 'max'=>255),
+			array('size', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, section, font_size, font_type', 'safe', 'on'=>'search'),
+			array('id, section, size, bold, italics, underline', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,8 +67,10 @@ class ConfFonts extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'section' => 'Section',
-			'font_size' => 'Font Size',
-			'font_type' => 'Font Type',
+			'size' => 'Size',
+			'bold' => 'Bold',
+			'italics' => 'Italics',
+			'underline' => 'Underline',
 		);
 	}
 
@@ -83,9 +89,13 @@ class ConfFonts extends CActiveRecord
 
 		$criteria->compare('section',$this->section,true);
 
-		$criteria->compare('font_size',$this->font_size,true);
+		$criteria->compare('size',$this->size,true);
 
-		$criteria->compare('font_type',$this->font_type,true);
+		$criteria->compare('bold',$this->bold);
+
+		$criteria->compare('italics',$this->italics);
+
+		$criteria->compare('underline',$this->underline);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

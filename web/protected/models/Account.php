@@ -51,6 +51,7 @@ class Account extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'confGenerals' => array(self::HAS_MANY, 'ConfGeneral', 'account_id'),
 			'users' => array(self::HAS_MANY, 'User', 'account_id'),
 		);
 	}
