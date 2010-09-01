@@ -28,4 +28,4 @@
 
 <!--  <h1>Update ConfGeneral <?php // echo $model->id; ?></h1>	 -->
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, 'oConfTypeOfValue'=> $oConfTypeOfValue, 'oPurpose'=> $oPurpose)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'aConfTypeDataProvider'=> $aConfTypeDataProvider, 'aConfPurposeDataProvider'=> $aConfPurposeDataProvider)); ?>

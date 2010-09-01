@@ -4,17 +4,18 @@ $this->breadcrumbs=array(
 	$model->id,
 );
 
-$this->menu=array(
-	array('label'=>'List ConfGeneral', 'url'=>array('index')),
-	array('label'=>'Create ConfGeneral', 'url'=>array('create')),
-	array('label'=>'Update ConfGeneral', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete ConfGeneral', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage ConfGeneral', 'url'=>array('admin')),
-);
+//$this->menu=array(
+//	array('label'=>'List ConfGeneral', 'url'=>array('index')),
+//	array('label'=>'Create ConfGeneral', 'url'=>array('create')),
+//	array('label'=>'Update ConfGeneral', 'url'=>array('update', 'id'=>$model->id)),
+//	array('label'=>'Delete ConfGeneral', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+//	array('label'=>'Manage ConfGeneral', 'url'=>array('admin')),
+//);
 ?>
 
 <h1>Edit Fonts and Images #<?php echo $confGeneral->id; ?></h1>
-Global Font Type 	
+<?php echo CHtml::beginForm(Yii::app()->controller->createUrl("/confgeneral/fontsandimagessubmit"), 'post') ?>
+Global Font Type :	
 				<?php
 				echo CHtml::activeDropDownList(
 					$confGeneral,
@@ -28,29 +29,34 @@ Global Font Type
 ?></h3>
 Font Size 	
 				<?php
-				echo CHtml::activeDropDownList(
+				echo MCHtml::activeDropDownList(
 					$unit,
 					'size',
-					Yii::app()->params['fontSize']);
+					Yii::app()->params['fontSize'], array('preName'=>$unit->section));
 //					CHtml::listData($unit, $unit->size, $unit->size)); 
 				// CHtml::dropDownList($unit->section,Yii::app()->params['fontSize']) ?>
 <br />
-				<?php echo CHtml::activeCheckBox(
+				<?php echo MCHtml::activeCheckBox(
 					$unit,
-					'bold');
+					'bold', array('preName'=>$unit->section));
 				?>  Bold
 <br />				
-				<?php echo CHtml::activeCheckBox(
+				<?php echo MCHtml::activeCheckBox(
 					$unit,
-					'italics'); 
+					'italics', array('preName'=>$unit->section)); 
 				?> Italics
 <br />
-				<?php echo CHtml::activeCheckBox(
+				<?php echo MCHtml::activeCheckBox(
 					$unit,
-					'underline'); 
+					'underline', array('preName'=>$unit->section)); 
 				?> Underline
+				
+				<?php echo MCHtml::activeHiddenField(
+					$unit,
+					'conf_gen_id', array('value'=>$unit->conf_gen_id, 'preName'=>$unit->section)) ?>
 </div>
 <?php } ?>
+
 <hr>
 
 <div style='border: dotted grey 1px; min-width:300px; padding:10px; clear:both'>
@@ -58,9 +64,10 @@ Font Size
 <?php foreach($imageConf as $img) { ?>
 <div style='border: dotted grey 1px; float:left; min-width:120px; padding:10px;'>
 <h3><?php echo $img->size ?></h3>
-Max Height: <?php echo CHtml::activeTextField($img, 'max_height', array('size'=>'3', style=>'height:12px;')) ?><br />
-Max Width: &nbsp;&nbsp;<?php echo CHtml::activeTextField($img, 'max_width', array('size'=>'3', 'style'=>'margin-left:-1px; height:12px;')) ?>
+Max Height: <?php echo MCHtml::activeTextField($img, 'max_height', array('size'=>'3', 'style'=>'height:12px;', 'preName'=>"$img->size")) ?><br />
+Max Width: <?php echo MCHtml::activeTextField($img, 'max_width', array('size'=>'3', 'style'=>'margin-left:5px; height:12px;', 'preName'=>"$img->size")) ?>
 </div>
 <?php } ?>
-<div class='clear'></div>
+<div class='clear' style='margin: 30px auto; width:6%'><?php echo CHtml::submitButton('Save', array('style'=>'margin-top:40px')) ?></div>
+<?php echo CHtml::endForm(); ?>
 </div>
