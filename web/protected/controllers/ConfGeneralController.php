@@ -32,7 +32,7 @@ class ConfgeneralController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view', 'fontsandimages', 'fontsandimagessubmit'),
+				'actions'=>array('index', 'view', 'fontsandimages', 'fontsandimagessubmit', 'propertysettings'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -163,11 +163,12 @@ class ConfgeneralController extends Controller
 	
 	public function actionFontsandimages() 
 	{
-		$imageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
 		
-		$confGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
-		$fontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
-		$this->render('fontsandimages', array('imageConf'=>$imageConf, 'fontsConf'=>$fontsConf, 'confGeneral'=>$confGeneral));
+		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+		$aImageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+		
+		$this->render('fontsandimages', array('aImageConf'=>$aImageConf, 'aFontsConf'=>$aFontsConf, 'confGeneral'=>$oConfGeneral));
 	}
 	
 	
@@ -179,14 +180,53 @@ class ConfgeneralController extends Controller
 	
 	public function actionFontsandimagessubmit() 
 	{
-		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
-		if(isset())
-		$oConfGeneral->global_font_type = 
+		// Saving General Font
+		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());		
+		if(isset($_POST['ConfGeneral']['global_font_type']))
+			$oConfGeneral->global_font_type = $_POST['ConfGeneral']['global_font_type'];
+		$oConfGeneral->save();
+		// Saving General Font END		
 		
-		var_dump($_POST['ConfFonts']);
-		die();
+		// Saving Fonts Configuration
+		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));		
+		foreach($aFontsConf as $oFc)
+		{
+			if(isset($_POST['ConfFonts'][$oFc->section]))
+				$oFc->attributes = $_POST['ConfFonts'][$oFc->section];
+
+			$oFc->save();
+		}
+		// Saving Fonts Configuration END
+
+		// Saving Image Configuration
+		$aImageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+
+		foreach($aImageConf as $oImage)
+		{
+			if(isset($_POST['ConfImg'][$oImage->size]))
+				$oImage->attributes = $_POST['ConfImg'][$oImage->size];
+				
+			$oImage->save();
+		}
+		// Saving Image Configuration END
+		
+		Yii::app()->controller->redirect(Yii::app()->controller->createUrl('/confgeneral/fontsandimages'));
 	}
 
+	
+	/* Provides anybody to config Property Settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionPropertysettings() 
+	{
+		$oNewCategory = new ConfCategory;
+		$aParentCategories = ConfCategory::model()->findByAttributes(array('parent_id'=>NULL));
+		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 'aParentCategories'=>$aParentCategories));
+	}
+	
 	/**
 	 * Manages all models.
 	 */

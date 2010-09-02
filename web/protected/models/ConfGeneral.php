@@ -66,6 +66,7 @@ class ConfGeneral extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'confCategories' => array(self::HAS_MANY, 'ConfCategory', 'conf_gen_id'),
 			'confFonts' => array(self::HAS_MANY, 'ConfFonts', 'conf_gen_id'),
 			'account' => array(self::BELONGS_TO, 'Account', 'account_id'),
 			'confImgs' => array(self::HAS_MANY, 'ConfImg', 'conf_gen_id'),

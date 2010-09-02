@@ -23,10 +23,10 @@ Global Font Type :
 					Yii::app()->params['fontTypes']); ?>
 <br />
 <br />
-<?php foreach ($fontsConf as $unit) { ?>
+<div>
+<?php foreach ($aFontsConf as $unit) { ?>
 <div style='border: dotted grey 1px; float:left; min-width:150px; padding:10px;'>
-<h3><?php echo $unit->section ;
-?></h3>
+<h3><?php echo $unit->section ; ?></h3>
 Font Size 	
 				<?php
 				echo MCHtml::activeDropDownList(
@@ -56,12 +56,13 @@ Font Size
 					'conf_gen_id', array('value'=>$unit->conf_gen_id, 'preName'=>$unit->section)) ?>
 </div>
 <?php } ?>
+</div>
 
-<hr>
+<hr style='height:3px; width:100%; color:black; margin-top:150px; position:relative;'>
 
 <div style='border: dotted grey 1px; min-width:300px; padding:10px; clear:both'>
 <h3>Image Sizes</h3>
-<?php foreach($imageConf as $img) { ?>
+<?php foreach($aImageConf as $img) { ?>
 <div style='border: dotted grey 1px; float:left; min-width:120px; padding:10px;'>
 <h3><?php echo $img->size ?></h3>
 Max Height: <?php echo MCHtml::activeTextField($img, 'max_height', array('size'=>'3', 'style'=>'height:12px;', 'preName'=>"$img->size")) ?><br />
