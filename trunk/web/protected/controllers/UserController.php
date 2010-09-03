@@ -188,7 +188,8 @@ class UserController extends Controller
 		if(isset($_GET['filterBy']))
 		{
 			$filterBy = $_GET['filterBy'];
-			$criteria->condition = 'account_id = '.$filterBy;
+			if($filterBy)
+				$criteria->condition = 'account_id = '.$filterBy;
 		}
 		else
 		{
