@@ -50,12 +50,12 @@ class BasicReportParameters extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('appraisal_id, date_created, purposes_id, types_of_value_id, types_of_report_id', 'required'),
-			array('appraisal_id, purposes_id, types_of_value_id, types_of_report_id', 'numerical', 'integerOnly'=>true),
+			array('date_created, purposes_id, types_of_value_id, types_of_report_id', 'required'),
+			array('purposes_id, types_of_value_id, types_of_report_id', 'numerical', 'integerOnly'=>true),
 			array('client_name, city, year', 'length', 'max'=>255),
 			array('primary_img_size_id, sec_img_size_id', 'length', 'max'=>6),
 			array('currency_symbol, order_report_section', 'length', 'max'=>45),
-			array('eximmination_dates, research_dates_from, reseach_dates_to, effective_valuation_date, issue_date_report', 'safe'),
+			array('eximmination_dates, research_dates_from, reseach_dates_to, effective_valuation_date, issue_date_report, date_type', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, appraisal_id, date_created, client_name, city, year, purposes_id, types_of_value_id, types_of_report_id, primary_img_size_id, sec_img_size_id, currency_symbol, eximmination_dates, research_dates_from, reseach_dates_to, effective_valuation_date, issue_date_report, order_report_section', 'safe', 'on'=>'search'),
@@ -71,7 +71,7 @@ class BasicReportParameters extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'appraisal' => array(self::BELONGS_TO, 'Appraisal', 'appraisal_id'),
-			'purposes' => array(self::BELONGS_TO, 'Purpose', 'purposes_id'),
+			'purposes' => array(self::BELONGS_TO, 'ConfPurpose', 'purposes_id'),
 			'typesOfReport' => array(self::BELONGS_TO, 'TypesOfReport', 'types_of_report_id'),
 			'typesOfValue' => array(self::BELONGS_TO, 'TypesOfValue', 'types_of_value_id'),
 		);
@@ -154,5 +154,46 @@ class BasicReportParameters extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * create correct date format
+	 */
+	public function prepareDateFormat() {
+		$sFormat = 'Y-m-d';
+		if(isset($this->date_created))
+			$this->date_created = date($sFormat, strtotime($this->date_created));
+			
+		if(isset($this->research_dates_from))
+			$this->research_dates_from = date($sFormat, strtotime($this->research_dates_from));
+			
+		if(isset($this->reseach_dates_to))
+			$this->reseach_dates_to = date($sFormat, strtotime($this->reseach_dates_to));
+			
+		if(isset($this->effective_valuation_date))
+			$this->effective_valuation_date = date($sFormat, strtotime($this->effective_valuation_date));
+		
+		if(isset($this->issue_date_report))
+			$this->issue_date_report = date($sFormat, strtotime($this->issue_date_report));
+				
+	}
+	
+	/**
+	 * getOrderList
+	 * get array Order of Report Section with correct order
+	 * @return array   
+	 */
+	public function getOrderList() {
+		$arr = array();
+		$aListData = CHtml::listData(ReportSections::model()->findAll(), 'id', 'name');
+		if($this->order_report_section != '') {
+			$aCurrentOrder = explode(",", $this->order_report_section);
+			foreach($aCurrentOrder as $i){
+				$arr["$i"] = $aListData[$i];	
+			}	
+		} else {
+			$arr = $aListData;
+		}
+		return $arr;	
 	}
 }

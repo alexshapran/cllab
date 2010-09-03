@@ -48,7 +48,8 @@ class Client extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('zip', 'numerical', 'integerOnly'=>true),
-			array('name, name_on_report, company, email, website, address, address2, city, cell', 'length', 'max'=>255),
+			array('name, email', 'required'),
+			array('email', 'email'),
 			array('phone, fax', 'length', 'max'=>45),
 			array('date_added, note', 'safe'),
 			// The following rule is used by search().

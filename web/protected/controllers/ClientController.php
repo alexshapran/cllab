@@ -1,6 +1,6 @@
 <?php
 
-class AppraisalController extends Controller
+class ClientController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -33,7 +33,7 @@ class AppraisalController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view'),
+				'actions'=>array('ajaxAdd','index', 'view'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -60,56 +60,26 @@ class AppraisalController extends Controller
 		));
 	}
 
-//	/**
-//	 * Creates a new model.
-//	 * If creation is successful, the browser will be redirected to the 'view' page.
-//	 */
-	public function actionEdit()
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
 	{
-		$model=$this->loadModel();
-		$oBasicParams = $model->getBasicParamsModel();
-		
-		if(isset($_POST['Appraisal']) && isset($_POST['BasicReportParameters']))
-		{
-			$model->attributes = $_POST['Appraisal'];
+		$model=new Client;
 
-			$oBasicParams->attributes = $_POST['BasicReportParameters'];
-			
-			if($model->validate() && $oBasicParams->validate()){
-				$oBasicParams->prepareDateFormat();
-				$oBasicParams->save();
-				
-				$model->basic_report_parameters_id = $oBasicParams->id;
-				if($model->save())
-					$this->redirect('/appraisal');	
-			}
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Client']))
+		{
+			$model->attributes=$_POST['Client'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
-		
-		// Prepare all data with we need
-		$aClient = Client::model()->findAll();
-		$oClient = new Client;
-		$aReportTypes = TypesOfReport::model()->findAll();
-		$aValueTypes = ConfTypeOfValue::model()->findAll();
-		$aPurpose = ConfPurpose::model()->findAll();
-		$aImagesSize = Yii::app()->params['aImagesSize'];
-		$aDateTypes = Yii::app()->params['aDateTypes'];
-		
-		$aReportSections = $oBasicParams->getOrderList();
-		
-//		var_dump($aReportSections);
-//		die;
-		
-		$this->render('edit',array(
+
+		$this->render('create',array(
 			'model'=>$model,
-			'aClient'=>$aClient,
-			'oClient'=>$oClient,
-			'oBasicParams'=>$oBasicParams,
-			'aPurpose'=>$aPurpose,
-			'aValueTypes'=>$aValueTypes,
-			'aReportTypes'=>$aReportTypes,
-			'aImagesSize'=>$aImagesSize,
-			'aDateTypes'=>$aDateTypes,
-			'aReportSections'=>$aReportSections,
 		));
 	}
 
@@ -119,46 +89,22 @@ class AppraisalController extends Controller
 	 */
 	public function actionUpdate()
 	{
-		
 		$model=$this->loadModel();
-		$aClient = Client::model()->findAll();
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Appraisal']))
+		if(isset($_POST['Client']))
 		{
-			$model->attributes=$_POST['Appraisal'];
+			$model->attributes=$_POST['Client'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-var_dump($aClient);
-die;
+
 		$this->render('update',array(
 			'model'=>$model,
-			'aClient'=>$aClient,
 		));
 	}
-	
-//	public function actionEdit()
-//	{
-//		$model=$this->loadModel();
-//		$aClient = Client::model()->findAll();
-//		// Uncomment the following line if AJAX validation is needed
-//		// $this->performAjaxValidation($model);
-//
-//		if(isset($_POST['Appraisal']))
-//		{
-//			$model->attributes=$_POST['Appraisal'];
-//			if($model->save())
-//				$this->redirect(array('view','id'=>$model->id));
-//		}
-//var_dump($aClient);
-//die;
-//		$this->render('update',array(
-//			'model'=>$model,
-//			'aClient'=>$aClient,
-//		));
-//	}
 
 	/**
 	 * Deletes a particular model.
@@ -184,13 +130,9 @@ die;
 	 */
 	public function actionIndex()
 	{
-		$model=new Appraisal('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Appraisal']))
-			$model->attributes=$_GET['Appraisal'];
-
+		$dataProvider=new CActiveDataProvider('Client');
 		$this->render('index',array(
-			'model'=>$model,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -199,10 +141,10 @@ die;
 	 */
 	public function actionAdmin()
 	{
-		$model=new Appraisal('search');
+		$model=new Client('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Appraisal']))
-			$model->attributes=$_GET['Appraisal'];
+		if(isset($_GET['Client']))
+			$model->attributes=$_GET['Client'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -218,7 +160,7 @@ die;
 		if($this->_model===null)
 		{
 			if(isset($_GET['id']))
-				$this->_model=Appraisal::model()->findbyPk($_GET['id']);
+				$this->_model=Client::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
 				throw new CHttpException(404,'The requested page does not exist.');
 		}
@@ -231,10 +173,32 @@ die;
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='appraisal-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='client-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	/**
+	 * add new client, pupop 
+	 */
+	public function actionAjaxAdd() {
+		$result = array();
+		$response = '';
+		if(isset($_POST['Client']))
+		{
+			$model = new Client;
+			$model->attributes=$_POST['Client'];
+			if($model->validate()){
+				$model->save();
+				$model->update();
+				$result['success'] = array('id'=>$model->id, 'name'=>$model->name);
+				$response = array('result' => $result);
+			} else {
+				$response = array('form' => $this->renderPartial('/appraisal/_client_form', array('model' => $model ), true , true));		
+			}
+		}
+		echo CJSON::encode($response);
 	}
 }

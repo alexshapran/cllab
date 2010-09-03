@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Appraisals'=>array('index'),
-	$model->id,
+	$model->name,
 );
 
 $this->menu=array(
@@ -19,6 +19,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'name',
 		'date_created',
 		'client_id',
 	),
