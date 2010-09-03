@@ -37,7 +37,6 @@
 div.form
 {
 }
-
 div.form input,
 div.form textarea,
 div.form select
@@ -226,3 +225,58 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	width: 120px;
 }
 /* USER EDITING FORM END */
+
+/* Appraisal Styles */
+.appraisal_info_form {
+	width: 800px;
+	position:relative;
+}
+.appraisal_info_form DIV.row {
+	padding: 5px;
+}
+.appraisal_info_form LABEL {
+	float: left;
+	width: 180px;
+}
+.appraisal_info_form INPUT {
+	width: 220px;
+}
+.appraisal_info_form SELECT {
+	width: 220px;
+}
+.order_report_sections {
+	position:absolute;
+	border:1px solid;
+	right:10px;
+	top:38px;
+	padding:15px 0 0;
+	width: 280px;	
+}
+.order_report_sections UL {
+	list-style-type:none;
+	cursor:pointer;
+}
+.order_report_sections LI {
+	font-size: 1.3em;
+	padding: 0 0 5px 0;
+}
+/* END Appraisal Styles */
+
+/* Client Styles */
+.client_popup_form {
+	width: 400px;
+}
+.client_popup_form DIV.row {
+	padding: 5px;
+}
+.client_popup_form LABEL {
+	float: left;
+	width: 135px;
+}
+.client_popup_form INPUT {
+	width: 220px;
+}
+.client_popup_form SELECT {
+	width: 220px;
+}
+/* END Client Styles */

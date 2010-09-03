@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Appraisals'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	$model->name=>array('view','id'=>$model->id),
 	'Update',
 );
 
@@ -14,5 +14,6 @@ $this->menu=array(
 ?>
 
 <h1>Update Appraisal <?php echo $model->id; ?></h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php var_dump($aClient);
+die;?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'aClient'=>$aClient)); ?>

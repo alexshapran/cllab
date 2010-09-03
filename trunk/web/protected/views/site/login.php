@@ -44,3 +44,9 @@ $this->breadcrumbs=array(
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+<script type="text/javascript" language="javascript">
+	//<![CDATA[
+		
+	//]]>
+</script>

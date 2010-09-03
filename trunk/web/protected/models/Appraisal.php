@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'appraisal':
  * @property integer $id
+ * @property string $name
  * @property string $date_created
  * @property integer $client_id
  */
@@ -37,9 +38,10 @@ class Appraisal extends CActiveRecord
 		return array(
 			array('date_created, client_id', 'required'),
 			array('client_id', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, date_created, client_id', 'safe', 'on'=>'search'),
+			array('id, name, date_created, client_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,7 +54,7 @@ class Appraisal extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'client' => array(self::BELONGS_TO, 'Client', 'client_id'),
-			'basicReportParameters' => array(self::HAS_MANY, 'BasicReportParameters', 'appraisal_id'),
+			'basicReportParameters' => array(self::BELONGS_TO, 'BasicReportParameters', 'basic_report_parameters_id'),
 			'objects' => array(self::HAS_MANY, 'Object', 'appraisal_id'),
 			'reportBiohistContexts' => array(self::HAS_MANY, 'ReportBiohistContext', 'appraisal_id'),
 			'reportCoverLetters' => array(self::HAS_MANY, 'ReportCoverLetter', 'appraisal_id'),
@@ -76,6 +78,7 @@ class Appraisal extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'name' => 'Name',
 			'date_created' => 'Date Created',
 			'client_id' => 'Client',
 		);
@@ -94,12 +97,26 @@ class Appraisal extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 
+		$criteria->compare('name',$this->name,true);
+
 		$criteria->compare('date_created',$this->date_created,true);
 
 		$criteria->compare('client_id',$this->client_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
+			'pagination'=>false,
+			
 		));
+	}
+	
+	/**
+	 * @return model BasicReportParameters
+	 */
+	public function getBasicParamsModel() {
+		if(!$model = $this->basicReportParameters) {
+			$model = new BasicReportParameters();
+		}
+		return $model;
 	}
 }
