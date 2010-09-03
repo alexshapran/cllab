@@ -182,8 +182,13 @@ class UserController extends Controller
 
 	public function actionUsers()
 	{
-		$dataProvider = new CActiveDataProvider('User');
-		$this->render('users');
+		$accounts = Account::model()->findAll();
+		
+		if($_GET['filterBy'])
+			$criteria = new CDbCriteria(array('condition'=>'account_id = '.$_GET['filterBy']));
+
+		$aUsers = new CActiveDataProvider('User', array('criteria'=>$criteria));
+		$this->render('users', array('aUsers' => $aUsers, 'accounts'=>$accounts, 'filterBy'=>$_GET['filterBy']));
 	}
 
 	/**
@@ -198,5 +203,4 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 	}
-
 }

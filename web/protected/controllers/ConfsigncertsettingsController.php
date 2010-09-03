@@ -1,6 +1,6 @@
 <?php
 
-class ConfcategoryController extends Controller
+class ConfsigncertsettingsController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,8 +32,8 @@ class ConfcategoryController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('Ajaxcreate','view'),
-				'roles'=>array('Superadmin'),
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -63,22 +63,23 @@ class ConfcategoryController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionAjaxcreate()
+	public function actionCreate()
 	{
-		$model=new ConfCategory;
+		$model=new ConfSignCertSettings;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		
-		if(isset($_POST['ConfCategory']))
+
+		if(isset($_POST['ConfSignCertSettings']))
 		{
-			$model->attributes=$_POST['ConfCategory'];
-			
+			$model->attributes=$_POST['ConfSignCertSettings'];
 			if($model->save())
-				$this->renderText('Done');
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->renderText('Done');
+		$this->render('create',array(
+			'model'=>$model,
+		));
 	}
 
 	/**
@@ -87,14 +88,17 @@ class ConfcategoryController extends Controller
 	 */
 	public function actionUpdate()
 	{
-		$model=$this->loadModel();
+		
+		echo '<pre>';
+		var_dump($_POST);
+		die();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ConfCategory']))
+		if(isset($_POST['ConfSignCertSettings']))
 		{
-			$model->attributes=$_POST['ConfCategory'];
+			$model->attributes=$_POST['ConfSignCertSettings'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -128,7 +132,7 @@ class ConfcategoryController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('ConfCategory');
+		$dataProvider=new CActiveDataProvider('ConfSignCertSettings');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -139,10 +143,10 @@ class ConfcategoryController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new ConfCategory('search');
+		$model=new ConfSignCertSettings('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ConfCategory']))
-			$model->attributes=$_GET['ConfCategory'];
+		if(isset($_GET['ConfSignCertSettings']))
+			$model->attributes=$_GET['ConfSignCertSettings'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -158,7 +162,7 @@ class ConfcategoryController extends Controller
 		if($this->_model===null)
 		{
 			if(isset($_GET['id']))
-				$this->_model=ConfCategory::model()->findbyPk($_GET['id']);
+				$this->_model=ConfSignCertSettings::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
 				throw new CHttpException(404,'The requested page does not exist.');
 		}
@@ -171,7 +175,7 @@ class ConfcategoryController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-category-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-sign-cert-settings-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

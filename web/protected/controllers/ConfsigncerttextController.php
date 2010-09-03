@@ -1,6 +1,5 @@
 <?php
-
-class ConfcategoryController extends Controller
+class ConfsigncerttextController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -31,21 +30,21 @@ class ConfcategoryController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('Ajaxcreate','view'),
-				'roles'=>array('Superadmin'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+		array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('createajax', 'renderpartial', 'deleteajax', 'submit'),
+				'roles'=>array('Superadmin')
+		),
+		array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		),
+		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
+		),
+		array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+		),
 		);
 	}
 
@@ -63,75 +62,75 @@ class ConfcategoryController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionAjaxcreate()
+	public function actionCreateajax()
 	{
-		$model=new ConfCategory;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$model=new ConfSignCertText;
+
+		$model->conf_general_id = Yii::app()->user->getConfigId();
 		
-		if(isset($_POST['ConfCategory']))
+		
+		if(isset($_GET['settingId']))
 		{
-			$model->attributes=$_POST['ConfCategory'];
-			
-			if($model->save())
-				$this->renderText('Done');
+		$model->conf_sign_cert_settings_id = $_GET['settingId'];
+		$model->save();
+		$this->actionMakeout($_GET['settingId']);
 		}
-
-		$this->renderText('Done');
 	}
 
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionUpdate()
+	public function actionSubmit()
 	{
-		$model=$this->loadModel();
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['ConfCategory']))
+		if(isset($_POST['ConfSignCertText']))
 		{
-			$model->attributes=$_POST['ConfCategory'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			foreach($_POST['ConfSignCertText'] as $oText)
+			{
+				$model = ConfSignCertText::model()->findByPk($oText['id']);
+				if($model)
+				{
+					$model->value = $oText['value'];
+					$model->save();
+				}
+			}
 		}
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		$this->redirect(Yii::app()->controller->createUrl('/confgeneral/signedcertification'));
 	}
 
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 */
-	public function actionDelete()
+	public function actionDeleteajax()
 	{
-		if(Yii::app()->request->isPostRequest)
+		if(isset($_GET['textId']))
 		{
-			// we only allow deletion via POST request
-			$this->loadModel()->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$oText = ConfSignCertText::model()->findByPk($_GET['textId']);
+			
+			if($oText)
+			{
+				$sect_id = $oText->conf_sign_cert_settings_id;
+				$oText->delete();
+			}
+				
 		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+
+		if($sect_id)
+		{
+			$this->actionMakeout($sect_id);
+		}
 	}
 
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	private function actionMakeout($sectId)
 	{
-		$dataProvider=new CActiveDataProvider('ConfCategory');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$oSect = ConfSignCertSettings::model()->findByPk($sectId);
+		$this->renderPartial('create', array('oSect'=>$oSect));
 	}
 
 	/**
@@ -139,10 +138,10 @@ class ConfcategoryController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new ConfCategory('search');
+		$model=new ConfSignCertText('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ConfCategory']))
-			$model->attributes=$_GET['ConfCategory'];
+		if(isset($_GET['ConfSignCertText']))
+		$model->attributes=$_GET['ConfSignCertText'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -158,9 +157,9 @@ class ConfcategoryController extends Controller
 		if($this->_model===null)
 		{
 			if(isset($_GET['id']))
-				$this->_model=ConfCategory::model()->findbyPk($_GET['id']);
+			$this->_model=ConfSignCertText::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $this->_model;
 	}
@@ -171,7 +170,7 @@ class ConfcategoryController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-category-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-sign-cert-text-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

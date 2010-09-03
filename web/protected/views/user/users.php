@@ -2,22 +2,25 @@
 $this->breadcrumbs=array(
 	'Users',
 );
-
 //$this->menu=array(
 //array('label'=>'Create User', 'url'=>array('create')),
 //array('label'=>'Manage User', 'url'=>array('admin')),
 //);
 ?>
-
+<div style='min-width:600px;'>
 <h3>Users</h3>
 <?php echo CHtml::button('Add User', array('onClick'=>'location.replace(\''.yii::app()->createUrl("user/update").'\')')) ?>
-
+<?php echo CHtml::dropDownList('sortBy','', 
+								CHtml::listData($accounts, 'id', 'value'), 
+								array(	
+									'prompt'=>'Filter by Account', 
+									'onchange'=>'location.replace("'.Yii::app()->controller->createUrl(	'/user/users', array(	'filterBy'=>'')).'"+$("#sortBy").attr("value"))', 
+																												'style'=>'float:right' )) ?>
 <?php
-$dataProvider = new CActiveDataProvider('User');
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'accountsTable',
 	'summaryText'=>false,
-	'dataProvider'=>$dataProvider,
+	'dataProvider'=>$aUsers,
 	'ajaxUpdate'=>true,
 	'columns' => array('username','name','date_added',
 						array('name'=>'account_id', 'value'=>'$data->account->value'),
@@ -30,3 +33,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'hideHeader' => false
 	));
 ?>
+</div>

@@ -71,6 +71,7 @@ class ConfGeneral extends CActiveRecord
 			'account' => array(self::BELONGS_TO, 'Account', 'account_id'),
 			'confImgs' => array(self::HAS_MANY, 'ConfImg', 'conf_gen_id'),
 			'confPurposes' => array(self::HAS_MANY, 'ConfPurpose', 'conf_gen_id'),
+			'confSignCertTexts' => array(self::HAS_MANY, 'ConfSignCertText', 'conf_general_id'),
 			'confTypeOfValues' => array(self::HAS_MANY, 'ConfTypeOfValue', 'conf_gen_id'),
 		);
 	}
