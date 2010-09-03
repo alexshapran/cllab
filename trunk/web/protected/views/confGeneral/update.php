@@ -1,9 +1,9 @@
 <div id="configuration_tabs">
 	<ul>
-		<li><?php echo CHtml::link('General Parametsrs',yii::app()->controller->createUrl('/confgeneral/update/',array('id'=>'1'))); ?></li>
-		<li><?php echo CHtml::link('Fonts & Images',yii::app()->controller->createUrl('/confgeneral/fontsandimages')); ?></li>
+		<li><?php echo CHtml::link('General Parametsrs', Yii::app()->controller->createUrl('/confgeneral/update/',array('id'=>'1'))); ?></li>
+		<li><?php echo CHtml::link('Fonts & Images', Yii::app()->controller->createUrl('/confgeneral/fontsandimages')); ?></li>
 		<li><?php echo CHtml::link('Property Settings',Yii::app()->controller->createUrl('/confgeneral/propertysettings')); ?></li>
-		<li><?php echo CHtml::link('Signed Certification Settings','#'); ?></li>
+		<li><?php echo CHtml::link('Signed Certification Settings', Yii::app()->controller->createUrl('/confgeneral/signedcertification')); ?></li>
 		<li><?php echo CHtml::link('Scope of Work Settings','#'); ?></li>
 		<li><?php echo CHtml::link('Disclaimer Settings','#'); ?></li>
 		<li><?php echo CHtml::link('Resume Settings','#'); ?></li>

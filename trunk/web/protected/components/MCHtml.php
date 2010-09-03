@@ -156,6 +156,7 @@ class MCHtml extends CHtml
 	 * @param string the attribute
 	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
 	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
+	 * new attribute 'preName' provide to add new text to name field class_name($model)[preName][]
 	 * @return string the generated input field
 	 * @see clientChange
 	 * @see activeInputField
@@ -165,6 +166,22 @@ class MCHtml extends CHtml
 		self::resolveNameID($model, $attribute, $htmlOptions);
 		parent::clientChange('change',$htmlOptions);
 		return parent::activeInputField('text',$model,$attribute,$htmlOptions);
+	}
+	
+	public static function activeTextArea($model,$attribute,$htmlOptions=array())
+	{
+		self::resolveNameID($model,$attribute,$htmlOptions);
+		parent::clientChange('change',$htmlOptions);
+		if($model->hasErrors($attribute))
+			parent::addErrorCss($htmlOptions);
+		$text=parent::resolveValue($model,$attribute);
+		return parent::tag('textarea',$htmlOptions,isset($htmlOptions['encode']) && !$htmlOptions['encode'] ? $text : self::encode($text));
+	}
+	
+	public static function activeHiddenField($model,$attribute,$htmlOptions=array())
+	{
+		self::resolveNameID($model,$attribute,$htmlOptions);
+		return parent::activeInputField('hidden',$model,$attribute,$htmlOptions);
 	}
 }
 ?>

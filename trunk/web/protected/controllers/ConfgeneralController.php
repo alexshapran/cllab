@@ -1,6 +1,6 @@
 <?php
 
-class ConfGeneralController extends Controller
+class ConfgeneralController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,8 +32,8 @@ class ConfGeneralController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'actions'=>array('index', 'view', 'fontsandimages', 'fontsandimagessubmit', 'propertysettings', 'signedcertification'),
+				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -88,10 +88,28 @@ class ConfGeneralController extends Controller
 	 */
 	public function actionUpdate()
 	{
-		$model=$this->loadModel();
+		//var_dump(yii::app()->user->getConfigId());
+		
+		$oUserModel = User::model()->findByPk(Yii::app()->user->getId());
+		$oConfGeneral = ConfGeneral::model()->findByPk($oUserModel->account_id);
+		
+		//TODO: HERE MUST BE if(!$model)
+		
+		
+		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
+		
+		
+		$aConfTypeDataProvider = new CActiveDataProvider('ConfTypeOfValue', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
+															array(	
+																'criteria'=>
+																	array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
+																'pagination'=>false));
+		//::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));;
 
 		if(isset($_POST['ConfGeneral']))
 		{
@@ -101,7 +119,9 @@ class ConfGeneralController extends Controller
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$oConfGeneral,
+			'aConfTypeDataProvider'=> $aConfTypeDataProvider,
+			'aConfPurposeDataProvider'=> $aConfPurposeDataProvider,
 		));
 	}
 
@@ -134,7 +154,91 @@ class ConfGeneralController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
+	
+	/* Provides to manage Fonts and Images settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionFontsandimages() 
+	{
+		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
+		
+		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+		$aImageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+		
+		$this->render('fontsandimages', array('aImageConf'=>$aImageConf, 'aFontsConf'=>$aFontsConf, 'confGeneral'=>$oConfGeneral));
+	}
+	
+	
+	/*
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		array() ConfGeneral[]
+	 * @return		
+	 */
+	
+	public function actionFontsandimagessubmit() 
+	{
+		// Saving General Font
+		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());		
+		if(isset($_POST['ConfGeneral']['global_font_type']))
+			$oConfGeneral->global_font_type = $_POST['ConfGeneral']['global_font_type'];
+		$oConfGeneral->save();
+		// Saving General Font END		
+		
+		// Saving Fonts Configuration
+		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));		
+		foreach($aFontsConf as $oFc)
+		{
+			if(isset($_POST['ConfFonts'][$oFc->section]))
+				$oFc->attributes = $_POST['ConfFonts'][$oFc->section];
 
+			$oFc->save();
+		}
+		// Saving Fonts Configuration END
+
+		// Saving Image Configuration
+		$aImageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
+
+		foreach($aImageConf as $oImage)
+		{
+			if(isset($_POST['ConfImg'][$oImage->size]))
+				$oImage->attributes = $_POST['ConfImg'][$oImage->size];
+				
+			$oImage->save();
+		}
+		// Saving Image Configuration END
+		
+		Yii::app()->controller->redirect(Yii::app()->controller->createUrl('/confgeneral/fontsandimages'));
+	}
+
+	
+	/* Provides anybody to config Property Settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionPropertysettings()
+	{
+		$oNewCategory = new ConfCategory;
+		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
+		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 'aParentCategories'=>$aParentCategories));
+	}
+	
+	/* Signed Certifications Settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionSignedcertification() 
+	{
+		$aSignCertSetts = ConfSignCertSettings::model()->findAll();
+		$this->render('signedcertification', array('aSignCertSetts'=>$aSignCertSetts));
+	}
+	
 	/**
 	 * Manages all models.
 	 */
