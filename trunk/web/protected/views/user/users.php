@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
 <?php echo CHtml::dropDownList('sortBy','', 
 								CHtml::listData($accounts, 'id', 'value'), 
 								array(	
-									'prompt'=>'Filter by Account', 
+									'prompt'=> $filterBy ? 'Disable filter' : 'Filter by Account', 
 									'onchange'=>'location.replace("'.Yii::app()->controller->createUrl(	'/user/users', array(	'filterBy'=>'')).'"+$("#sortBy").attr("value"))', 
 																												'style'=>'float:right' )) ?>
 <?php
@@ -34,3 +34,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	));
 ?>
 </div>
+<?php if($filterBy) { ?>
+<script type='text/javascript'>
+$("#sortBy").val(<?php echo $filterBy ?>);
+</script>
+<?php } ?>
