@@ -6,7 +6,10 @@ body
 	font: normal 12px Arial,Helvetica,sans-serif;
 	background: #EFEFEF;
 }
-
+ul
+{
+	list-style:none outside none;
+}
 #page
 {
 	margin-top: 5px;
