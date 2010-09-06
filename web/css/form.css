@@ -269,3 +269,14 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	width: 220px;
 }
 /* END Client Styles */
+
+/* CONF GENERAL PROPERTY SETTINGS (CATEGORIES) */
+.categoryplus
+{
+	min-width:9px;
+	min-height:11px;
+	float:left;
+	margin:3px;
+	background: url("../images/plus.png") no-repeat transparent;
+}
+/* CONF GENERAL PROPERTY SETTINGS (CATEGORIES) */
