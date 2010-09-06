@@ -13,6 +13,14 @@ $this->breadcrumbs=array(
 //);
 ?>
 
+<div style='height:65px;'>
 <?php
-$this->renderPartial('_categoryForm', array('model'=>$oNewCategory, 'aParCats'=>$aParentCategories)); 
+$this->renderPartial('/confCategory/_categoryForm', array('model'=>$oNewCategory, 'aParCats'=>$aParentCategories)); 
 ?>
+</div>
+
+<div id='allcategories'>
+<?php
+$this->renderPartial('/confCategory/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats))
+?>
+</div>
