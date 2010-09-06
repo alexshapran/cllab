@@ -73,12 +73,17 @@ class ConfcategoryController extends Controller
 		if(isset($_POST['ConfCategory']))
 		{
 			$model->attributes=$_POST['ConfCategory'];
-			
-			if($model->save())
-				$this->renderText('Done');
+			$model->save();
 		}
 
-		$this->renderText('Done');
+		$oNewCategory = new ConfCategory;
+		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
+		$aChildCats = array();
+
+		foreach ($aParentCategories as $oParent)
+			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
+
+		$this->renderPartial('/confGeneral/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats));
 	}
 
 	/**

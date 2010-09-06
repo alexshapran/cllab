@@ -31,21 +31,21 @@ class ConfgeneralController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
+		array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index', 'view', 'fontsandimages', 'fontsandimagessubmit', 'propertysettings', 'signedcertification'),
 				'roles'=>array('Superadmin'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+		),
+		array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		),
+		array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
+		),
+		array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+		),
 		);
 	}
 
@@ -74,7 +74,7 @@ class ConfgeneralController extends Controller
 		{
 			$model->attributes=$_POST['ConfGeneral'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -89,25 +89,25 @@ class ConfgeneralController extends Controller
 	public function actionUpdate()
 	{
 		//var_dump(yii::app()->user->getConfigId());
-		
+
 		$oUserModel = User::model()->findByPk(Yii::app()->user->getId());
 		$oConfGeneral = ConfGeneral::model()->findByPk($oUserModel->account_id);
-		
-		//TODO: HERE MUST BE if(!$model)
-		
-		
-		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
-		
-		
-		$aConfTypeDataProvider = new CActiveDataProvider('ConfTypeOfValue', 
-															array(	
-																'criteria'=>
-																	array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
 
-		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
-															array(	
+		//TODO: HERE MUST BE if(!$model)
+
+
+		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
+
+
+		$aConfTypeDataProvider = new CActiveDataProvider('ConfTypeOfValue',
+		array(
 																'criteria'=>
-																	array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
+		array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
+
+		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose',
+		array(
+																'criteria'=>
+		array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
 																'pagination'=>false));
 		//::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));;
 
@@ -115,7 +115,7 @@ class ConfgeneralController extends Controller
 		{
 			$model->attributes=$_POST['ConfGeneral'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -138,10 +138,10 @@ class ConfgeneralController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -154,45 +154,45 @@ class ConfgeneralController extends Controller
 			'dataProvider'=>$dataProvider,
 		));
 	}
-	
+
 	/* Provides to manage Fonts and Images settings
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param		
-	 * @return		
+	 * @param
+	 * @return
 	 */
-	
-	public function actionFontsandimages() 
+
+	public function actionFontsandimages()
 	{
 		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
-		
+
 		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
 		$aImageConf = ConfImg::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
-		
+
 		$this->render('fontsandimages', array('aImageConf'=>$aImageConf, 'aFontsConf'=>$aFontsConf, 'confGeneral'=>$oConfGeneral));
 	}
-	
-	
+
+
 	/*
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		array() ConfGeneral[]
-	 * @return		
+	 * @return
 	 */
-	
-	public function actionFontsandimagessubmit() 
+
+	public function actionFontsandimagessubmit()
 	{
 		// Saving General Font
-		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());		
+		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
 		if(isset($_POST['ConfGeneral']['global_font_type']))
-			$oConfGeneral->global_font_type = $_POST['ConfGeneral']['global_font_type'];
+		$oConfGeneral->global_font_type = $_POST['ConfGeneral']['global_font_type'];
 		$oConfGeneral->save();
-		// Saving General Font END		
-		
+		// Saving General Font END
+
 		// Saving Fonts Configuration
-		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));		
+		$aFontsConf = ConfFonts::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId() ));
 		foreach($aFontsConf as $oFc)
 		{
 			if(isset($_POST['ConfFonts'][$oFc->section]))
-				$oFc->attributes = $_POST['ConfFonts'][$oFc->section];
+			$oFc->attributes = $_POST['ConfFonts'][$oFc->section];
 
 			$oFc->save();
 		}
@@ -204,41 +204,46 @@ class ConfgeneralController extends Controller
 		foreach($aImageConf as $oImage)
 		{
 			if(isset($_POST['ConfImg'][$oImage->size]))
-				$oImage->attributes = $_POST['ConfImg'][$oImage->size];
-				
+			$oImage->attributes = $_POST['ConfImg'][$oImage->size];
+
 			$oImage->save();
 		}
 		// Saving Image Configuration END
-		
+
 		Yii::app()->controller->redirect(Yii::app()->controller->createUrl('/confgeneral/fontsandimages'));
 	}
 
-	
+
 	/* Provides anybody to config Property Settings
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param		
-	 * @return		
+	 * @param
+	 * @return
 	 */
-	
+
 	public function actionPropertysettings()
 	{
 		$oNewCategory = new ConfCategory;
 		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
-		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 'aParentCategories'=>$aParentCategories));
+		$aChildCats = array();
+		
+		foreach ($aParentCategories as $oParent)
+			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
+		
+		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 'aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats ));
 	}
-	
+
 	/* Signed Certifications Settings
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param		
-	 * @return		
+	 * @param
+	 * @return
 	 */
-	
-	public function actionSignedcertification() 
+
+	public function actionSignedcertification()
 	{
 		$aSignCertSetts = ConfSignCertSettings::model()->findAll();
 		$this->render('signedcertification', array('aSignCertSetts'=>$aSignCertSetts));
 	}
-	
+
 	/**
 	 * Manages all models.
 	 */
@@ -247,7 +252,7 @@ class ConfgeneralController extends Controller
 		$model=new ConfGeneral('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ConfGeneral']))
-			$model->attributes=$_GET['ConfGeneral'];
+		$model->attributes=$_GET['ConfGeneral'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -263,9 +268,9 @@ class ConfgeneralController extends Controller
 		if($this->_model===null)
 		{
 			if(isset($_GET['id']))
-				$this->_model=ConfGeneral::model()->findbyPk($_GET['id']);
+			$this->_model=ConfGeneral::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $this->_model;
 	}
