@@ -229,7 +229,13 @@ class ConfgeneralController extends Controller
 		foreach ($aParentCategories as $oParent)
 			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
 		
-		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 'aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats ));
+		
+		$attExpOrder = Yii::app()->params['attributeExportOrder'];
+		
+		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 
+												'aParentCategories'=>$aParentCategories, 
+												'aChildCats'=>$aChildCats,
+												'attExpOrder' => $attExpOrder ));
 	}
 
 	/* Signed Certifications Settings

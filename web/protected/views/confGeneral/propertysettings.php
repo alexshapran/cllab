@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Conf Generals'=>array('index'),
-	$model->id,
+$model->id,
 );
 
 //$this->menu=array(
@@ -13,14 +13,6 @@ $this->breadcrumbs=array(
 //);
 ?>
 
-<div style='height:65px;'>
-<?php
-$this->renderPartial('/confCategory/_categoryForm', array('model'=>$oNewCategory, 'aParCats'=>$aParentCategories)); 
-?>
-</div>
-
-<div id='allcategories'>
-<?php
-$this->renderPartial('/confCategory/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats))
-?>
-</div>
+<div id='allcategories'><?php
+$this->renderPartial('/confCategory/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats, 'oNewCategory'=>$oNewCategory));
+?></div>

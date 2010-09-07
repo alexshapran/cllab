@@ -32,12 +32,8 @@ class ConfcategoryController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('Ajaxcreate','view'),
+				'actions'=>array('ajaxcreate','view', 'ajaxsave', 'ajaxdelete'),
 				'roles'=>array('Superadmin'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -74,58 +70,35 @@ class ConfcategoryController extends Controller
 		{
 			$model->attributes=$_POST['ConfCategory'];
 			$model->save();
-		}
-
-		$oNewCategory = new ConfCategory;
-		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
-		$aChildCats = array();
-
-		foreach ($aParentCategories as $oParent)
-			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
-
-		$this->renderPartial('/confGeneral/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats));
+		}		
+		self::renderCategories();
 	}
 
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionUpdate()
+	public function actionAjaxsave()
 	{
-		$model=$this->loadModel();
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['ConfCategory']))
 		{
+			$model = ConfCategory::model()->findByPk($_POST['ConfCategory']['id']);
 			$model->attributes=$_POST['ConfCategory'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$model->save();
 		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
+		self::renderCategories();
 	}
 
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 */
-	public function actionDelete()
+	public function actionAjaxdelete()
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel()->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		$model = ConfCategory::model()->findByPk($_GET['id']);
+		if($model)
+			$model->delete();
+		self::renderCategories();
 	}
 
 	/**
@@ -170,6 +143,27 @@ class ConfcategoryController extends Controller
 		return $this->_model;
 	}
 
+	/*
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		partial
+	 */
+	
+	public function renderCategories() 
+	{
+		$oNewCategory = new ConfCategory;
+		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
+		$aChildCats = array();
+
+		foreach ($aParentCategories as $oParent)
+			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
+			
+		$this->renderPartial('/confCategory/_allCategories', 
+					array(	'aParentCategories'=>$aParentCategories, 
+							'aChildCats'=>$aChildCats, 
+							'oNewCategory'=>$oNewCategory));
+	}
+	
 	/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated

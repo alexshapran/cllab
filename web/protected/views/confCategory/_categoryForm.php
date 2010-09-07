@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="row buttons" style='margin:18px 0 0 30px;'>
-		<?php echo CHtml::ajaxSubmitButton('Add new', yii::app()->controller->createUrl("confcategory/ajaxcreate"), array('update'=>'#allcategories')); ?>
+		<?php echo CHtml::ajaxSubmitButton('Add new', yii::app()->controller->createUrl("confcategory/ajaxcreate"), array('update'=>'#allcategories'), array('id'=>'simpleFormSubmit')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
