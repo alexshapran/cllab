@@ -99,7 +99,41 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+	
+		'fontTypes'=>
+    array(
+		'Arial'=>'Arial',
+		'Arial Black'=>'Arial Black',
+		'Book Antiqua'=>'Book Antiqua',
+		'Comic Sans MS'=>'Comic Sans MS',
+		'Courier New'=>'Courier New',
+		'Georgia'=>'Georgia',
+		'Impact'=>'Impact',
+		'Symbol'=>'Symbol',
+		'Tahoma'=>'Tahoma',
+		'Terminal'=>'Terminal',
+		'Times New Roman'=>'Times New Roman',
+		'Trebuchet MS'=>'Trebuchet MS',
+		'Verdana'=>'Verdana',
+		'Webdings'=>'Webdings'),
+    
+    	'Attribute Export Order'=>
+    array( 'title' => 'Title', 
+    		'value' => 'Value', 
+    		'maker_artist' => 'Artist', 
+    		'description' => 'Description', 
+    		'medium' => 'Medium', 
+			'dimensions' =>	'Dimensions', 
+    		'data_period' => 'Data/Period', 
+    		'markings' => 'Markings',
+    		'condition' => 'Condition',
+    		'provenance' => 'Provenance',
+    		'exhibited' => 'Exhibited',
+    		'literature' => 'Literature',
+    		'acquistion_cost' => 'Acquistion Cost',
+    		'acquistion_date' => 'Acquistion Date',
+    		'acquistion_source' => 'Acquistion Source',
+    		'notes' => 'Notes',
+    		'comparables' => 'Comparables'),
 	), 
 );
