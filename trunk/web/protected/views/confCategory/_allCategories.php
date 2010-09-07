@@ -1,4 +1,8 @@
-<h3>Categories</h3>
+<div style='height: 65px;'><?php
+$this->renderPartial('/confCategory/_categoryForm', array('model'=>$oNewCategory, 'aParCats'=>$aParentCategories));
+?></div>
+
+Categories
 <ul>
 <?php
 foreach ($aParentCategories as $oParent) {

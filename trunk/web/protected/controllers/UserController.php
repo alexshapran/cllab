@@ -184,20 +184,12 @@ class UserController extends Controller
 	{
 		$accounts = Account::model()->findAll();
 		$criteria = new CDbCriteria;
-		
-		if(isset($_GET['filterBy']))
-		{
-			$filterBy = $_GET['filterBy'];
-			if($filterBy)
-				$criteria->condition = 'account_id = '.$filterBy;
-		}
-		else
-		{
-			$filterBy = null;
-		}
+
+		if($_GET['filterBy'])
+			$criteria->condition = 'account_id = ' . $_GET['filterBy'];
 
 		$aUsers = new CActiveDataProvider('User', array('criteria'=>$criteria));
-		$this->render('users', array('aUsers' => $aUsers, 'accounts'=>$accounts, 'filterBy'=>$filterBy));
+		$this->render('users', array('aUsers' => $aUsers, 'accounts'=>$accounts));
 	}
 
 	/**

@@ -117,7 +117,7 @@ return array(
 		'Verdana'=>'Verdana',
 		'Webdings'=>'Webdings'),
     
-    	'Attribute Export Order'=>
+    	'attributeExportOrder'=>
     array( 'title' => 'Title', 
     		'value' => 'Value', 
     		'maker_artist' => 'Artist', 

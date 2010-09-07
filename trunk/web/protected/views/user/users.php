@@ -1,3 +1,4 @@
+<?php if($_GET['filterBy']) $filterBy = $_GET['filterBy'] ?>
 <?php
 $this->breadcrumbs=array(
 	'Users',
