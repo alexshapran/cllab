@@ -31,4 +31,27 @@ class Controller extends CController
 			Yii::app()->clientscript->scriptMap['jquery.min.js'] = false;
 		}
 	}
+	
+	/**
+	 * static method create alias
+	 * @param $str string
+	 * @return sting
+	 */
+	public static function createAlias($str) {
+		$str = preg_replace('#[^a-z0-9\-]+#is', '-', $str);
+        $str = preg_replace('#\-+#is', '-', $str);
+        $str = preg_replace('#^\-([a-z0-9\-]+)#is', '$1', $str);
+		$str = preg_replace('#([a-z0-9\-]+)\-$#is', '$1', $str);
+		return $str;	
+	}
+	
+	/**
+	 * convert date
+	 * @param $str date
+	 * @param $sFormat defualt Y-m-d
+	 */
+	public static function convertDateFormat($str, $sFormat = 'Y-m-d') {
+		$date = date($sFormat, strtotime($str));
+		return $date;
+	}
 }
