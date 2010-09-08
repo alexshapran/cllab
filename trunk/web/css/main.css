@@ -245,3 +245,9 @@ div.search-form
 .hidden{
 	display:none;
 }
+.floatleft {
+	float: left;
+}
+.floatright {
+	float: right;
+}
