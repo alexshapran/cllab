@@ -31,18 +31,9 @@ class AccountController extends Controller
 	public function accessRules()
 	{
 		return array(
-			
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('createAjax','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('createAjax','update', 'delete', 'createConfig'),
+				'roles'=>array('Superadmin')
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -77,12 +68,13 @@ class AccountController extends Controller
 			$model->date_created = time();
 			if(!$model->save())
 			{
-			$data = array();
-			$data['errors'] = $model->getErrors();
-			$this->renderPartial('_errors', $data, false, true);
+				$data = array();
+				$data['errors'] = $model->getErrors();
+				$this->renderPartial('_errors', $data, false, true);
 			}
 			else
 			{
+				self::createConfig($model->id);
 				$dataProvider = new CActiveDataProvider('Account');
 				$data['dataProvider'] = $dataProvider;
 				$this->renderPartial('_accounts', $data);
@@ -135,11 +127,12 @@ class AccountController extends Controller
 			$this->loadModel()->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			
+			$dataProvider = new CActiveDataProvider('Account');
+			$data['dataProvider'] = $dataProvider;
+			$this->renderPartial('_accounts', $data);
+			
 		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -168,6 +161,80 @@ class AccountController extends Controller
 		));
 	}
 
+	
+	/**
+	 * 
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param	int $model_id
+	 * @return	
+	 */
+	
+	protected function createConfig( $acc_id )
+	{
+		$confGen = new ConfGeneral;
+		$confGen->attributes = Yii::app()->params['defConfGen'];
+		$confGen->account_id = $acc_id;
+		$confGen->attr_exp_order = implode(', ', Yii::app()->params['attributeExportOrder']);
+		
+		if($confGen->save());
+		{
+			foreach (Yii::app()->params['defConfFont'] as $defFont)
+			{
+				$fontConf = new ConfFonts;
+				$fontConf->attributes = $defFont;
+				$fontConf->conf_gen_id = $confGen->id;
+				$fontConf->save();
+			}
+
+			foreach(Yii::app()->params['defImageSize'] as $defImage)
+			{
+				$imageConf = new ConfImg;
+				$imageConf->attributes = $defImage;
+				$imageConf->conf_gen_id = $confGen->id;
+				$imageConf->save();
+			}
+			foreach (Yii::app()->params['defScopeOfSettings'] as $sOS)
+			{
+				$scopeSet = new ConfScopeOfSettings;
+				$scopeSet->attributes = $sOS;
+				$scopeSet->conf_gen_id = $confGen->id;
+				
+				if($scopeSet->save())
+				{
+					$q = 1;
+					if(isset($sOS['num_of_def_fields']))
+						$q = $sOS['num_of_def_fields'];
+	
+					while($q > 0)
+					{
+						$scopeVal = new ConfScopeOfValue;
+						$scopeVal->conf_sos_id = $scopeSet->id;
+						$scopeVal->save();
+						--$q;
+					}
+				}
+			}
+
+			foreach(Yii::app()->params['Disclaimer Settings'] as $name)
+			{
+				$setting = new ConfDisclaimerSettings;
+				$setting->name = $name;
+				$setting->conf_gen_id = $confGen->id;
+				$setting->save();
+				
+				$value = new ConfDisclaimerValue;
+				$value->conf_disc_settings = $setting->id;
+				$value->save();
+			}
+			
+
+			$resume = new ConfResumeSettings;
+			$resume->conf_gen_id = $confGen->id;
+			$resume->save();
+		}
+		
+	}
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

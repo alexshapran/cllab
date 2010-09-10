@@ -32,21 +32,18 @@ class ConfgeneralController extends Controller
 	{
 		return array(
 		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view', 'fontsandimages', 'fontsandimagessubmit', 'propertysettings', 'signedcertification'),
+				'actions'=>array(	'index', 'update', 'fontsandimages', 
+									'fontsandimagessubmit', 'propertysettings', 
+									'signedcertification', 'submitattributeorder',
+									'scopeofsettings', 'disclaimersettings',
+									'resumesettings', 'glossarysettings'),
 				'roles'=>array('Superadmin'),
-		),
-		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-		),
-		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
 		),
 		array('deny',  // deny all users
 				'users'=>array('*'),
 		),
 		);
+		
 	}
 
 	/**
@@ -91,31 +88,25 @@ class ConfgeneralController extends Controller
 		//var_dump(yii::app()->user->getConfigId());
 
 		$oUserModel = User::model()->findByPk(Yii::app()->user->getId());
-		$oConfGeneral = ConfGeneral::model()->findByPk($oUserModel->account_id);
+		$oConfGeneral = $oUserModel->account->confGenerals[0];
 
 		//TODO: HERE MUST BE if(!$model)
 
-
+		if($oConfGeneral)
+		{
 		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
 
-
 		$aConfTypeDataProvider = new CActiveDataProvider('ConfTypeOfValue',
-		array(
-																'criteria'=>
-		array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
-
+		array('criteria'=>array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
+		
 		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose',
-		array(
-																'criteria'=>
-		array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
+		array('criteria'=>array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
 																'pagination'=>false));
-		//::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));;
 
 		if(isset($_POST['ConfGeneral']))
 		{
-			$model->attributes=$_POST['ConfGeneral'];
-			if($model->save())
-			$this->redirect(array('view','id'=>$model->id));
+			$oConfGeneral->attributes=$_POST['ConfGeneral'];
+			$oConfGeneral->save();
 		}
 
 		$this->render('update',array(
@@ -123,6 +114,7 @@ class ConfgeneralController extends Controller
 			'aConfTypeDataProvider'=> $aConfTypeDataProvider,
 			'aConfPurposeDataProvider'=> $aConfPurposeDataProvider,
 		));
+		}
 	}
 
 	/**
@@ -155,7 +147,7 @@ class ConfgeneralController extends Controller
 		));
 	}
 
-	/* Provides to manage Fonts and Images settings
+	/** Provides to manage Fonts and Images settings
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
@@ -172,7 +164,7 @@ class ConfgeneralController extends Controller
 	}
 
 
-	/*
+	/**
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		array() ConfGeneral[]
 	 * @return
@@ -214,7 +206,36 @@ class ConfgeneralController extends Controller
 	}
 
 
-	/* Provides anybody to config Property Settings
+	/**
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		array() 
+	 * @return		null
+	 */
+	
+	public function actionSubmitattributeorder() 
+	{
+		if(isset($_POST['attrOrder']));
+		{
+			$aOrder = explode(',',$_POST['attrOrder']);
+			$Attributes = Yii::app()->params['attributeExportOrder'];
+			$newAttrSorted = array();
+			
+			foreach($aOrder as $key)
+			{
+				$newAttrSorted[$key] = $Attributes[$key];
+			}
+
+		$oConfGen = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
+		if($oConfGen)
+		{
+			$oConfGen->attr_exp_order = serialize($newAttrSorted);
+			$oConfGen->save();
+		}
+ 
+		}
+	}
+	
+	/** Provides anybody to config Property Settings
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
@@ -225,20 +246,20 @@ class ConfgeneralController extends Controller
 		$oNewCategory = new ConfCategory;
 		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
 		$aChildCats = array();
-		
+
 		foreach ($aParentCategories as $oParent)
-			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
-		
-		
-		$attExpOrder = Yii::app()->params['attributeExportOrder'];
-		
-		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory, 
+		$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
+
+		$oGenConfig = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
+
+		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory,
 												'aParentCategories'=>$aParentCategories, 
 												'aChildCats'=>$aChildCats,
-												'attExpOrder' => $attExpOrder ));
+												'attExpOrder' => $attExpOrder,
+												'oGenConfig' => $oGenConfig ));
 	}
 
-	/* Signed Certifications Settings
+	/** Signed Certifications Settings
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
@@ -253,12 +274,60 @@ class ConfgeneralController extends Controller
 	/**
 	 * Manages all models.
 	 */
+	
+	/**
+	 * Configuration - Scope of Work Settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param		
+	 * @return		
+	 */
+	
+	public function actionScopeofsettings() 
+	{
+		$aScopeOfSettings = ConfScopeOfSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+		$this->render('scopeofsettings', array('aScopeOfSettings' => $aScopeOfSettings));
+	}
+	
+
+	/**
+	 * Configuration - Disclaimer Settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 */
+	
+	public function actionDisclaimersettings() 
+	{
+		$aDiscSettings = ConfDisclaimerSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+		$this->render('discsettings', array('aDiscSettings' => $aDiscSettings));
+	}
+	
+	/**
+	 * Configuration - Disclaimer Settings
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 */
+	
+	public function actionResumesettings() 
+	{
+		$oResume = ConfResumeSettings::model()->findByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+		$this->render('resumesettings', array('oResume' => $oResume));
+	}
+	
+	/**
+	 *  Configuration - Glossary Settings.
+	 */
+	
+	public function actionGlossarysettings()
+	{
+		$aGlos = ConfGlossarySettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+		$this->render('glossarysettings', array('aGlos'=>$aGlos) );
+	}
+	
 	public function actionAdmin()
 	{
 		$model=new ConfGeneral('search');
 		$model->unsetAttributes();  // clear any default values
+		
 		if(isset($_GET['ConfGeneral']))
-		$model->attributes=$_GET['ConfGeneral'];
+			$model->attributes=$_GET['ConfGeneral'];
 
 		$this->render('admin',array(
 			'model'=>$model,

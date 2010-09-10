@@ -29,16 +29,6 @@ function displayEdit(id)
 				<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
 				<?php echo $form->error($model,'phone'); ?>
 			</div>
-			<div class="confgen_row">		
-				<?php echo $form->labelEx($model,'company_name'); ?>
-				<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'company_name'); ?>
-			</div>
-			<div class="confgen_row">
-				<?php echo $form->labelEx($model,'phone'); ?>
-				<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'phone'); ?>
-			</div>
 			<div class="confgen_row">			
 				<?php echo $form->labelEx($model,'email'); ?>
 				<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>255)); ?>
@@ -48,7 +38,7 @@ function displayEdit(id)
 				<?php echo $form->labelEx($model,'website'); ?>
 				<?php echo $form->textField($model,'website',array('size'=>30,'maxlength'=>255)); ?>
 				<?php echo $form->error($model,'website'); ?>
-			</div>		
+			</div>
 			<div class="confgen_row">	
 				<?php echo $form->labelEx($model,'address'); ?>
 				<?php echo $form->textField($model,'address',array('size'=>30,'maxlength'=>255)); ?>
@@ -117,36 +107,10 @@ function displayEdit(id)
 		<div id="confgen_center">		
 			<div id="type_of_value">
 			
-<div class="form">
-<?php // $dataProvider = new CActiveDataProvider('ConfTypeOfValue'); ?>
+			Type of Value - Configure Options
+			<br /><br />
+			
 <?php
-//$form=$this->beginWidget('CActiveForm', array(
-//	'id'=>'ConfTypeOfValue-form',
-//	'enableAjaxValidation'=>false,
-//	'action' => 'ConfTypeOfValue/create',
-//	'method' => 'post'
-//)); 
-?>
-
-	<?php // echo $form->errorSummary($model); ?>
-
-	<div style='float:left;'>
-		<?php // echo $form->labelEx($model,'value'); ?>
-		<?php // echo $form->textField($model,'id',array('size'=>30,'maxlength'=>255)); ?>
-		<?php // echo $form->error($model,'id'); ?>
-	</div>
-
-	<div style='float:left; margin-left:20px;'>
-		<?php //echo CHtml::ajaxSubmitButton("Add new",
-                //              CController::createUrl('account/createAjax'), 
-                  //            array('update'=>'#accountsTable'));
-		 ?>
-	</div>
-
-<?php // $this->endWidget(); ?>
-
-</div>
-			<?php
 			echo CHtml::Button('Add new', array('onClick'=>"location.replace('".yii::app()->controller->createUrl("conftypeofvalue/create")."')"));
 			 
 			$this->widget('zii.widgets.grid.CGridView', array(
@@ -169,20 +133,15 @@ function displayEdit(id)
 			
 			
 			<div id="purpose_of_apparsial">
+			Purpose of Appraisal - Configure Options
+			<br />
+			<br />
 			<?php echo $this->renderPartial('_purpouseForm', array('model'=>new ConfPurpose)); ?>
 				<div id="allpurposes">
 				<?php $this->renderPartial('/purpose/create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider)); ?>
 				</div>
-<?php // $this->endWidget(); ?>
 			</div>
-			
-			
 		</div>
-		
-	<div class="clear"></div>
-	
-
-	
-
+	<div class="clear" ></div>
 
 </div><!-- form -->

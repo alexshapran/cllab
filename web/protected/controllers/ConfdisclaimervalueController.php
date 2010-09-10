@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends Controller
+class ConfdisclaimervalueController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -30,14 +30,14 @@ class UserController extends Controller
 	 */
 	public function accessRules()
 	{
-		return 	array(
-		array('allow', // allow admin to perform 'create' and 'update' actions
-							'actions'=>array('create','update', 'admin', 'view', 'accounts','users','delete'),
-							'roles'=>array('Superadmin'),
-		),
-		array('deny',  // deny all users
-							'users'=>array('*'),
-		),
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('create'),
+				'roles'=>array('Superadmin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
 		);
 	}
 
@@ -52,6 +52,23 @@ class UserController extends Controller
 	}
 
 	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
+	{
+		$model=new ConfDisclaimerValue;
+
+		if($_GET['sos_id'])
+		{
+			$sOS = ConfDisclaimerSettings::model()->findByPk($_GET['sos_id']);
+			$model->conf_disc_settings = $sOS->id;
+			$model->save();
+			$this->renderPartial('/confdisclaimersettings/_simpleset', array('model'=>$sOS));
+		}
+	}
+
+	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 */
@@ -62,38 +79,15 @@ class UserController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['User']))
+		if(isset($_POST['ConfDisclaimerValue']))
 		{
-			$model->attributes = $_POST['User'];
-			$model->setAttribute('password_repeat',$_POST['User']['password_repeat']);
-
-			if($model->password)
-			{
-					$model->password = md5($model->password);
-					$model->password_repeat = md5($model->password_repeat);
-			}
-			else
-			{
-				$thisModel = User::model()->findByPk($model->id);
-				$model->password = $thisModel->password;
-				$model->password_repeat = $model->password;
-			}
-
-			if($model->validate())
-			{
-				if($model->save(false))
-				$this->redirect(array('user/users'));
-			}
-
+			$model->attributes=$_POST['ConfDisclaimerValue'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
 		}
-
-		$model->password = '';
-		$model->password_repeat = '';
 
 		$this->render('update',array(
 			'model'=>$model,
-			'aAcc'=> Account::model()->findAll(),
-			'aPriv'=>Privilege::model()->findAll(),
 		));
 	}
 
@@ -110,10 +104,10 @@ class UserController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
@@ -121,7 +115,7 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
+		$dataProvider=new CActiveDataProvider('ConfDisclaimerValue');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -132,10 +126,10 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new User('search');
+		$model=new ConfDisclaimerValue('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['User']))
-		$model->attributes=$_GET['User'];
+		if(isset($_GET['ConfDisclaimerValue']))
+			$model->attributes=$_GET['ConfDisclaimerValue'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -151,46 +145,11 @@ class UserController extends Controller
 		if($this->_model===null)
 		{
 			if(isset($_GET['id']))
-			$this->_model=User::model()->findbyPk($_GET['id']);
+				$this->_model=ConfDisclaimerValue::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
-			$this->_model = new User();
+				throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $this->_model;
-	}
-
-	/*
-	 * Provides Admin to manage accounts
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param
-	 * @return
-	 */
-
-	public function actionAccounts()
-	{
-		$accModel = new Account;
-		//$dataProvider = new CActiveDataProvider('Account');
-
-		$this->render('accounts',array(
-			'model'=>$accModel,
-		));
-	}
-	/*
-	 * Provides Admin to manage Users
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param
-	 * @return
-	 */
-
-	public function actionUsers()
-	{
-		$accounts = Account::model()->findAll();
-		$criteria = new CDbCriteria;
-
-		if($_GET['filterBy'])
-			$criteria->condition = 'account_id = ' . $_GET['filterBy'];
-
-		$aUsers = new CActiveDataProvider('User', array('criteria'=>$criteria));
-		$this->render('users', array('aUsers' => $aUsers, 'accounts'=>$accounts));
 	}
 
 	/**
@@ -199,7 +158,7 @@ class UserController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-disclaimer-value-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

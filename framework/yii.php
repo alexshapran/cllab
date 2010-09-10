@@ -1,6 +1,6 @@
 <?php
 /**
- * Yii bootstrap file.
+ * Yii bootstrap file. для кодировки
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.yiiframework.com/

@@ -298,16 +298,29 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 #allcategories {
 	border: 1px dashed black;
 	font-size: 14px;
-	width:800px;
-	min-width:800px;
+	width: 400px;
+	min-width: 400px;
+	float: left;
+	padding: 10px;
 }
+
 .catName {
-	float:left;
-	min-width:100px;
-	width:100px;
-	margin-top:7px;
+	float: left;
+	min-width: 100px;
+	width: 100px;
+	margin-top: 7px;
 }
-#childCategories UL{
-	margin-left:-20px;
+
+#childCategories UL {
+	margin-left: -20px;
+}
+
+#attr_exp_order {
+	border: 1px dashed black;
+	font-size: 14px;
+	width: 200px;
+	min-width: 200px;
+	float: left;
+	padding: 10px;
 }
 /* CONF GENERAL PROPERTY SETTINGS (CATEGORIES) */

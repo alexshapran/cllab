@@ -19,6 +19,7 @@
  * @property string $privacy_policy
  * @property string $global_font_type
  * @property integer $account_id
+ * @property string $attr_exp_order
  */
 class ConfGeneral extends CActiveRecord
 {
@@ -51,10 +52,10 @@ class ConfGeneral extends CActiveRecord
 			array('account_id', 'numerical', 'integerOnly'=>true),
 			array('company_name, phone, email, website, address, city, state', 'length', 'max'=>255),
 			array('zip, default_currency', 'length', 'max'=>45),
-			array('header, footer, privacy_policy', 'safe'),
+			array('header, footer, privacy_policy, attr_exp_order', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, company_name, phone, email, website, address, city, state, zip, default_currency, header, footer, privacy_policy, global_font_type, account_id', 'safe', 'on'=>'search'),
+			array('id, company_name, phone, email, website, address, city, state, zip, default_currency, header, footer, privacy_policy, global_font_type, account_id, attr_exp_order', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,10 +68,14 @@ class ConfGeneral extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'confCategories' => array(self::HAS_MANY, 'ConfCategory', 'conf_gen_id'),
+			'confDisclaimerSettings' => array(self::HAS_MANY, 'ConfDisclaimerSettings', 'conf_gen_id'),
 			'confFonts' => array(self::HAS_MANY, 'ConfFonts', 'conf_gen_id'),
 			'account' => array(self::BELONGS_TO, 'Account', 'account_id'),
+			'confGlossarySettings' => array(self::HAS_MANY, 'ConfGlossarySettings', 'conf_gen_id'),
 			'confImgs' => array(self::HAS_MANY, 'ConfImg', 'conf_gen_id'),
 			'confPurposes' => array(self::HAS_MANY, 'ConfPurpose', 'conf_gen_id'),
+			'confResumeSettings' => array(self::HAS_MANY, 'ConfResumeSettings', 'conf_gen_id'),
+			'confScopeOfSettings' => array(self::HAS_MANY, 'ConfScopeOfSettings', 'conf_gen_id'),
 			'confSignCertTexts' => array(self::HAS_MANY, 'ConfSignCertText', 'conf_general_id'),
 			'confTypeOfValues' => array(self::HAS_MANY, 'ConfTypeOfValue', 'conf_gen_id'),
 		);
@@ -97,6 +102,7 @@ class ConfGeneral extends CActiveRecord
 			'privacy_policy' => 'Privacy Policy',
 			'global_font_type' => 'Global Font Type',
 			'account_id' => 'Account',
+			'attr_exp_order' => 'Attr Exp Order',
 		);
 	}
 
@@ -140,6 +146,8 @@ class ConfGeneral extends CActiveRecord
 		$criteria->compare('global_font_type',$this->global_font_type,true);
 
 		$criteria->compare('account_id',$this->account_id);
+
+		$criteria->compare('attr_exp_order',$this->attr_exp_order,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
