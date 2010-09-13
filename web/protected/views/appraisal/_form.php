@@ -16,7 +16,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_created'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-				'model'=>$oBasicParams,
+				'model'=>$model,
 			    'attribute'=>'date_created',
 			    'options'=>array(
 					'showAnim'=>'fold',
@@ -44,6 +44,7 @@
 	<br />
 	<h3>Basic Report Parameters</h3>
 	
+	<?php echo $form->errorSummary($oBasicParams); ?>
 	<?php echo $form->hiddenField($oBasicParams,'order_report_section')?>
 	<div class="row">
 		<?php echo $form->labelEx($oBasicParams,'client_name'); ?>
