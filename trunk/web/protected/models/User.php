@@ -52,6 +52,7 @@ class User extends CActiveRecord
 
 			array('password', 'length', 'max'=>45),
 			array('date_added', 'safe'),
+			array('username', 'unique', 'message'=>'This username is occypied'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, username, password, name, date_added, account_id, privilege_id', 'safe', 'on'=>'search'),
@@ -84,7 +85,7 @@ class User extends CActiveRecord
 			'name' => 'Name',
 			'date_added' => 'Date Added',
 			'account_id' => 'Account',
-			'privilege_id' => 'Privilege',
+			'privilege_id' => 'Privileges',
 		);
 	}
 

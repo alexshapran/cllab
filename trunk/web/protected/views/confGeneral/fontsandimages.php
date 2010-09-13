@@ -1,19 +1,4 @@
-<?php
-$this->breadcrumbs=array(
-	'Conf Generals'=>array('index'),
-	$model->id,
-);
-
-//$this->menu=array(
-//	array('label'=>'List ConfGeneral', 'url'=>array('index')),
-//	array('label'=>'Create ConfGeneral', 'url'=>array('create')),
-//	array('label'=>'Update ConfGeneral', 'url'=>array('update', 'id'=>$model->id)),
-//	array('label'=>'Delete ConfGeneral', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-//	array('label'=>'Manage ConfGeneral', 'url'=>array('admin')),
-//);
-?>
-
-<h1>Edit Fonts and Images #<?php echo $confGeneral->id; ?></h1>
+<h4>Edit Fonts and Images #<?php echo $confGeneral->id; ?></h4>
 <?php echo CHtml::beginForm(Yii::app()->controller->createUrl("/confgeneral/fontsandimagessubmit"), 'post') ?>
 Global Font Type :	
 				<?php
@@ -21,9 +6,8 @@ Global Font Type :
 					$confGeneral,
 					'global_font_type',
 					Yii::app()->params['fontTypes']); ?>
-<br />
-<br />
-<div>
+					
+<div style='margin:15px 0 15px 0;'>
 <?php foreach ($aFontsConf as $unit) { ?>
 <div style='border: dotted grey 1px; float:left; min-width:150px; padding:10px;'>
 <h3><?php echo $unit->section ; ?></h3>
@@ -58,7 +42,9 @@ Font Size
 <?php } ?>
 </div>
 
-<hr style='height:3px; width:100%; color:black; margin-top:150px; position:relative;'>
+<div style='margin-top:170px;'>
+<hr style='height:3px; width:100%; color:black; ' />
+</div>
 
 <div style='border: dotted grey 1px; min-width:300px; padding:10px; clear:both'>
 <h3>Image Sizes</h3>

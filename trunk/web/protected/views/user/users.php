@@ -9,7 +9,6 @@ $this->breadcrumbs=array(
 //);
 ?>
 <div style='min-width:600px;'>
-<h3>Users</h3>
 <?php echo CHtml::button('Add User', array('onClick'=>'location.replace(\''.yii::app()->createUrl("user/update").'\')')) ?>
 <?php echo CHtml::dropDownList('sortBy','', 
 								CHtml::listData($accounts, 'id', 'value'), 
