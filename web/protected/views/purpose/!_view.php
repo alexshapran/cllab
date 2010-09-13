@@ -8,9 +8,5 @@
 	<?php echo CHtml::encode($data->value); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('conf_gen_id')); ?>:</b>
-	<?php echo CHtml::encode($data->conf_gen_id); ?>
-	<br />
-
 
 </div>

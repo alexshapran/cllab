@@ -10,6 +10,10 @@ foreach($aSignCertSetts as $oSect)
 <?php } ?>
 
 <div style='width:38px; margin: 20px auto;'>
-<?php echo CHtml::submitButton('Save'); ?>
+<?php echo CHtml::ajaxSubmitButton(
+				'Save', 
+				Yii::app()->controller->createUrl('/confsigncerttext/submit'),
+				array(),
+				array('id' => 'submittext')); ?>
 </div>
 <?php echo CHtml::endForm(); ?>

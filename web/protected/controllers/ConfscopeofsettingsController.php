@@ -32,50 +32,13 @@ class ConfscopeofsettingsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('update', 'submit'),
+				'actions'=>array('update', 'submit', 'delete'),
 				'roles'=>array('Superadmin')
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
-	}
-
-	/**
-	 * Displays a particular model.
-	 */
-	public function actionView()
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new ConfScopeOfSettings;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['ConfScopeOfSettings']))
-		{
-			$model->attributes=$_POST['ConfScopeOfSettings'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
 	}
 
 	/**
@@ -110,18 +73,7 @@ class ConfscopeofsettingsController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('ConfScopeOfSettings');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
+	
 	/**
 	 * Manages all models.
 	 */
@@ -130,50 +82,14 @@ class ConfscopeofsettingsController extends Controller
 	{
 		
 		$aSOS = ConfScopeOfSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+
 		if($aSOS)
-		{
 			foreach($aSOS as $oSetting)
-			{
 				foreach($oSetting->confScopeOfValues as $oValue)
-				{
 					if($_POST['ConfScopeOfValue'][$oValue->id])
 					{
 						$oValue->attributes = $_POST['ConfScopeOfValue'][$oValue->id];
 						$oValue->save();
 					}
-				}
-			}
-		}
-//		$this->render('/confgeneral/scopeofsettings', array('aScopeOfSettings' => $aSOS));
-	}
-
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 */
-	public function loadModel()
-	{
-		if($this->_model===null)
-		{
-			if(isset($_GET['id']))
-				$this->_model=ConfScopeOfSettings::model()->findbyPk($_GET['id']);
-			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
-		}
-		return $this->_model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-scope-of-settings-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
 	}
 }

@@ -34,28 +34,10 @@ class ConfsigncerttextController extends Controller
 				'actions'=>array('createajax', 'renderpartial', 'deleteajax', 'submit'),
 				'roles'=>array('Superadmin')
 		),
-		array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-		),
-		array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-		),
 		array('deny',  // deny all users
 				'users'=>array('*'),
 		),
 		);
-	}
-
-	/**
-	 * Displays a particular model.
-	 */
-	public function actionView()
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
 	}
 
 	/**
@@ -64,17 +46,14 @@ class ConfsigncerttextController extends Controller
 	 */
 	public function actionCreateajax()
 	{
-
 		$model=new ConfSignCertText;
-
 		$model->conf_general_id = Yii::app()->user->getConfigId();
-		
-		
+
 		if(isset($_GET['settingId']))
 		{
-		$model->conf_sign_cert_settings_id = $_GET['settingId'];
-		$model->save();
-		$this->actionMakeout($_GET['settingId']);
+			$model->conf_sign_cert_settings_id = $_GET['settingId'];
+			$model->save();
+			$this->actionMakeout($_GET['settingId']);
 		}
 	}
 
@@ -85,7 +64,6 @@ class ConfsigncerttextController extends Controller
 	public function actionSubmit()
 	{
 		if(isset($_POST['ConfSignCertText']))
-		{
 			foreach($_POST['ConfSignCertText'] as $oText)
 			{
 				$model = ConfSignCertText::model()->findByPk($oText['id']);
@@ -95,9 +73,6 @@ class ConfsigncerttextController extends Controller
 					$model->save();
 				}
 			}
-		}
-
-		$this->redirect(Yii::app()->controller->createUrl('/confgeneral/signedcertification'));
 	}
 
 	/**
@@ -109,19 +84,15 @@ class ConfsigncerttextController extends Controller
 		if(isset($_GET['textId']))
 		{
 			$oText = ConfSignCertText::model()->findByPk($_GET['textId']);
-			
 			if($oText)
 			{
 				$sect_id = $oText->conf_sign_cert_settings_id;
 				$oText->delete();
 			}
-				
 		}
 
 		if($sect_id)
-		{
 			$this->actionMakeout($sect_id);
-		}
 	}
 
 	/**
@@ -131,49 +102,5 @@ class ConfsigncerttextController extends Controller
 	{
 		$oSect = ConfSignCertSettings::model()->findByPk($sectId);
 		$this->renderPartial('create', array('oSect'=>$oSect));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new ConfSignCertText('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ConfSignCertText']))
-		$model->attributes=$_GET['ConfSignCertText'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 */
-	public function loadModel()
-	{
-		if($this->_model===null)
-		{
-			if(isset($_GET['id']))
-			$this->_model=ConfSignCertText::model()->findbyPk($_GET['id']);
-			if($this->_model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		}
-		return $this->_model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-sign-cert-text-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
 	}
 }

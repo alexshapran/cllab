@@ -16,5 +16,4 @@
 	<?php echo CHtml::encode($data->conf_sign_cert_settings_id); ?>
 	<br />
 
-
 </div>
