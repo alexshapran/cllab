@@ -1,5 +1,5 @@
 <span id='settLine<?php echo $model->id ?>'>
-<span id='settName<?php echo $model->id ?>'><?php	echo $model->name; ?></span>
+<span id='settName<?php echo $model->id ?>'><?php echo $model->name; ?></span>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <?php echo CHtml::link('edit', 'javascript:', array(
 		'onclick'=>'toggle('.$model->id.')',
@@ -15,13 +15,13 @@
 	'cache':false}); return false;")); ?>
 </span>
 
-<?php foreach($model->confScopeOfValues as $oValue) { ?>
 <?php 
-if($oValue)
-{
-	$this->renderPartial('/confscopeofvalue/_form', array('model'=>$oValue, 'allowtitle'=>$model->add_has_name));
-} ?>
-<?php } ?>
+foreach($model->confScopeOfValues as $oValue)
+	if($oValue)
+		$this->renderPartial('/confscopeofvalue/_form', array(	
+														'model'=>$oValue, 
+														'allowtitle'=>$model->add_has_name));
+?>
 
 <div style='width:15%; margin: 0 auto 20px;'>
 <?php if($model->allow_add_more) { ?>
@@ -31,12 +31,5 @@ if($oValue)
 						'cache':false,
 						'success':function(html){jQuery(\"#block".$model->id."\").html(html)}}); 
 						return false;")) ?>
-						
-<?php 
-//	echo CHtml::ajaxLink(
-//		'Add More', 
-//		Yii::app()->controller->createUrl('/confscopeofvalue/create', array('sos_id'=>$model->id)), 
-//		array('update'=>'#block'.$model->id), array('id'=>'addmore'.$model->id)) 
-		?>
 <?php } ?>
 </div>
