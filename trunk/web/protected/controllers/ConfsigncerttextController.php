@@ -46,14 +46,20 @@ class ConfsigncerttextController extends Controller
 	 */
 	public function actionCreateajax()
 	{
+
 		$model=new ConfSignCertText;
 		$model->conf_general_id = Yii::app()->user->getConfigId();
-
+		
 		if(isset($_GET['settingId']))
 		{
 			$model->conf_sign_cert_settings_id = $_GET['settingId'];
 			$model->save();
-			$this->actionMakeout($_GET['settingId']);
+
+			$response = array(
+							'form' 	=> $this->renderPartial('/confsigncerttext/_value', array('model'=>$model), true, true),
+							'id'	=> $model->conf_sign_cert_settings_id );
+			
+			echo CJSON::encode($response);
 		}
 	}
 
@@ -73,6 +79,8 @@ class ConfsigncerttextController extends Controller
 					$model->save();
 				}
 			}
+		
+		//$this->redirect(Yii::app()->controller->createUrl('/confgeneral/signedcertification'));
 	}
 
 	/**
@@ -90,9 +98,8 @@ class ConfsigncerttextController extends Controller
 				$oText->delete();
 			}
 		}
-
-		if($sect_id)
-			$this->actionMakeout($sect_id);
+//		if($sect_id)
+//			$this->actionMakeout($sect_id);
 	}
 
 	/**
