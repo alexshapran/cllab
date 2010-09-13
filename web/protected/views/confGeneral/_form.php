@@ -2,7 +2,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'conf-general-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
 )); ?>
 
 <script type='text/javascript'>
@@ -14,55 +14,42 @@ function displayEdit(id)
 }
 </script>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
 	<div id="confgen_form_left">
-
 			<div class="confgen_row">
 				<?php echo $form->labelEx($model,'company_name'); ?>
 				<?php echo $form->textField($model,'company_name',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'company_name'); ?>
 			</div>
 			<div class="confgen_row">
 				<?php echo $form->labelEx($model,'phone'); ?>
 				<?php echo $form->textField($model,'phone',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'phone'); ?>
 			</div>
 			<div class="confgen_row">			
 				<?php echo $form->labelEx($model,'email'); ?>
 				<?php echo $form->textField($model,'email',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'email'); ?>
 			</div>
 			<div class="confgen_row">			
 				<?php echo $form->labelEx($model,'website'); ?>
 				<?php echo $form->textField($model,'website',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'website'); ?>
 			</div>
 			<div class="confgen_row">	
 				<?php echo $form->labelEx($model,'address'); ?>
 				<?php echo $form->textField($model,'address',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'address'); ?>
 			</div>
 			<div class="confgen_row">			
 				<?php echo $form->labelEx($model,'city'); ?>
 				<?php echo $form->textField($model,'city',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'city'); ?>
 			</div>
 			<div class="confgen_row">							
 				<?php echo $form->labelEx($model,'state'); ?>
 				<?php echo $form->textField($model,'state',array('size'=>30,'maxlength'=>255)); ?>
-				<?php echo $form->error($model,'state'); ?>
 			</div>
 			<div class="confgen_row">	
 				<?php echo $form->labelEx($model,'zip'); ?>
 				<?php echo $form->textField($model,'zip',array('size'=>30,'maxlength'=>45)); ?>
-				<?php echo $form->error($model,'zip'); ?>
 			</div>		
 			<div class="confgen_row">	
 				<?php echo $form->labelEx($model,'default_currency'); ?>
 				<?php echo $form->textField($model,'default_currency',array('size'=>10,'maxlength'=>45)); ?>
-				<?php echo $form->error($model,'default_currency'); ?>
 			</div>
 	</div>	
 	
@@ -71,25 +58,21 @@ function displayEdit(id)
 			<?php echo $form->labelEx($model,'header'); ?>
 			<div class="confgen_row">
 				<?php echo $form->textArea($model,'header',array('rows'=>6, 'cols'=>65)); ?>
-				<?php echo $form->error($model,'header'); ?>
 			</div>
 			<?php echo $form->labelEx($model,'footer'); ?>		
 			<div class="confgen_row">
 				<?php echo $form->textArea($model,'footer',array('rows'=>6, 'cols'=>65)); ?>
-				<?php echo $form->error($model,'footer'); ?>
 			</div>
-	
 	</div>
 	
 	
-	<div class="clear"> </div>
+	<div class="clear"></div>
 	
 	<!-- Begin PP -->
 		<div id="privacy_policy">
 		<div class="row">
 			<?php echo $form->labelEx($model,'privacy_policy'); ?>
 			<?php echo $form->textArea($model,'privacy_policy',array('rows'=>10, 'cols'=>101)); ?>
-			<?php echo $form->error($model,'privacy_policy'); ?>
 		</div> 
 		
 		<div id="confgen_button">	
@@ -98,20 +81,18 @@ function displayEdit(id)
 			</div>
 		</div>
 	</div>
-	
 	<!-- PP END -->
+
 	<?php $this->endWidget(); ?>
 	<div class='clear'></div>
-	
-	
+
 		<div id="confgen_center">		
 			<div id="type_of_value">
-			
+			<div class='confgeneralsect'>
 			Type of Value - Configure Options
-			<br /><br />
-			
-<?php
-			echo CHtml::Button('Add new', array('onClick'=>"location.replace('".yii::app()->controller->createUrl("conftypeofvalue/create")."')"));
+			</div>
+	<?php
+			echo CHtml::Button('Add new', array('onClick'=>"location.replace('".yii::app()->controller->createUrl("conftypeofvalue/update")."')"));
 			 
 			$this->widget('zii.widgets.grid.CGridView', array(
 				'id'=>'ConfTypeOfValueTable',
@@ -127,15 +108,12 @@ function displayEdit(id)
 				'hideHeader' => true
 				));
 			?>
-	
 			</div>
 			
-			
-			
 			<div id="purpose_of_apparsial">
+			<div class='confgeneralsect'>
 			Purpose of Appraisal - Configure Options
-			<br />
-			<br />
+			</div>
 			<?php echo $this->renderPartial('_purpouseForm', array('model'=>new ConfPurpose)); ?>
 				<div id="allpurposes">
 				<?php $this->renderPartial('/purpose/create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider)); ?>

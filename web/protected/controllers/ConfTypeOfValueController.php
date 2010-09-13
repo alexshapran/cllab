@@ -1,6 +1,6 @@
 <?php
 
-class ConfTypeOfValueController extends Controller
+class ConftypeofvalueController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -31,18 +31,9 @@ class ConfTypeOfValueController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'delete'),
+				'actions'=>array('update', 'delete'),
 				'roles'=>array('Superadmin')
-//				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
-				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -50,37 +41,15 @@ class ConfTypeOfValueController extends Controller
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 */
-	public function actionView()
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new ConfTypeOfValue;
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['ConfTypeOfValue']))
-		{
-			$model->attributes=$_POST['ConfTypeOfValue'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+//	/**
+//	 * Displays a particular model.
+//	 */
+//	public function actionView()
+//	{
+//		$this->render('view',array(
+//			'model'=>$this->loadModel(),
+//		));
+//	}
 
 	/**
 	 * Updates a particular model.
@@ -97,7 +66,7 @@ class ConfTypeOfValueController extends Controller
 		{
 			$model->attributes=$_POST['ConfTypeOfValue'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(Yii::app()->controller->createUrl('/confgeneral/update'));
 		}
 
 		$this->render('update',array(
@@ -124,31 +93,31 @@ class ConfTypeOfValueController extends Controller
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('ConfTypeOfValue');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new ConfTypeOfValue('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ConfTypeOfValue']))
-			$model->attributes=$_GET['ConfTypeOfValue'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
+//	/**
+//	 * Lists all models.
+//	 */
+//	public function actionIndex()
+//	{
+//		$dataProvider=new CActiveDataProvider('ConfTypeOfValue');
+//		$this->render('index',array(
+//			'dataProvider'=>$dataProvider,
+//		));
+//	}
+//
+//	/**
+//	 * Manages all models.
+//	 */
+//	public function actionAdmin()
+//	{
+//		$model=new ConfTypeOfValue('search');
+//		$model->unsetAttributes();  // clear any default values
+//		if(isset($_GET['ConfTypeOfValue']))
+//			$model->attributes=$_GET['ConfTypeOfValue'];
+//
+//		$this->render('admin',array(
+//			'model'=>$model,
+//		));
+//	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -158,10 +127,7 @@ class ConfTypeOfValueController extends Controller
 	{
 		if($this->_model===null)
 		{
-			if(isset($_GET['id']))
-				$this->_model=ConfTypeOfValue::model()->findbyPk($_GET['id']);
-			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
+			$this->_model = isset($_GET['id']) ? ConfTypeOfValue::model()->findbyPk($_GET['id']) : new ConfTypeOfValue;
 		}
 		return $this->_model;
 	}

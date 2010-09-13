@@ -32,23 +32,13 @@ class UserController extends Controller
 	{
 		return 	array(
 		array('allow', // allow admin to perform 'create' and 'update' actions
-							'actions'=>array('create','update', 'admin', 'view', 'accounts','users','delete'),
-							'roles'=>array('Superadmin'),
+				'actions'=>array( 'create', 'update', 'accounts','users', 'delete'),
+				'roles'=>array('Superadmin'),
 		),
 		array('deny',  // deny all users
 							'users'=>array('*'),
 		),
 		);
-	}
-
-	/**
-	 * Displays a particular model.
-	 */
-	public function actionView()
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
 	}
 
 	/**
@@ -58,9 +48,6 @@ class UserController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['User']))
 		{
@@ -87,8 +74,7 @@ class UserController extends Controller
 
 		}
 
-		$model->password = '';
-		$model->password_repeat = '';
+		$model->password = $model->password_repeat = '';
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -97,7 +83,7 @@ class UserController extends Controller
 		));
 	}
 
-	/**
+		/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 */
@@ -116,31 +102,7 @@ class UserController extends Controller
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('User');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new User('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['User']))
-		$model->attributes=$_GET['User'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
