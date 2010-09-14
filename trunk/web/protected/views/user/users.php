@@ -1,4 +1,4 @@
-<?php if(isset($_GET['filterBy'])) $filterBy = $_GET['filterBy'] ?>
+<?php $filterBy = isset($_GET['filterBy']) ? $_GET['filterBy'] : 0 ?>
 <?php
 $this->breadcrumbs=array(
 	'Users',
@@ -34,7 +34,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	));
 ?>
 </div>
-<?php if(isset($filterBy)) { ?>
+<?php if($filterBy) { ?>
 <script type='text/javascript'>
 $("#sortBy").val(<?php echo $filterBy ?>);
 </script>
