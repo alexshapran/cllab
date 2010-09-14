@@ -58,14 +58,13 @@ class ConfglossarysettingsController extends Controller
 	public function actionCreate()
 	{
 		$model=new ConfGlossarySettings;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		$model->conf_gen_id = Yii::app()->user->getConfigId();
 		$model->save();
-		
-		self::renderAll();
+
+		$response = array(
+			'form' => $this->renderPartial('/confglossarysettings/_form', array('model'=>$model), true, true));
+
+		echo CJSON::encode($response);
 	}
 
 	/**
@@ -90,22 +89,16 @@ class ConfglossarysettingsController extends Controller
 	 */
 	public function actionDelete()
 	{
+		$response = array('result'=>'fail');
 		if($_GET['id'])
-			Confglossarysettings::model()->findByPk($_GET['id'])->delete();
-		
-		self::renderAll();
+		{
+			$model = Confglossarysettings::model()->findByPk($_GET['id']);
+			if($model->delete())
+				$response = array('result'=>'done', 'id'=>$_GET['id']);
+		}
+		echo CJSON::encode($response);
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('ConfGlossarySettings');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
 
 	/**
 	 * Manages all models.
@@ -130,18 +123,5 @@ class ConfglossarysettingsController extends Controller
 				throw new CHttpException(404,'The requested page does not exist.');
 		}
 		return $this->_model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-glossary-settings-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
 	}
 }

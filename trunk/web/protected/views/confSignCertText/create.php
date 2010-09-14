@@ -11,7 +11,7 @@
 							array('id'=>'addLink'.$oSect->id)); ?>
 </div>
 
-<script>
+<script type='text/javascript'>
 function displayElement(transport)
 {
 	$('#divaddlink' + transport.id).before(transport.form);
