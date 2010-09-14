@@ -73,7 +73,7 @@ class AccountController extends Controller
 			}
 			else
 			{
-				self::createConfig($model->id);
+				$this->createConfig($model->id);
 				$this->renderPartial('_accounts');
 			}
 		}
@@ -98,9 +98,13 @@ class AccountController extends Controller
 		{
 			$model->attributes=$_POST['Account'];
 			if($model->save())
+			{
+				yii::app()->user->setFlash('success','Successfully saved!');
 				$this->redirect(array('user/accounts'));
+			}
 		}
 
+		yii::app()->user->setFlash('error','Not saved!');
 		$this->render('update',array(
 			'model'		=>$model,
 		));

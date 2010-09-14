@@ -137,6 +137,7 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 #confgen_form_left label {
 	width: 130px;
 	float: left;
+	padding-top: 9px;
 }
 
 #confgen_form_right {
