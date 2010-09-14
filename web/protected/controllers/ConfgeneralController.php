@@ -180,14 +180,14 @@ class ConfgeneralController extends Controller
 		$aChildCats = array();
 
 		foreach ($aParentCategories as $oParent)
-		$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
+			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
 
 		$oGenConfig = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
 
 		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory,
 												'aParentCategories'=>$aParentCategories, 
 												'aChildCats'=>$aChildCats,
-												'attExpOrder' => $attExpOrder,
+//												'attExpOrder' => $attExpOrder,
 												'oGenConfig' => $oGenConfig ));
 	}
 
