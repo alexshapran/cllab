@@ -323,4 +323,16 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	float: left;
 	padding: 10px;
 }
-/* CONF GENERAL PROPERTY SETTINGS (CATEGORIES) */
+.confgeneralsect{
+	margin-bottom:10px;
+	}
+
+/* CONF GENERAL PROPERTY SETTINGS (CATEGORIES) */ 
+
+
+/* MANAGE USERS */
+
+.backlink {	margin: 10px 0 10px 0; }
+.backlink A{ text-decoration:none; }
+
+/* MANAGE USERS END */

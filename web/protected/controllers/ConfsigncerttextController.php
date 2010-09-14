@@ -56,8 +56,8 @@ class ConfsigncerttextController extends Controller
 			$model->save();
 
 			$response = array(
-							'form' 	=> $this->renderPartial('/confsigncerttext/_value', array('model'=>$model), true, true),
-							'id'	=> $model->conf_sign_cert_settings_id );
+				'form' 	=> $this->renderPartial('/confsigncerttext/_value', array('model'=>$model), true, true),
+				'id'	=> $model->conf_sign_cert_settings_id );
 			
 			echo CJSON::encode($response);
 		}
