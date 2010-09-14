@@ -65,7 +65,6 @@ class AccountController extends Controller
 		if(isset($_POST['Account']))
 		{
 			$model->attributes=$_POST['Account'];
-			$model->date_created = time();
 			if(!$model->save())
 			{
 				$data = array();
@@ -75,21 +74,13 @@ class AccountController extends Controller
 			else
 			{
 				self::createConfig($model->id);
-				$dataProvider = new CActiveDataProvider('Account');
-				$data['dataProvider'] = $dataProvider;
-				$this->renderPartial('_accounts', $data);
+				$this->renderPartial('_accounts');
 			}
 		}
 		else
 		{
-			$dataProvider = new CActiveDataProvider('Account');
-			$data['dataProvider'] = $dataProvider;
-			$this->renderPartial('_accounts', $data);
+			$this->renderPartial('_accounts');
 		}
-
-/*		$this->render('create',array(
-			'model'=>$model,
-		));*/
 	}
 
 	/**
