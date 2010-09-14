@@ -27,6 +27,7 @@ return array(
 		    'defaultRoles' => array('User'),
 ),
 		'user'=>array(
+			'class'=>'WebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
@@ -135,5 +136,160 @@ return array(
     		'acquistion_source' => 'Acquistion Source',
     		'notes' => 'Notes',
     		'comparables' => 'Comparables'),
+			
+			
+	'fontSize'=>array(
+    					'4'=>4,
+    					'5'=>5,
+    					'6'=>6,
+    					'7'=>7,
+    					'8'=>8,
+    					'9'=>9,
+    					'10'=>10,
+    					'11'=>11,
+    					'12'=>12,
+    					'13'=>13,
+    					'14'=>14,
+    					'15'=>15,
+    					'16'=>16,
+    					'17'=>17,
+    					'18'=>18,
+    					'19'=>19,
+    					'20'=>20,
+    					'21'=>21,
+					    '22'=>22,
+					    '23'=>23,
+					    '24'=>24),
+	
+	'defConfGen'=>array(
+ 'company_name'=> 'Company name',
+ 'phone' => 'Phone',
+ 'email' => 'your@email.com',
+ 'website' => 'www.yourwebsite.com',
+ 'address' => 'Address',
+ 'city' => 'City',
+ 'state' => 'State',
+ 'zip' => 'Zip',
+ 'default_currency' => '$',
+ 'header' => '{client_name}, {city} - Effective Date: {effective_date} "{value_type}" {appraisal_purpose}, {report_type} Appraisal Report Page {page_count_of} ',
+ 'footer' => '{comp_name} : {comp_address}, {comp_city}, {comp_state}, {comp_zip}, {comp_phone}, {comp_email}',
+ 'privacy_policy' => '',
+ 'global_font_type' => 'Arial'
+    ),
+	
+	
+	
+	'defConfFont'=>array(
+'Header'=>array('section'=>'Header',
+    			'size'=>'9',
+    			'bold'=>'0',
+    			'italics'=>'0',
+    			'underline'=>'0'
+    			),
+'Footer'=>array('section'=>'Footer',
+    			'size'=>'9',
+    			'bold'=>'0',
+    			'italics'=>'0',
+    			'underline'=>'0'
+    			),
+'Section Titles'=>array('section'=>'Section Titles',
+    			'size'=>'9',
+    			'bold'=>'0',
+    			'italics'=>'0',
+    			'underline'=>'0'
+    			),
+'Section Headlines'=>array('section'=>'Section Headlines',
+    			'size'=>'14',
+    			'bold'=>'0',
+    			'italics'=>'0',
+    			'underline'=>'0'
+    			),
+'Section Content'=>array('section'=>'Section Content',
+    			'size'=>'12',
+    			'bold'=>'0',
+    			'italics'=>'0',
+    			'underline'=>'0'
+    			),
+    						),
+    			
+    	'defImageSize'=>array(
+
+'Small' => array(	'size'=>'Small',
+    				'max_height'=>'40',
+    				'max_width'=>'40'),
+    						
+'Medium' => array(	'size'=>'Medium',
+    				'max_height'=>'60',
+    				'max_width'=>'60'),
+    						
+'Large' => array(	'size'=>'Large',
+    				'max_height'=>'100',
+    				'max_width'=>'100')
+    						),
+
+		'defScopeOfSettings'=>array(
+
+'Problem to Solve' => array('name'=>'Problem to Solve',
+							'allow_add_more' => '1',
+							'add_has_name' => '1'),
+
+'Intended User' => array(	'name'=>'Intended User',
+							'allow_add_more' => '1',
+							'add_has_name' => '1'),
+    						
+'Approach to Value' => array(	'name'=>'Approach to Value',
+								'allow_add_more' => '1',
+								'add_has_name' => '1'),
+
+'Market Examined' => array(	'name'=>'Market Examined',
+								'allow_add_more' => '1',
+								'add_has_name' => '1'),    						
+    						
+'Type of Appraisal Report' => array('name'=>'Type of Appraisal Report',
+									'allow_add_more' => '0',
+									'add_has_name' => '0'),
+
+'Assignment Conditions' => array('name'=>'Assignment Conditions',
+									'allow_add_more' => '1',
+									'add_has_name' => '0'),
+
+'Extent of Physical Inspection' => array('name'=>'Extent of Physical Inspection',
+									'allow_add_more' => '1',
+									'add_has_name' => '0'),
+
+'Method of Research' => array('name'=>'Method of Research',
+									'allow_add_more' => '0',
+									'add_has_name' => '0'),    						
+
+'Photography' => array('name'=>'Photography',
+									'allow_add_more' => '1',
+									'add_has_name' => '0'),
+
+'USPAP Compilancy' => array('name'=>'USPAP Compilancy',
+									'allow_add_more' => '0',
+									'add_has_name' => '0'),
+    						
+'Assumptions' => array('name'=>'Assumptions',
+									'allow_add_more' => '0',
+									'add_has_name' => '0',
+    								'num_of_def_fields'=>'2'),
+
+'Extraordinary Assumptions' => array('name'=>'Extraordinary Assumptions',
+									'allow_add_more' => '0',
+									'add_has_name' => '0',
+    								'num_of_def_fields'=>'2'),    						
+
+'Hypothetical Conditions' => array('name'=>'Hypothetical Conditions',
+									'allow_add_more' => '0',
+									'add_has_name' => '0',
+    								'num_of_def_fields'=>'2'), 
+    						),
+
+    	'Disclaimer Settings'=>array(	'General Disclaimers & Limiting Conditions', 
+    									'Additional Limiting Conditions', 
+    									'Restricted Use Disclaimer'),
+	),
+	
+	
 	), 
 );
