@@ -149,7 +149,8 @@ class UserController extends Controller
 		$criteria = new CDbCriteria;
 
 		if(isset($_GET['filterBy']))
-			$criteria->condition = 'account_id = ' . $_GET['filterBy'];
+			if($filterBy)
+				$criteria->condition = 'account_id = ' . $_GET['filterBy'];
 
 		$aUsers = new CActiveDataProvider('User', array('criteria'=>$criteria));
 		$this->render('users', array('aUsers' => $aUsers, 'accounts'=>$accounts));
