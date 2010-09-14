@@ -34,7 +34,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	));
 ?>
 </div>
-<?php if($filterBy) { ?>
+<?php if(isset($filterBy)) { ?>
 <script type='text/javascript'>
 $("#sortBy").val(<?php echo $filterBy ?>);
 </script>
