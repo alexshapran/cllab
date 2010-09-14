@@ -169,7 +169,7 @@ class AccountController extends Controller
 		$confGen = new ConfGeneral;
 		$confGen->attributes = Yii::app()->params['defConfGen'];
 		$confGen->account_id = $acc_id;
-		$confGen->attr_exp_order = implode(', ', Yii::app()->params['attributeExportOrder']);
+		$confGen->attr_exp_order = serialize(Yii::app()->params['attributeExportOrder']);	
 		
 		if($confGen->save());
 		{

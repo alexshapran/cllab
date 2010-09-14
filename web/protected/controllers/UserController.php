@@ -148,7 +148,7 @@ class UserController extends Controller
 		$accounts = Account::model()->findAll();
 		$criteria = new CDbCriteria;
 
-		if($_GET['filterBy'])
+		if(isset($_GET['filterBy']))
 			$criteria->condition = 'account_id = ' . $_GET['filterBy'];
 
 		$aUsers = new CActiveDataProvider('User', array('criteria'=>$criteria));
