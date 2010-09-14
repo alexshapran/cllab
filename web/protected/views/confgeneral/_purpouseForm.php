@@ -20,7 +20,9 @@
 	<div style='float:left; margin-left:20px;'>
 		<?php echo CHtml::ajaxSubmitButton("Add new",
                               CController::createUrl('purpose/createAjax'), 
-                              array('update'=>'#allpurposes'));
+                              array( //'update'=>'#allpurposes',
+                              		'success'=>'function(transport) { addPurpose(transport) }'),
+                              array('onclick'=>'busy()'));
 		 ?>
 	</div>
 <?php $this->endWidget(); ?>

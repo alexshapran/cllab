@@ -55,8 +55,6 @@ class ConfgeneralController extends Controller
 		$oUserModel = User::model()->findByPk(Yii::app()->user->getId());
 		$oConfGeneral = $oUserModel->account->confGenerals[0];
 
-		//TODO: HERE MUST BE if(!$model)
-
 		if($oConfGeneral)
 		{
 		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
@@ -71,7 +69,8 @@ class ConfgeneralController extends Controller
 		if(isset($_POST['ConfGeneral']))
 		{
 			$oConfGeneral->attributes=$_POST['ConfGeneral'];
-			$oConfGeneral->save();
+			if($oConfGeneral->save())
+				Yii::app()->user->setFlash('success', 'Saved!');
 		}
 
 		$this->render('update',array(
@@ -107,10 +106,14 @@ class ConfgeneralController extends Controller
 	public function actionFontsandimagessubmit()
 	{
 		// Saving General Font
+		$errors = 0;
+		
 		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
 		if(isset($_POST['ConfGeneral']['global_font_type']))
 			$oConfGeneral->global_font_type = $_POST['ConfGeneral']['global_font_type'];
-		$oConfGeneral->save();
+		
+		if(!$oConfGeneral->save())
+			$errors = 1;
 		// Saving General Font END
 
 		// Saving Fonts Configuration
@@ -119,7 +122,9 @@ class ConfgeneralController extends Controller
 		{
 			if(isset($_POST['ConfFonts'][$oFc->section]))
 				$oFc->attributes = $_POST['ConfFonts'][$oFc->section];
-			$oFc->save();
+			
+			if(!$oFc->save())
+				$errors = 2;
 		}
 		// Saving Fonts Configuration END
 
@@ -130,10 +135,17 @@ class ConfgeneralController extends Controller
 		{
 			if(isset($_POST['ConfImg'][$oImage->size]))
 				$oImage->attributes = $_POST['ConfImg'][$oImage->size];
-			$oImage->save();
+			
+			if(!$oImage->save())
+				$errors = 3;
 		}
 		// Saving Image Configuration END
 
+			if(!$errors)
+				yii::app()->user->setFlash('success','Saved!');
+			else 
+				yii::app()->user->setFlash('error','Not saved!');
+		
 		Yii::app()->controller->redirect(Yii::app()->controller->createUrl('/confgeneral/fontsandimages'));
 	}
 
@@ -146,6 +158,7 @@ class ConfgeneralController extends Controller
 	
 	public function actionSubmitattributeorder() 
 	{
+		$errors = 0;
 		if(isset($_POST['attrOrder']));
 		{
 			$aOrder = explode(',',$_POST['attrOrder']);
@@ -153,18 +166,22 @@ class ConfgeneralController extends Controller
 			$newAttrSorted = array();
 			
 			foreach($aOrder as $key)
-			{
 				$newAttrSorted[$key] = $Attributes[$key];
-			}
 
-		$oConfGen = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
-		if($oConfGen)
-		{
-			$oConfGen->attr_exp_order = serialize($newAttrSorted);
-			$oConfGen->save();
-		}
+			$oConfGen = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
+			if($oConfGen)
+			{
+				$oConfGen->attr_exp_order = serialize($newAttrSorted);
+				if(!$oConfGen->save())
+					$errors = 1;
+			}
  
 		}
+		
+		if(!$errors)
+			Yii::app()->user->setFlash('success', 'Saved!');
+		else
+			Yii::app()->user->setFlash('error', 'Not saved!');
 	}
 	
 	/** Provides anybody to config Property Settings
@@ -266,19 +283,5 @@ class ConfgeneralController extends Controller
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 */
-//	public function loadModel()
-//	{
-//		if($this->_model===null)
-//		{
-//			if(isset($_GET['id']))
-//			$this->_model=ConfGeneral::model()->findbyPk($_GET['id']);
-//			if($this->_model===null)
-//			throw new CHttpException(404,'The requested page does not exist.');
-//		}
-//		return $this->_model;
-//	}
+
 }

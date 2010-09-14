@@ -121,5 +121,11 @@ function displayEdit(id)
 			</div>
 		</div>
 	<div class="clear" ></div>
-
 </div><!-- form -->
+<script type='text/javascript'>
+function addPurpose(transport)
+{
+	$('#allpurposes').html(transport);
+	unbusy();
+}
+</script>

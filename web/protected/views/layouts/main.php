@@ -20,7 +20,7 @@
 </head>
 
 <body>
-
+<div id='greybox'></div>
 <div class="container" id="page">
 
 	<div id="header">
@@ -38,16 +38,18 @@
 			),
 		)); ?>
 	</div><!-- mainmenu -->
+
 			<?php if(Yii::app()->user->hasFlash('success')): ?>
-			    <div class="success">
+			    <div class="flash-success">
 			        <?php echo Yii::app()->user->getFlash('success'); ?>
 			    </div>
 			<?php endif; ?>
 			<?php if(Yii::app()->user->hasFlash('error')): ?>
-			    <div class="error">
+			    <div class="flash-error">
 			        <?php echo Yii::app()->user->getFlash('error'); ?>
 			    </div>
 			<?php endif; ?>
+		
 	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 		'links'=>$this->breadcrumbs,
 	)); ?><!-- breadcrumbs -->
@@ -61,6 +63,16 @@
 	</div><!-- footer -->
 
 </div><!-- page -->
+<script type='text/javascript'>
+function busy()
+{
+	$("#greybox").fadeIn(400);
+}
 
+function unbusy()
+{
+	$("#greybox").fadeOut(400);
+}
+</script>
 </body>
 </html>
