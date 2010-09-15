@@ -12,7 +12,9 @@ $this->menu=array(
 	array('label'=>'Manage Appraisal', 'url'=>array('admin')),
 );
 ?>
-<?php echo CHtml::link('Property', Yii::app()->controller->createUrl('/appraisal/property/' . $model->alias))?>
+
+<?php echo CHtml::link('Property', Controller::createUrl('/appraisal/property/' .  $model->id))?>
+
 <h1>Update Appraisal <?php echo $model->name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array( 'model'=>$model, 

@@ -9,6 +9,8 @@ $this->menu=array(
 	array('label'=>'Create Appraisal', 'url'=>array('create')),
 );
 
+echo CHtml::link('Create New Appraisal', '/appraisal/edit');
+
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -22,7 +24,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -39,7 +40,7 @@ $('.search-form form').submit(function(){
 			'buttons'=>array(
            		'edit'=>array(
 	                'label'=>'edit',
-					'url'=>'Yii::app()->controller->createUrl("appraisal/edit", array("id"=>$data->id))',
+					'url'=>'Yii::app()->controller->createUrl("appraisal/edit", array("id"=>($data->alias) ? $data->alias : $data->id))',
       			),
       			'delete'=>array(
 	                'label'=>'delete',

@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Basic Report Parameters'=>array('index'),
+	'Objects'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List BasicReportParameters', 'url'=>array('index')),
-	array('label'=>'Create BasicReportParameters', 'url'=>array('create')),
+	array('label'=>'List Object', 'url'=>array('index')),
+	array('label'=>'Create Object', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('basic-report-parameters-grid', {
+	$.fn.yiiGridView.update('object-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Basic Report Parameters</h1>
+<h1>Manage Objects</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -38,29 +38,37 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'basic-report-parameters-grid',
+	'id'=>'object-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
 		'appraisal_id',
-		'date_created',
-		'client_name',
-		'city',
-		'year',
+		'category_id',
+		'sub_category_id',
+		'location',
+		'location1',
 		/*
-		'purposes_id',
-		'types_of_value_id',
-		'types_of_report_id',
-		'primary_img_size_id',
-		'sec_img_size_id',
-		'currency_symbol',
-		'eximmination_dates',
-		'research_dates_from',
-		'reseach_dates_to',
-		'effective_valuation_date',
-		'issue_date_report',
-		'order_report_section',
+		'location2',
+		'client_ret',
+		'value',
+		'value2',
+		'description',
+		'provenance',
+		'exhibited',
+		'literature',
+		'title',
+		'maker_artist',
+		'dimensions',
+		'medium',
+		'date_period',
+		'markings',
+		'condition',
+		'acquistion_cost',
+		'acqusition_date',
+		'acqusition_source',
+		'is_active',
+		'notes',
 		*/
 		array(
 			'class'=>'CButtonColumn',
