@@ -23,9 +23,11 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<h1>Manage Objects</h1>
+
 <?php echo CHtml::button('Add New Object', array('onClick'=>'', 'class'=>'floatleft'))?>
 
-<?php echo CHtml::form(Yii::app()->createUrl('/appraisal/property'), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
+<?php echo CHtml::form(Yii::app()->createUrl('/object/property'), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
 	<?php echo CHtml::dropDownList(
 		'f',
 		'', 
@@ -46,26 +48,16 @@ $('.search-form form').submit(function(){
 <div class="clear"></div>
 <br />
 <?php  //var_dump(Yii::app()->getRequest()->requestUri);die;?>
-<span class=''>Order By:</span>&nbsp;
 <?php echo CHtml::dropDownList(
 	'orderBy',
 	'', 
 	array('all'=>'Search All Fields', 'id'=>'ID','cat_location'=>'Category, Location','loc_category'=>'Location, Category'), 
 	array(	
-		'class'=>'',
 		'onchange'=>
-			'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property', array_merge($_GET, array('orderBy'=>''))) . '"+$("#orderBy").attr("value"))', 
+			'location.replace("'.Yii::app()->controller->createUrl(	'object/property', array_merge($_GET, array('orderBy'=>''))) . '"+$("#orderBy").attr("value"))', 
 		)
 )?>
-&nbsp;&nbsp;
-<?php echo CHtml::button(
-	'Apply Export Order',  
-	array('onClick'=>'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property', array_merge($_GET, array('exp'=>'order'))) . '")'))?>
 
-&nbsp;&nbsp;
-<?php echo CHtml::link('Configure Order Settings', '/confgeneral')?>
-
-<?php echo CHtml::button('Renumber', array('onClick'=>'', 'class'=>''))?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'object-grid',
@@ -91,7 +83,7 @@ $('.search-form form').submit(function(){
 	Yii::app()->params['itemsPerPage'], 
 	array(	
 		'onchange'=>
-			'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property', array_merge($_GET, array('pager'=>''))) . '"+$("#pager").attr("value"))', 
+			'location.replace("'.Yii::app()->controller->createUrl(	'object/property', array_merge($_GET, array('pager'=>''))) . '"+$("#pager").attr("value"))', 
 		)
 	)?>
 	
@@ -99,10 +91,6 @@ $('.search-form form').submit(function(){
 
 	<?php if(isset($_GET['orderBy'])) { ?>
 		$("#orderBy").val(<?php echo "'". $_GET['orderBy'] . "'" ?>);
-	<?php } ?>
-
-	<?php if(isset($_GET['pager'])) { ?>
-		$("#pager").val(<?php echo "'". $_GET['pager'] . "'" ?>);
 	<?php } ?>
 
 	<?php if(isset($_GET['f'])) { ?>
@@ -135,5 +123,4 @@ $('.search-form form').submit(function(){
 			$("#search_form").submit();
 		}
 	}
-	
 </script>
