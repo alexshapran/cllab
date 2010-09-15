@@ -1,0 +1,19 @@
+<?php
+echo CHtml::beginForm(Yii::app()->controller->createUrl('/confsigncerttext/submit'));
+
+if($aSignCertSetts)
+foreach($aSignCertSetts as $oSect)
+{ ?>
+<div id='section<?php echo $oSect->id ?>' style='border: 1px dotted grey; min-width: 100%; padding: 10px;'>
+<?php $this->renderPartial('/confsigncerttext/create', array('oSect'=>$oSect)); ?>
+</div>
+<?php } ?>
+
+<div style='width:38px; margin: 20px auto;'>
+<?php echo CHtml::ajaxSubmitButton(
+				'Save', 
+				Yii::app()->controller->createUrl('/confsigncerttext/submit'),
+				array(),
+				array('id' => 'submittext')); ?>
+</div>
+<?php echo CHtml::endForm(); ?>
