@@ -110,6 +110,13 @@ class Appraisal extends CActiveRecord
 		));
 	}
 	
+	
+	
+	public function beforeSave() {
+		$this->alias = Controller::createAlias($this->name);
+		return parent::beforeSave();
+	}
+	
 	/**
 	 * @return model BasicReportParameters
 	 */
@@ -119,4 +126,14 @@ class Appraisal extends CActiveRecord
 		}
 		return $model;
 	}
+	
+	public function findByAlias($alias) {
+		return Appraisal::model()->findByAttributes(array('alias'=>$alias));
+	}
+	
+	public function saveExportOrder($aObjects) {
+		
+		return true;
+	}
+	
 }

@@ -33,6 +33,7 @@
  */
 class Object extends CActiveRecord
 {
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Object the static model class
@@ -61,7 +62,7 @@ class Object extends CActiveRecord
 			array('appraisal_id, category_id, sub_category_id', 'required'),
 			array('appraisal_id, category_id, sub_category_id, is_active', 'numerical', 'integerOnly'=>true),
 			array('client_ret, value, value2', 'length', 'max'=>45),
-			array('title, maker_artist, dimensions, medium, date_period, markings, condition, acquistion_cost, acqusition_source', 'length', 'max'=>255),
+			array('title, maker_artist, dimensions, medium, date_period, markings, condition, acqusition_cost, acqusition_source', 'length', 'max'=>255),
 			array('location, location1, location2, description, provenance, exhibited, literature, acqusition_date, notes', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -78,7 +79,7 @@ class Object extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'appraisal' => array(self::BELONGS_TO, 'Appraisal', 'appraisal_id'),
-			'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+			'category' => array(self::BELONGS_TO, 'ConfCategory', 'category_id', 'alias'=>'_category'),
 			'subCategory' => array(self::BELONGS_TO, 'Category', 'sub_category_id'),
 			'objectImages' => array(self::HAS_MANY, 'ObjectImages', 'object_id'),
 		);
@@ -185,5 +186,18 @@ class Object extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * @return array
+	 */
+	static public function getSearchField() {
+		$aField = Yii::app()->params['attributeExportOrder'];
+		$arr = array('all'=>'Search All field', 'id'=>'Search ID');
+		foreach($aField as $k => $v) {
+			$arr["$k"] = "Search " . $v;	
+		}
+		unset($arr['comparables']);
+		return $arr;
 	}
 }
