@@ -33,7 +33,7 @@ class AppraisalController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view'),
+				'actions'=>array('index', 'view', 'property'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -66,13 +66,14 @@ class AppraisalController extends Controller
 //	 */
 	public function actionEdit()
 	{
-		$model=$this->loadModel();
+		$model = $this->loadModel();
 		$oBasicParams = $model->getBasicParamsModel();
 		
 		if(isset($_POST['Appraisal']) && isset($_POST['BasicReportParameters']))
 		{
 			$model->attributes = $_POST['Appraisal'];
-
+			$model->date_created = Controller::convertDateFormat($model->date_created);
+			
 			$oBasicParams->attributes = $_POST['BasicReportParameters'];
 			
 			if($model->validate() && $oBasicParams->validate()){
@@ -81,7 +82,7 @@ class AppraisalController extends Controller
 				
 				$model->basic_report_parameters_id = $oBasicParams->id;
 				if($model->save())
-					$this->redirect('/appraisal');	
+					$this->redirect('/appraisal/' . $model->alias);	
 			}
 		}
 		
@@ -112,6 +113,48 @@ class AppraisalController extends Controller
 			'aReportSections'=>$aReportSections,
 		));
 	}
+	
+	public function actionProperty()
+	{
+		$model = $this->loadModel();
+		
+		$condition = '_object.appraisal_id = ' . $model->id;
+		$order = '_object.id';
+		$pager = 10;
+		
+		if(isset($_GET['pager']))
+			$pager = $_GET['pager'];
+				
+		if(isset($_GET['orderBy']))
+			$order = $this->setOrder();
+		
+		if(isset($_GET['f']) && isset($_GET['s']))
+			$condition .= $this->createSearchCondition();
+		
+
+		$aObjects = new CActiveDataProvider('Object', 
+			array('criteria'=>array(
+					'alias'=>'_object',
+					'condition'=>$condition,
+          			'order'=>$order,
+          			'with'=>array('category'),
+      		),
+      			'pagination'=>array(
+          			'pageSize'=>$pager,
+      		),
+      	));
+      	
+      	if(isset($_GET['exp']) && $_GET['exp'] == 'order') {
+      		$this->saveExportOrder($aObjects);
+      		yii::app()->user->setFlash('success','Export Order was successfully saved!');
+      		$this->redirect('/appraisal/property/' . $model->alias ? $model->alias : $model->id);
+      	}	
+      	
+		$this->render('property',array(
+			'aObjects'=>$aObjects,
+			'oAppraisal'=>$model
+		));
+	}
 
 	/**
 	 * Updates a particular model.
@@ -139,26 +182,6 @@ die;
 		));
 	}
 	
-//	public function actionEdit()
-//	{
-//		$model=$this->loadModel();
-//		$aClient = Client::model()->findAll();
-//		// Uncomment the following line if AJAX validation is needed
-//		// $this->performAjaxValidation($model);
-//
-//		if(isset($_POST['Appraisal']))
-//		{
-//			$model->attributes=$_POST['Appraisal'];
-//			if($model->save())
-//				$this->redirect(array('view','id'=>$model->id));
-//		}
-//var_dump($aClient);
-//die;
-//		$this->render('update',array(
-//			'model'=>$model,
-//			'aClient'=>$aClient,
-//		));
-//	}
 
 	/**
 	 * Deletes a particular model.
@@ -217,10 +240,12 @@ die;
 	{
 		if($this->_model===null)
 		{
-			if(isset($_GET['id']))
-				$this->_model=Appraisal::model()->findbyPk($_GET['id']);
+			if(isset($_GET['id']))				
+				$this->_model = Appraisal::model()->findByAlias($_GET['id']);
+			if(!$this->_model && isset($_GET['id']))
+				$this->_model=Appraisal::model()->findByPk($_GET['id']);
 			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
+				$this->_model = new Appraisal;
 		}
 		return $this->_model;
 	}
@@ -237,4 +262,74 @@ die;
 			Yii::app()->end();
 		}
 	}
+	
+/*
+     *  Delete unnecessary sumbols
+     *  @param string from Search Form
+     *  @return array
+     */
+    protected function prepareKeyword($str) { 
+        $str = strip_tags($str);
+        $str = preg_replace('#([a-zа-я0-9\.]+)#isu', '%$1%', $str);
+//    	preg_match_all("/\w+/", $str, $arr);
+//    	$arr = array_splice($arr[0], 0, 4); // no more than five words
+        
+    	return $str;
+    }
+    
+    protected function makeSqlPart($field, $sKeyword) {
+    	$condition = '`_object`.`' . $field . "` LIKE '" . $sKeyword . "' OR ";
+//    	foreach($aKeyword as $word) {
+//			$condition .= '`_object`.`' . $field . '` LIKE %' . $word . '% OR ';	
+//		}
+		return $condition;
+    }
+    
+    protected function setOrder() {
+    	switch($_GET['orderBy']) {
+			case 'id':
+				$order = '`_object`.`id`';
+				break;
+			case 'cat_location' :
+				$order = '`_category`.`name` ASC';
+				break;
+			case 'loc_category' :
+				$order = '`_category`.`name` ASC';
+				break;
+			default: $order = '';
+		}
+		return $order;	
+    }
+    
+	/**
+	 *  create search condition 
+	 */
+	protected function createSearchCondition() {
+		$sKeyword = $this->prepareKeyword($_GET['s']);
+		$condition = '';
+		$aFields = Object::getSearchField();
+		
+		// create condition
+		if($_GET['f'] == 'all') {
+			unset($aFields['all']);
+			foreach($aFields as $key => $value) {
+				$condition .= $this->makeSqlPart($key, $sKeyword);
+			}
+		} elseif(array_key_exists($_GET['f'], $aFields)) { // check is get value is correct
+			$condition = $this->makeSqlPart($_GET['f'], $sKeyword);
+		}
+		$condition = substr($condition, 0, -3);			
+		return $condition;
+	}
+	
+	public function saveExportOrder($dataProvider) {
+		$aObjects = $dataProvider->getData();
+		foreach($aObjects as $i => $oObject) {
+			$oObject->export_order = $i+1;
+			$oObject->save(false);
+		}
+		return true;
+	}
+	
+	
 }
