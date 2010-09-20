@@ -37,8 +37,7 @@ class ReportMarketAnalysis extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('appraisal_id', 'required'),
-			array('appraisal_id, is_active', 'numerical', 'integerOnly'=>true),
+			array('is_active', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('text', 'safe'),
 			// The following rule is used by search().
@@ -66,10 +65,9 @@ class ReportMarketAnalysis extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'appraisal_id' => 'Appraisal',
 			'is_active' => 'Is Active',
 			'text' => 'Text',
-			'title' => 'Title',
+			'title' => 'Section Title',
 		);
 	}
 

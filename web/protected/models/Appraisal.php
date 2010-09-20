@@ -56,10 +56,10 @@ class Appraisal extends CActiveRecord
 			'client' => array(self::BELONGS_TO, 'Client', 'client_id'),
 			'basicReportParameters' => array(self::BELONGS_TO, 'BasicReportParameters', 'basic_report_parameters_id'),
 			'objects' => array(self::HAS_MANY, 'Object', 'appraisal_id'),
-			'reportBiohistContexts' => array(self::HAS_MANY, 'ReportBiohistContext', 'appraisal_id'),
-			'reportCoverLetters' => array(self::HAS_MANY, 'ReportCoverLetter', 'appraisal_id'),
+			'reportBiohistContext' => array(self::BELONGS_TO, 'ReportBiohistContext', 'report_biohist_context_id'),
+			'reportCoverLetter' => array(self::BELONGS_TO, 'ReportCoverLetter', 'report_cover_letter_id'),
 			'reportDisclaimers' => array(self::HAS_MANY, 'ReportDisclaimers', 'appraisal_id'),
-			'reportMarketAnalysises' => array(self::HAS_MANY, 'ReportMarketAnalysis', 'appraisal_id'),
+			'reportMarketanalysis' => array(self::BELONGS_TO, 'ReportMarketAnalysis', 'report_market_analysis_id'),
 			'reportResumes' => array(self::HAS_MANY, 'ReportResume', 'appraisal_id'),
 			'reportScopeWorks' => array(self::HAS_MANY, 'ReportScopeWork', 'appraisal_id'),
 			'reportSignedCerts' => array(self::HAS_MANY, 'ReportSignedCert', 'appraisal_id'),
@@ -144,6 +144,60 @@ class Appraisal extends CActiveRecord
 		if($model===null)
 			$model = new Appraisal;
 		return $model;
+	}
+	
+	public function createCoverLetter(){
+		if(!$this->reportCoverLetter) {
+			// create new model
+			$obj = new ReportCoverLetter;
+			$obj->is_active = 1;
+			$obj->save(false);
+			// save id 
+			$this->report_cover_letter_id = $obj->id;
+			$this->save(false);
+			
+			return $obj;
+		}
+		else
+			return $this->reportCoverLetter;
+	}
+	
+	public function createBiohistContext(){
+		if(!$this->reportBiohistContext) {
+			// create new model
+			$obj = new ReportBiohistContext;
+			$obj->is_active = 1;
+			$obj->save(false);
+			// save id 
+			$this->report_biohist_context_id = $obj->id;
+			$this->save(false);
+			
+			return $obj;
+		}
+		else
+			return $this->reportBiohistContext;
+	}
+	
+	public function createMarketAnalysis(){
+		if(!$this->reportMarketanalysis) {
+			// create new model
+			$obj = new ReportMarketAnalysis;
+			$obj->is_active = 1;
+			$obj->save(false);
+			// save id 
+			$this->report_market_analysis_id = $obj->id;
+			$this->save(false);
+			
+			return $obj;
+		}
+		else
+			return $this->reportMarketanalysis;
+	}
+	
+	
+	
+	public static function createNewLink(){
+		return CHtml::link('Create New Appraisal', Yii::app()->createUrl('/appraisal/'));
 	}
 	
 }

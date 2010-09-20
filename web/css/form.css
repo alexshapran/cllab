@@ -367,5 +367,32 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 .tinymce SPAN, TEXTAREA{
 	width: 410px;
 }
+/* Object end */
 
+/* Appraisal report */
+.appraisal-report{
+	width: 800px;
+	position: relative;
+}
+
+.appraisal-report DIV.row {
+	padding: 5px;
+}
+
+.appraisal-report LABEL {
+	float: left;
+	width: 100px;
+}
+
+.appraisal-report INPUT {
+	width: 220px;
+}
+
+.tinymce {
+	width: 610px;
+	padding: 10px 0;
+}
+.tinymce SPAN, TEXTAREA{
+	width: 410px;
+}
 /* Object end */
