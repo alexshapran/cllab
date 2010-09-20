@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 <?php echo CHtml::button(
 	'Add New Object', 
 	array(
-		'onClick'=>'location.replace("/object/edit/'. ($oAppraisal->alias ? $oAppraisal->alias : $oAppraisal->id) . '")', 
+		'onClick'=>'location.replace("/object/create/'. ($oAppraisal->alias ? $oAppraisal->alias : $oAppraisal->id) . '")', 
 		'class'=>'floatleft'))?>
 
 <?php echo CHtml::form(Yii::app()->createUrl('/appraisal/property'), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
@@ -83,6 +83,17 @@ $('.search-form form').submit(function(){
 		'title',
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{edit} | {delete}',
+			'buttons'=>array(
+           		'edit'=>array(
+	                'label'=>'edit',
+					'url'=>'Yii::app()->createUrl("object/create", array_merge($_GET, array("object"=>$data->id)))',
+      			),
+      			'delete'=>array(
+	                'label'=>'delete',
+      				'imageUrl'=>'',    
+      			),
+      		),
 		),
 	),
 )); ?>

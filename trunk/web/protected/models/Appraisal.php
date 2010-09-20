@@ -136,4 +136,14 @@ class Appraisal extends CActiveRecord
 		return true;
 	}
 	
+	public static function getModel() {
+		if(isset($_GET['id']))				
+			$model = Appraisal::model()->findByAlias($_GET['id']);
+		if(!$model && isset($_GET['id']))
+			$model = Appraisal::model()->findByPk($_GET['id']);
+		if($model===null)
+			$model = new Appraisal;
+		return $model;
+	}
+	
 }

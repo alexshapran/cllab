@@ -85,8 +85,8 @@
 	<?php echo CHtml::encode($data->condition); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('acquistion_cost')); ?>:</b>
-	<?php echo CHtml::encode($data->acquistion_cost); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('acqusition_cost')); ?>:</b>
+	<?php echo CHtml::encode($data->acqusition_cost); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('acqusition_date')); ?>:</b>
@@ -103,6 +103,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('notes')); ?>:</b>
 	<?php echo CHtml::encode($data->notes); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('export_order')); ?>:</b>
+	<?php echo CHtml::encode($data->export_order); ?>
 	<br />
 
 	*/ ?>
