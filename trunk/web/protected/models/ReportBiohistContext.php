@@ -37,13 +37,12 @@ class ReportBiohistContext extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('appraisal_id', 'required'),
-			array('is_active, appraisal_id', 'numerical', 'integerOnly'=>true),
+			array('is_active', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, is_active, text, title, appraisal_id', 'safe', 'on'=>'search'),
+			array('id, is_active, text, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,7 +67,7 @@ class ReportBiohistContext extends CActiveRecord
 			'id' => 'ID',
 			'is_active' => 'Is Active',
 			'text' => 'Text',
-			'title' => 'Title',
+			'title' => 'Section Title',
 			'appraisal_id' => 'Appraisal',
 		);
 	}

@@ -3,6 +3,10 @@
 class AppraisalController extends Controller
 {
 	/**
+	 * TODO Check all relations (on delete on update)
+	 */
+	
+	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */

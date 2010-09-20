@@ -36,8 +36,7 @@ class ReportCoverLetter extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('appraisal_id', 'required'),
-			array('appraisal_id, is_active', 'numerical', 'integerOnly'=>true),
+			array('is_active', 'numerical', 'integerOnly'=>true),
 			array('text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -65,7 +64,7 @@ class ReportCoverLetter extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'appraisal_id' => 'Appraisal',
-			'is_active' => 'Is Active',
+			'is_active' => 'Active',
 			'text' => 'Text',
 		);
 	}
