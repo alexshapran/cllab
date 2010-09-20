@@ -115,8 +115,9 @@ class Object extends CActiveRecord
 			'acquistion_cost' => 'Acquistion Cost',
 			'acqusition_date' => 'Acqusition Date',
 			'acqusition_source' => 'Acqusition Source',
-			'is_active' => 'Is Active',
+			'is_active' => 'Publish',
 			'notes' => 'Notes',
+			'insert_page_break'=>'Insert Page Break'
 		);
 	}
 
@@ -199,5 +200,22 @@ class Object extends CActiveRecord
 		}
 		unset($arr['comparables']);
 		return $arr;
+	}
+	
+	public function getNextLink() {
+		$criteria = new CDbCriteria;
+		$criteria->limit = 1;
+		$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id > ' . $this->id;
+		$obj = Object::model()->find($criteria);
+		return $obj;
+	}
+	
+	public function getPrevLink() {
+		$criteria = new CDbCriteria;
+		$criteria->limit = 1;
+		$criteria->order = 'id DESC';
+		$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id < ' . $this->id;
+		$obj = Object::model()->find($criteria);
+		return $obj;	
 	}
 }

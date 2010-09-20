@@ -337,3 +337,35 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 .backlink A{ text-decoration:none; }
 
 /* MANAGE USERS END */
+
+/* Object */
+.object_form {
+	width: 800px;
+	position: relative;
+}
+
+.object_form DIV.row {
+	padding: 5px;
+}
+
+.object_form LABEL {
+	float: left;
+	width: 180px;
+}
+
+.object_form INPUT {
+	width: 220px;
+}
+
+.object_form SELECT {
+	width: 220px;
+}
+.tinymce {
+	width: 410px;
+	padding: 10px 0;
+}
+.tinymce SPAN, TEXTAREA{
+	width: 410px;
+}
+
+/* Object end */

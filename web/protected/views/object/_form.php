@@ -1,4 +1,4 @@
-<div class="form">
+<div class="object_form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'object-form',
@@ -8,40 +8,45 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'appraisal_id'); ?>
-		<?php echo $form->textField($model,'appraisal_id'); ?>
-		<?php echo $form->error($model,'appraisal_id'); ?>
-	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'category_id'); ?>
-		<?php echo $form->textField($model,'category_id'); ?>
+		<?php echo $form->dropDownList( $model,
+										'category_id', 
+										CHtml::listData(ConfCategory::getParentCategories(), 'id','name'),
+										array(
+											'prompt'=>'-Select-',
+											'onChange'=>'loadSubCatefory($("#Object_category_id").attr("value"));'
+										)); ?>
 		<?php echo $form->error($model,'category_id'); ?>
 	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'sub_category_id'); ?>
-		<?php echo $form->textField($model,'sub_category_id'); ?>
+		<?php echo $form->dropDownList( $model,
+										'sub_category_id', 
+										array(),
+										array(
+											'prompt'=>'-Select-',
+										)); ?>
 		<?php echo $form->error($model,'sub_category_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textArea($model,'location',array('rows'=>6, 'cols'=>50)); ?>
+		???<?php //echo $form->textArea($model,'location',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'location'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'location1'); ?>
-		<?php echo $form->textArea($model,'location1',array('rows'=>6, 'cols'=>50)); ?>
+		???<?php //echo $form->textArea($model,'location1',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'location1'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'location2'); ?>
-		<?php echo $form->textArea($model,'location2',array('rows'=>6, 'cols'=>50)); ?>
+		???<?php // echo $form->textArea($model,'location2',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'location2'); ?>
 	</div>
 
@@ -63,28 +68,56 @@
 		<?php echo $form->error($model,'value2'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+
+
+	<div class="tinymce">
+		<?php echo $form->labelEx($model,'description'); ?><br />
+		<?php $this->widget('application.extensions.tinymce.ETinyMce', 
+			array(
+				'model'=>$model, 
+				'attribute'=>'description',
+				/*'editorTemplate'=>'full',**/
+				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'provenance'); ?>
-		<?php echo $form->textArea($model,'provenance',array('rows'=>6, 'cols'=>50)); ?>
+	
+	<div class="tinymce">
+		<?php echo $form->labelEx($model,'provenance'); ?><br />
+		<?php $this->widget('application.extensions.tinymce.ETinyMce', 
+			array(
+				'model'=>$model, 
+				'attribute'=>'provenance',
+				/*'editorTemplate'=>'full',**/
+				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'provenance'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'exhibited'); ?>
-		<?php echo $form->textArea($model,'exhibited',array('rows'=>6, 'cols'=>50)); ?>
+	
+	<div class="tinymce">
+		<?php echo $form->labelEx($model,'exhibited'); ?><br />
+		<?php $this->widget('application.extensions.tinymce.ETinyMce', 
+			array(
+				'model'=>$model, 
+				'attribute'=>'exhibited',
+				/*'editorTemplate'=>'full',**/
+				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'exhibited'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'literature'); ?>
-		<?php echo $form->textArea($model,'literature',array('rows'=>6, 'cols'=>50)); ?>
+	
+	<div class="tinymce">
+		<?php echo $form->labelEx($model,'literature'); ?><br />
+		<?php $this->widget('application.extensions.tinymce.ETinyMce', 
+			array(
+				'model'=>$model, 
+				'attribute'=>'literature',
+				/*'editorTemplate'=>'full',**/
+				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'literature'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'insert_page_break'); ?>
+		<?php echo $form->checkBox($model, 'insert_page_break'); ?>
+		<?php echo $form->error($model,'insert_page_break'); ?>
 	</div>
 
 	<div class="row">
@@ -130,9 +163,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'acquistion_cost'); ?>
-		<?php echo $form->textField($model,'acquistion_cost',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'acquistion_cost'); ?>
+		<?php echo $form->labelEx($model,'acqusition_cost'); ?>
+		<?php echo $form->textField($model,'acqusition_cost',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'acqusition_cost'); ?>
 	</div>
 
 	<div class="row">
@@ -149,20 +182,58 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_active'); ?>
-		<?php echo $form->textField($model,'is_active'); ?>
+		<?php echo $form->checkBox($model, 'is_active'); ?>
 		<?php echo $form->error($model,'is_active'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'notes'); ?>
-		<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
+	<div class="tinymce">
+		<?php echo $form->labelEx($model,'notes'); ?><br />
+		<?php $this->widget('application.extensions.tinymce.ETinyMce', 
+			array(
+				'model'=>$model, 
+				'attribute'=>'notes',
+				/*'editorTemplate'=>'full',**/
+				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
-
+	
+	<div class="row">
+		IMAGES !!!!!!!!!!!!!1 TODO
+	</div>
+	
+	<?php echo CHtml::hiddenField('save_location', '', array('id'=>'save_location'))?>
+	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Save'); ?>
+		<?php echo CHtml::submitButton('Save & Add More', array('onCLick'=>'$("#save_location").val("new")')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+		<?php if($model->category_id) { ?>
+			$("#Object_category_id").change();
+		<?php } ?>
+	});
+
+	function loadSubCatefory(catId) {
+		$.ajax({
+		  url: '<?php echo Yii::app()->controller->createUrl('getChildrenCategory') ?>',
+		  data: 'categoryId='+catId,
+		  type: 'post',
+		  dataType: 'json',
+		  success: function(transport) {
+			  $("#Object_sub_category_id").html("");
+			  $("#Object_sub_category_id").html(transport.html);
+			  <?php if($model->sub_category_id) { ?>
+				  $("#Object_sub_category_id").val(<?php echo $model->sub_category_id ?>);
+			  <?php } ?>
+		  }
+		});
+	}
+	
+</script>

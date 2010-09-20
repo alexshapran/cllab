@@ -111,8 +111,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'acquistion_cost'); ?>
-		<?php echo $form->textField($model,'acquistion_cost',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'acqusition_cost'); ?>
+		<?php echo $form->textField($model,'acqusition_cost',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -133,6 +133,11 @@
 	<div class="row">
 		<?php echo $form->label($model,'notes'); ?>
 		<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'export_order'); ?>
+		<?php echo $form->textField($model,'export_order'); ?>
 	</div>
 
 	<div class="row buttons">

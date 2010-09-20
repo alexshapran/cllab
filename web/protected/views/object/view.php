@@ -39,10 +39,11 @@ $this->menu=array(
 		'date_period',
 		'markings',
 		'condition',
-		'acquistion_cost',
+		'acqusition_cost',
 		'acqusition_date',
 		'acqusition_source',
 		'is_active',
 		'notes',
+		'export_order',
 	),
 )); ?>
