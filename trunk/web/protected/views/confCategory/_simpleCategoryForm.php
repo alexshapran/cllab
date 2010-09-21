@@ -17,10 +17,8 @@
 	<?php } ?>
 
 	<div class="row" style='margin-left:10px;'>
-		<?php // ajaxSubmit renderPartial не перегружает почему-то, поэтому используем обычный jQuery ?>
-		<?php // echo CHtml::ajaxSubmitButton('Save', yii::app()->controller->createUrl("/confcategory/ajaxsave"), array('update'=>'#allcategories'), array('id'=>'saveButton'.$model->id, 'name'=>'saveButton'.$model->id)); ?>
-		<?php echo CHtml::submitButton('Save', array('onClick' => 'jQuery.ajax({"type":"POST","url":"/index.php?r=confcategory/ajaxsave","cache":false,"data":jQuery(this).parents("form").serialize(), "success":function(html){jQuery("#allcategories").html(html)}}); return false; ')) ?>
-		<?php echo CHtml::button('Cancel', array('onClick' => '')); ?>
+		<?php  echo CHtml::ajaxSubmitButton('Save', yii::app()->controller->createUrl("/confcategory/ajaxsave"), array('update'=>'#allcategories'), array('id'=>'saveButton'.$model->id, 'name'=>'saveButton'.$model->id)); ?>
+		<?php echo CHtml::button('Cancel', array('onClick' => '; changeView('.$model->id.')')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 <div class='clear'></div>

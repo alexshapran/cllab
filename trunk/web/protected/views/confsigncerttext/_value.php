@@ -5,7 +5,7 @@
 
 <?php //								'success': function(html){jQuery(\"#section".$model->conf_sign_cert_settings_id."\").html(html)}});return false;", ?>
 <?php echo CHtml::button('Delete', 
-		array(	'onclick' => "jQuery.ajax({
+		array(	'onclick' => " busy(); jQuery.ajax({
 								'url':'".Yii::app()->controller->createUrl('confsigncerttext/deleteajax', array('textId'=>$model->id))."',
 								'cache':false,
 								'success':function(){ hide(".$model->id.")} })",

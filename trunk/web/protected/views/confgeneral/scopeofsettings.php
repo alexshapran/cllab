@@ -21,7 +21,9 @@ if($aScopeOfSettings)
 <div style='width:30%; margin: 30px auto;'>
 <?php echo CHtml::ajaxSubmitButton(
 				'Save', 
-				Yii::app()->controller->createUrl('/confscopeofsettings/submit')); ?>
+				Yii::app()->controller->createUrl('/confscopeofsettings/submit'),
+				array('success'=>'unbusy'),
+				array('onclick'=>'busy()')); ?>
 </div>
 <?php 
 echo CHtml::endForm(); ?>

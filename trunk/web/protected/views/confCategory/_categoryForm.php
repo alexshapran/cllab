@@ -20,7 +20,19 @@
 	</div>
 
 	<div class="row buttons" style='margin:18px 0 0 30px;'>
-		<?php echo CHtml::ajaxSubmitButton('Add new', yii::app()->controller->createUrl("confcategory/ajaxcreate"), array('update'=>'#allcategories'), array('id'=>'simpleFormSubmit')); ?>
+		<?php echo CHtml::ajaxSubmitButton(
+							'Add new', 
+							yii::app()->controller->createUrl("confcategory/ajaxcreate"), 
+							array('success'=>'function(transport){ floodDiv(transport) }'), 
+							array(	'id'=>'simpleFormSubmit',
+									'onclick'=>'busy()')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<script type='text/javascript'>
+function floodDiv(transport)
+{
+	$('#allcategories').html(transport);
+	unbusy();
+}
+</script>

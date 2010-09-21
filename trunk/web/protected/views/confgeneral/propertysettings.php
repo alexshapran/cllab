@@ -1,5 +1,5 @@
 <div id='allcategories'><?php
-$this->renderPartial('/confCategory/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats, 'oNewCategory'=>$oNewCategory));
+$this->renderPartial('/confcategory/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats, 'oNewCategory'=>$oNewCategory));
 ?></div>
 <div id='attr_exp_order'>
 <?php
@@ -14,12 +14,26 @@ $this->widget('zii.widgets.jui.CJuiSortable', array(
 ));
 echo CHtml::hiddenField('attrOrder','',array('id'=>'attrOrder'));
 
-echo CHtml::ajaxSubmitButton(	'Save',
-								Yii::app()->controller->createUrl('/confgeneral/submitattributeorder'), 
-								array(),
-								array(
-										'onclick'=>'$("#attrOrder").val( $(".ui-sortable").sortable("toArray").toString() )'
-								));
+echo CHtml::ajaxSubmitButton(	
+				'Save',
+				Yii::app()->controller->createUrl('/confgeneral/submitattributeorder'), 
+				array('success'=>'unbusy()'),
+				array(
+						'onclick'=>'busy(); $("#attrOrder").val( $(".ui-sortable").sortable("toArray").toString() )'
+				));
 echo CHtml::endForm();
- ?>
+?>
 </div>
+<script>
+function changeView(id)
+{
+	$("#catForm" + id).toggleClass("hidden");
+	$("#catName" + id).toggleClass("hidden"); 
+	$("#catButtons" + id).toggleClass("hidden");
+}
+function afterDelete(transport)
+{
+	$("#allcategories").html(transport);
+	unbusy();
+}
+</script>
