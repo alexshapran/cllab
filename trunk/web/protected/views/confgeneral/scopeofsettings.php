@@ -7,6 +7,14 @@ function toggle(a)
 		$("#settText"+a).toggleClass("hidden");
 	}
 }
+function addField(response)
+{
+	if(response.form)
+	{
+		$("#addBefore" + response.id).before(response.form);
+	}
+	unbusy();
+}
 </script>
 <?php echo CHtml::beginForm('/confscopeofsettings/submit','POST') ?>
 <?php

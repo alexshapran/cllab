@@ -13,25 +13,28 @@ echo CHtml::ajaxLink(
 			array(
 				'dataType'=> 'json',
 				'success'=>'function(transport){ displayElement(transport) }'),
-			array('id'=>'addMore')) ?><br /><br />
+			array(	'id'=>'addMore',
+					'onclick'=>'busy()')) ?><br /><br />
 <?php
 echo CHtml::ajaxSubmitButton(
 			'Save', 
 			Yii::app()->controller->createUrl('/confglossarysettings/update'), 
-			array(), 
-			array('id'=>'saveButton')); ?>
+			array('success'=>'function(){ unbusy() }'), 
+			array(	'id'=>'saveButton',
+					'onclick'=>'busy()')); ?>
 <?php echo CHtml::endForm(); ?>
 
 <script type='text/javascript'>
 function displayElement(transport)
 {
-		$('#addnewbefore').before(transport.form);
+	$('#addnewbefore').before(transport.form);
+	unbusy();
 }
 
 function removeMe(transport)
 {
-		if(transport.result == 'done')
-			$('#glossaryform' + transport.id).remove();
-//		alert(transport.result);
+	if(transport.result == 'done')
+		$('#glossaryform' + transport.id).remove();
+	unbusy();
 }
 </script>

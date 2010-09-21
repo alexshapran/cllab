@@ -18,3 +18,18 @@ foreach($aSignCertSetts as $oSect)
 						'onclick'=>'busy()')); ?>
 </div>
 <?php echo CHtml::endForm(); ?>
+
+<script type='text/javascript'>
+function displayElement(transport)
+{
+	$('#divaddlink' + transport.id).before(transport.form);
+	unbusy();
+}
+function hide(id)
+{
+	alert(id);
+	alert($('#valueform'+ id));
+	$('#valueform'+ id).remove();
+	unbusy();
+}
+</script>
