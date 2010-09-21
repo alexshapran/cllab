@@ -71,7 +71,7 @@ function busy()
 
 function unbusy()
 {
-	$("#greybox").fadeOut(400);
+	$("#greybox").fadeOut(4000);
 }
 </script>
 </body>
