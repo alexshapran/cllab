@@ -33,7 +33,7 @@ class DocumentsController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('bibliography', 'getPropertyAjax', 'marketanalysis', 'property'),
+				'actions'=>array('bibliography', 'getPropertyAjax', 'marketanalysis', 'PrivacyPolicy'),
 				'roles'=>array('Superadmin'),
 			),
 			array('deny',  // deny all users
@@ -56,6 +56,24 @@ class DocumentsController extends Controller
 			
 		$this->render('bibliography',array(
 			'model'=>$oBibliography,
+			'oAppraisal'=>$oAppraisal,
+		));
+	}
+	
+	public function actionPrivacyPolicy(){
+		$oAppraisal = Appraisal::getModel();
+		$oPrivacyPolicy = $oAppraisal->sdPrivacyPolicy;
+		if(!$oPrivacyPolicy)
+			$oPrivacyPolicy = $oAppraisal->createPrivacyPolicy();
+
+		if(isset($_POST['SdPrivacyPolicy'])) {
+			$oPrivacyPolicy->attributes = $_POST['SdPrivacyPolicy'];
+			if($oPrivacyPolicy->save())
+				yii::app()->user->setFlash('success','Market Analysis was successfully saved!');
+		}
+			
+		$this->render('privacy_policy',array(
+			'model'=>$oPrivacyPolicy,
 			'oAppraisal'=>$oAppraisal,
 		));
 	}

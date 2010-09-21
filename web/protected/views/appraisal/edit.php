@@ -19,6 +19,7 @@ $this->menu=array(
 <br />
 Supporting Documents
 <?php echo CHtml::link('Bibliography', Yii::app()->createUrl('/documents/bibliography/' . $model->alias))?>&nbsp;&nbsp;
+<?php echo CHtml::link('Privacy Policy', Yii::app()->createUrl('/documents/privacypolicy/' . $model->alias))?>&nbsp;&nbsp;
 
 <h1>Update Appraisal <?php echo $model->name; ?></h1>
 

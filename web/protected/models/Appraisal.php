@@ -67,7 +67,7 @@ class Appraisal extends CActiveRecord
 			'sdBibliography' => array(self::BELONGS_TO, 'SdBibliography', 'sd_bibliography_id'),
 			'sdExports' => array(self::HAS_MANY, 'SdExport', 'appraisal_id'),
 			'sdGlossaries' => array(self::HAS_MANY, 'SdGlossary', 'appraisal_id'),
-			'sdPrivacyPolicys' => array(self::HAS_MANY, 'SdPrivacyPolicy', 'appraisal_id'),
+			'sdPrivacyPolicy' => array(self::BELONGS_TO, 'SdPrivacyPolicy', 'sd_privacy_policy_id'),
 		);
 	}
 
@@ -210,6 +210,22 @@ class Appraisal extends CActiveRecord
 			return $this->sdBibliography;
 	}
 	
+	public function createPrivacyPolicy(){
+		if(!$this->sdPrivacyPolicy) {
+			// create new model
+			$obj = new SdPrivacyPolicy;
+			$obj->is_active = 1;
+			$obj->save(false);
+			// save id 
+			$this->sd_privacy_policy_id = $obj->id;
+			$this->save(false);
+			
+			return $obj;
+		}
+		else
+			return $this->SdPrivacyPolicy;
+	}
+	
 	public function getPopulateProperty() {
 		$arr = $this->getObjectsByOrder();
 		$str = '';
@@ -228,6 +244,7 @@ class Appraisal extends CActiveRecord
 		$arr = Object::model()->findAll($criteria);
 		return $arr;
 	}
+	
 	
 	
 	
