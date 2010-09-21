@@ -16,6 +16,9 @@ $this->menu=array(
 <?php echo CHtml::link('Cover Letter', Yii::app()->createUrl('/appraisalreport/coverletter/' . $model->alias))?> &nbsp;&nbsp;
 <?php echo CHtml::link('Bio/Hist.Context', Yii::app()->createUrl('/appraisalreport/biohistcontext/' . $model->alias))?>&nbsp;&nbsp;
 <?php echo CHtml::link('Market Analysis', Yii::app()->createUrl('/appraisalreport/marketanalysis/' . $model->alias))?>&nbsp;&nbsp;
+<br />
+Supporting Documents
+<?php echo CHtml::link('Bibliography', Yii::app()->createUrl('/documents/bibliography/' . $model->alias))?>&nbsp;&nbsp;
 
 <h1>Update Appraisal <?php echo $model->name; ?></h1>
 

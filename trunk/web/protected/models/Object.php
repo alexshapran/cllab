@@ -218,4 +218,5 @@ class Object extends CActiveRecord
 		$obj = Object::model()->find($criteria);
 		return $obj;	
 	}
+	
 }
