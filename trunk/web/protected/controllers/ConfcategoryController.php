@@ -70,7 +70,7 @@ class ConfcategoryController extends Controller
 		{
 			$model->attributes=$_POST['ConfCategory'];
 			$model->save();
-		}		
+		}
 		self::renderCategories();
 	}
 
@@ -161,7 +161,7 @@ class ConfcategoryController extends Controller
 		$this->renderPartial('/confCategory/_allCategories', 
 					array(	'aParentCategories'=>$aParentCategories, 
 							'aChildCats'=>$aChildCats, 
-							'oNewCategory'=>$oNewCategory));
+							'oNewCategory'=>$oNewCategory), false, true);
 	}
 	
 	/**

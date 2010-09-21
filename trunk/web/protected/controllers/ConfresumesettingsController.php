@@ -32,7 +32,7 @@ class ConfresumesettingsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('update'),
+				'actions'=>array('update', 'create', 'delete'),
 				'roles'=>array('Superadmin'),
 			),
 			array('deny',  // deny all users
@@ -41,14 +41,54 @@ class ConfresumesettingsController extends Controller
 		);
 	}
 
+	/** Create resume field
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param	none	
+	 * @return	html	
+	 */
+	
+	public function actionCreate() 
+	{
+		$model = new ConfResumeSettings;
+		$model->conf_gen_id = yii::app()->user->getConfigId();
+		if($model->save())
+			$response['form'] = $this->renderPartial('_form', array('model'=>$model), true, true);
+		
+			echo CJSON::encode($response);
+	}
+	
+	/** delete Resume
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param	resume_id	
+	 * @return	boolean
+	 */
+	
+	public function actionDelete() 
+	{
+		$response['complete']=false;
+		if($_GET['id'])
+		{
+			$model = ConfResumeSettings::model()->findByPk($_GET['id']);
+			$response['id'] = $model->id;
+
+			if($model->delete())
+				$response['complete']=true;
+		}
+
+		echo CJSON::encode($response);
+	}
+	
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionUpdate()
 	{
-		$oResume = ConfResumeSettings::model()->findByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
-		if($_POST['ConfResumeSettings'] && $oResume->attributes = $_POST['ConfResumeSettings'])
-			$oResume->save();
+		$aResume = ConfResumeSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+		
+		foreach($aResume as $oRes)
+		if( $_POST['ConfResumeSettings'][$oRes->id] && $oRes->value = $_POST['ConfResumeSettings'][$oRes->id]['value'] )
+			$oRes->save();
 	}
 }

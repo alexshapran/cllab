@@ -178,10 +178,10 @@ class ConfgeneralController extends Controller
  
 		}
 		
-		if(!$errors)
+/*		if(!$errors)
 			Yii::app()->user->setFlash('success', 'Saved!');
 		else
-			Yii::app()->user->setFlash('error', 'Not saved!');
+			Yii::app()->user->setFlash('error', 'Not saved!');*/
 	}
 	
 	/** Provides anybody to config Property Settings
@@ -204,7 +204,6 @@ class ConfgeneralController extends Controller
 		$this->render('propertysettings', array('oNewCategory'=>$oNewCategory,
 												'aParentCategories'=>$aParentCategories, 
 												'aChildCats'=>$aChildCats,
-//												'attExpOrder' => $attExpOrder,
 												'oGenConfig' => $oGenConfig ));
 	}
 
@@ -256,8 +255,8 @@ class ConfgeneralController extends Controller
 	
 	public function actionResumesettings() 
 	{
-		$oResume = ConfResumeSettings::model()->findByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
-		$this->render('resumesettings', array('oResume' => $oResume));
+		$aResumes = ConfResumeSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
+		$this->render('resumesettings', array('aResumes' => $aResumes));
 	}
 	
 	/**

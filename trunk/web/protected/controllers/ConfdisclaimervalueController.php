@@ -32,7 +32,7 @@ class ConfdisclaimervalueController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('create'),
+				'actions'=>array('create', 'delete'),
 				'roles'=>array('Superadmin'),
 			),
 			array('deny',  // deny all users
@@ -53,8 +53,30 @@ class ConfdisclaimervalueController extends Controller
 		{
 			$sOS = ConfDisclaimerSettings::model()->findByPk($_GET['sos_id']);
 			$model->conf_disc_settings = $sOS->id;
-			$model->save();
-			$this->renderPartial('/confdisclaimersettings/_simpleset', array('model'=>$sOS));
+			
+			if($model->save())
+				$response = array(
+					'form'=>$this->renderPartial(	'/confdisclaimervalue/_form', 
+													array('model'=>$model), 
+													true, true),
+					'id'=>$model->conf_disc_settings
+				);
+			
+			echo CJSON::encode($response);
 		}
+	}
+	/**
+	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
+	 * @param	int $val_id
+	 * @return 
+	 */		
+	
+	public function actionDelete() 
+	{
+		if ($_GET['val_id'])
+			$model = Confdisclaimervalue::model()->findByPk($_GET['val_id']);
+		if($model)
+			$model->delete();
+				
 	}
 }

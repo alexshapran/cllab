@@ -54,7 +54,7 @@ class ConfscopeofvalueController extends Controller
 			$sOS =  ConfScopeOfSettings::model()->findByPk($_GET['sos_id']);
 			$model->conf_sos_id = $sOS->id;
 			$model->save();
-			$this->renderPartial('/confscopeofsettings/_simpleset', array('model'=>$sOS));
+			$this->renderPartial('/confscopeofsettings/_simpleset', array('model'=>$sOS), false, true);
 		}
 	}
 
@@ -67,13 +67,9 @@ class ConfscopeofvalueController extends Controller
 	{
 		
 		if($_GET['val_id'])
-			$model = ConfScopeOfValue::model()->findByPk($_GET['val_id']);
-
-		if($model)
 		{
-			$sOS =  ConfScopeOfSettings::model()->findByPk($model->conf_sos_id);
+			$model = ConfScopeOfValue::model()->findByPk($_GET['val_id']);
 			$model->delete();
-			$this->renderPartial('/confscopeofsettings/_simpleset', array('model'=>$sOS));
 		}
 	}
 }
