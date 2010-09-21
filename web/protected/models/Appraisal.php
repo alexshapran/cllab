@@ -64,7 +64,7 @@ class Appraisal extends CActiveRecord
 			'reportScopeWorks' => array(self::HAS_MANY, 'ReportScopeWork', 'appraisal_id'),
 			'reportSignedCerts' => array(self::HAS_MANY, 'ReportSignedCert', 'appraisal_id'),
 			'sdAppendices' => array(self::HAS_MANY, 'SdAppendices', 'appraisal_id'),
-			'sdBibliographys' => array(self::HAS_MANY, 'SdBibliography', 'appraisal_id'),
+			'sdBibliography' => array(self::BELONGS_TO, 'SdBibliography', 'sd_bibliography_id'),
 			'sdExports' => array(self::HAS_MANY, 'SdExport', 'appraisal_id'),
 			'sdGlossaries' => array(self::HAS_MANY, 'SdGlossary', 'appraisal_id'),
 			'sdPrivacyPolicys' => array(self::HAS_MANY, 'SdPrivacyPolicy', 'appraisal_id'),
@@ -192,6 +192,41 @@ class Appraisal extends CActiveRecord
 		}
 		else
 			return $this->reportMarketanalysis;
+	}
+	
+	public function createBibliography(){
+		if(!$this->sdBibliography) {
+			// create new model
+			$obj = new SdBibliography;
+			$obj->is_active = 1;
+			$obj->save(false);
+			// save id 
+			$this->sd_bibliography_id = $obj->id;
+			$this->save(false);
+			
+			return $obj;
+		}
+		else
+			return $this->sdBibliography;
+	}
+	
+	public function getPopulateProperty() {
+		$arr = $this->getObjectsByOrder();
+		$str = '';
+		if($arr) {
+			foreach($arr as $i => $obj) {
+				$str .= $obj->literature;
+			}
+		}
+		return $str;
+	}
+	
+	public function getObjectsByOrder() {
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'appraisal_id = ' . $this->id;
+		$criteria->order = 'export_order ASC';
+		$arr = Object::model()->findAll($criteria);
+		return $arr;
 	}
 	
 	
