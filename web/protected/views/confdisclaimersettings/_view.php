@@ -12,5 +12,4 @@
 	<?php echo CHtml::encode($data->conf_gen_id); ?>
 	<br />
 
-
 </div>

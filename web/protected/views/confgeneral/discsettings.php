@@ -22,3 +22,16 @@ if($aDiscSettings)
 						Yii::app()->controller->createUrl('/confdisclaimersettings/submit')); ?>
 </div>
 <?php echo CHtml::endForm(); ?>
+<script type='text/javascript'>
+function addForm(transport)
+{
+	if(transport)
+		$("#disclaimer" + transport.id).before(transport.form);
+	unbusy();
+}
+function onSuccess(id)
+{
+	$("#discval" + id).remove();
+	unbusy();
+}
+</script>

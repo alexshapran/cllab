@@ -15,14 +15,20 @@
 	
 	<div class="row floatleft">
 	<?php
-	echo CHtml::button('Delete', 
+	echo CHtml::ajaxButton(
+			'Delete',
+			Yii::app()->controller->createUrl('/confscopeofvalue/delete', array('val_id'=>$model->id)),
+			array('success'=>'function(html){ $("#block'.$model->conf_sos_id.'").html(html) }'),
+			array('style'=>'margin:9px 0 0 9px;'));
+	
+/*	echo CHtml::button('Delete', 
 			array(
 				'style'=>'margin:9px 0 0 9px;',
 				'onclick'=>"jQuery.ajax({
 					'url':'".Yii::app()->controller->createUrl('/confscopeofvalue/delete')."&val_id=".$model->id."',
 					'cache':false,
 					'success':function(html){jQuery(\"#block".$model->conf_sos_id."\").html(html)}});
-					return false;"))
+					return false;")) */
 	?>
 </div>
 	<div class='clear'></div>

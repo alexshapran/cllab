@@ -8,16 +8,19 @@
 							array(	//'update'=>'#section'.$oSect->id,
 								'dataType'=> 'json',
 								'success'=>'function(transport){ displayElement(transport) }' ),
-							array('id'=>'addLink'.$oSect->id)); ?>
+							array(	'id'=>'addLink'.$oSect->id,
+									'onclick'=>'busy()')); ?>
 </div>
 
 <script type='text/javascript'>
 function displayElement(transport)
 {
 	$('#divaddlink' + transport.id).before(transport.form);
+	unbusy();
 }
 function hide(id)
 {
 	$('#valueform'+id).remove();
+	unbusy();
 }
 </script>
