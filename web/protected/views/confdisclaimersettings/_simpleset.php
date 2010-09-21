@@ -7,7 +7,8 @@
 </span>
 <span id='settText<?php echo $model->id ?>' class='hidden'>
 	<?php echo CHtml::activeTextField($model, 'name', array('id'=>'newText'.$model->id)) ?>
-	<?php echo CHtml::button(	'Save',  
+	<?php
+	echo CHtml::button(	'Save',  
 		array(	'onclick'=>"jQuery.ajax({	
 				'method':'GET', 
 				'success': function(){ toggle($model->id); $('#settName$model->id').html( $('#newText$model->id').val() ) } ,
@@ -29,7 +30,6 @@ echo CHtml::ajaxLink(
 			'dataType'=>'json',
 			'success'=>'function(transport){ addForm(transport) }'),
 		array(	'onclick'	=>'busy()',
-				'id'		=>'addmore'.$model->id)
-					);
+				'id'		=>'addmore'.$model->id));
 ?>
 </div>

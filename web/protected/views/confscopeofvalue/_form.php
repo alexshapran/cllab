@@ -1,4 +1,4 @@
-<div class="form">
+<div id="scopevalue<?php echo $model->id ?>">
 	<?php if($allowtitle) { ?>
 	<div class="row floatleft">
 		<?php echo MCHtml::activeTextField($model,'name',array('size'=>15,'maxlength'=>255, 'preName'=>$model->id)); ?>
@@ -14,22 +14,14 @@
 	</div>
 	
 	<div class="row floatleft">
-	<?php
-	echo CHtml::ajaxButton(
-			'Delete',
-			Yii::app()->controller->createUrl('/confscopeofvalue/delete', array('val_id'=>$model->id)),
-			array('success'=>'function(html){ $("#block'.$model->conf_sos_id.'").html(html) }'),
-			array('style'=>'margin:9px 0 0 9px;'));
-	
-/*	echo CHtml::button('Delete', 
-			array(
-				'style'=>'margin:9px 0 0 9px;',
-				'onclick'=>"jQuery.ajax({
-					'url':'".Yii::app()->controller->createUrl('/confscopeofvalue/delete')."&val_id=".$model->id."',
-					'cache':false,
-					'success':function(html){jQuery(\"#block".$model->conf_sos_id."\").html(html)}});
-					return false;")) */
-	?>
-</div>
+		<?php
+			echo CHtml::ajaxButton(
+					'Delete',
+					Yii::app()->controller->createUrl('/confscopeofvalue/delete', array('val_id'=>$model->id)),
+					array(	'success'=>'function(html){ unbusy(); $("#scopevalue'.$model->id.'").remove(); }'),
+					array(	'style'=>'margin:9px 0 0 9px;',
+							'onclick'=>'busy()'));
+		?>
+	</div>
 	<div class='clear'></div>
 </div>
