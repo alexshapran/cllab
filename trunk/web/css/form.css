@@ -396,3 +396,9 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	width: 410px;
 }
 /* Object end */
+
+/* Appraisals / Supporting Documents / Appendicies */
+.addendums{list-style-type:lower-roman;}
+.addendums LI{padding-top:5px;}
+.addendums LI INPUT{margin-left:30px;}
+/* Appendicies END */

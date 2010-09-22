@@ -251,8 +251,10 @@ div.search-form
 .floatright {
 	float: right;
 }
+
+/* DEFAULT GREY BOX WHILE AJAX PROCESSING */
 #greybox{
-	background: #AFAFAF;
+	background: url('../images/duck.gif') center no-repeat scroll #AFAFAF;
 	opacity: 0.5;
 	z-index: 10;
 	position:absolute;
