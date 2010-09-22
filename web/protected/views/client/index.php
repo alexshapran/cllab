@@ -2,16 +2,22 @@
 $this->breadcrumbs=array(
 	'Clients',
 );
-
-$this->menu=array(
-	array('label'=>'Create Client', 'url'=>array('create')),
-	array('label'=>'Manage Client', 'url'=>array('admin')),
-);
 ?>
 
 <h1>Clients</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+
+<?php echo CHtml::linkButton('Add Client', array('href'=>'')) ?>
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'columns'=>array('name', array('name' => 'date_added', 'value' => 'date( "m/j/Y" , strtotime($data->date_added))' ),
+						array(	'class'=>'CButtonColumn',
+								'template'=>'{update}&nbsp;|&nbsp;{delete}',
+								'deleteButtonImageUrl'=>false,
+								'updateButtonImageUrl'=>false,
+								'deleteButtonLabel'=>'update',
+								'updateButtonLabel'=>'delete')),
+	'enablePagination'=>false,
+	'summaryText'=>false
 )); ?>

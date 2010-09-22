@@ -34,6 +34,7 @@
 				array('label'=>'Manage Accounts', 'url'=>array('/user/accounts') ),
 				array('label'=>'Manage Users', 'url'=>array('/user/users') ),
 				array('label'=>'Manage Appraisals ', 'url'=>array('/appraisal')),
+				array('label'=>'Manage Clients', 'url'=>array('/client')),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
@@ -71,7 +72,7 @@ function busy()
 
 function unbusy()
 {
-	$("#greybox").fadeOut(4000);
+	$("#greybox").fadeOut(2000);
 }
 </script>
 </body>

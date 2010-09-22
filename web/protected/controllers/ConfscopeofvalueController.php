@@ -52,9 +52,16 @@ class ConfscopeofvalueController extends Controller
 		if($_GET['sos_id'])
 		{
 			$sOS =  ConfScopeOfSettings::model()->findByPk($_GET['sos_id']);
-			$model->conf_sos_id = $sOS->id;
+			$model->conf_sos_id = $_GET['sos_id'];
 			$model->save();
-			$this->renderPartial('/confscopeofsettings/_simpleset', array('model'=>$sOS), false, true);
+			
+			$response['form'] = $this->renderPartial('/confscopeofvalue/_form', array(	
+														'model'=>$model, 
+														'allowtitle'=>$sOS->add_has_name), true, true);
+			$response['id'] = $model->conf_sos_id;
+			echo CJSON::encode($response);
+			
+//			$this->renderPartial('/confscopeofsettings/_simpleset', array('model'=>$sOS), false, true);
 		}
 	}
 

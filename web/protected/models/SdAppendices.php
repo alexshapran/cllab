@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'sd_appendices':
  * @property integer $id
- * @property integer $appraisal_id
  * @property integer $is_active
  * @property string $text
  */
@@ -53,7 +52,7 @@ class SdAppendices extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'appraisal' => array(self::BELONGS_TO, 'Appraisal', 'appraisal_id'),
+			'appraisal' => array(self::BELONGS_TO, 'Appraisal', 'sd_appendices_id'),
 			'sdAppendicesLists' => array(self::HAS_MANY, 'SdAppendicesList', 'sd_appendices_id'),
 		);
 	}
