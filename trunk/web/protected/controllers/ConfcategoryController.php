@@ -95,6 +95,8 @@ class ConfcategoryController extends Controller
 	 */
 	public function actionAjaxdelete()
 	{
+//		TODO: если есть appraisal из этой категории (соотв. не можем удалить категорию),
+//		нужно ли делать уведомление?
 		$model = ConfCategory::model()->findByPk($_GET['id']);
 		if($model)
 			$model->delete();

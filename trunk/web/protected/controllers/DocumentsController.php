@@ -33,7 +33,9 @@ class DocumentsController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('bibliography', 'getPropertyAjax', 'marketanalysis', 'PrivacyPolicy'),
+				'actions'=>array(	'bibliography', 'getPropertyAjax', 
+									'marketanalysis', 'PrivacyPolicy',
+									'appendicies', 'createappend'),
 				'roles'=>array('Superadmin'),
 			),
 			array('deny',  // deny all users
@@ -76,6 +78,41 @@ class DocumentsController extends Controller
 			'model'=>$oPrivacyPolicy,
 			'oAppraisal'=>$oAppraisal,
 		));
+	}
+	
+	/**
+	 * 
+	 */
+	public function actionAppendicies()
+	{
+		if(isset($_POST['SdAppendicesList']))
+		{
+			$oAppraisal = Appraisal::getModel();
+			foreach($oAppraisal->sdAppendices->sdAppendicesLists as $oApp)
+			{
+					$oApp->text = $_POST['SdAppendicesList'][$oApp->id]['text'];
+					
+					if(trim($oApp->text) == '')
+						$oApp->delete();
+					else
+						$oApp->save();
+			}
+		}
+		
+		$oAppraisal = Appraisal::getModel();
+		$this->render('appendicies', array('oAppend'=>$oAppraisal->sdAppendices, 'oAppraisal'=>$oAppraisal));
+	}
+	public function actionCreateappend()
+	{
+		if($_GET['add_id'])
+		{
+			$model = new SdAppendicesList;
+			$model->sd_appendices_id = $_GET['add_id'];
+			if($model->save())
+				$response['form'] = $this->renderPartial('_appsimple', array('model'=>$model), true, true);
+			
+			echo CJSON::encode($response);
+		}
 	}
 	
 	public function actionGetPropertyAjax() {

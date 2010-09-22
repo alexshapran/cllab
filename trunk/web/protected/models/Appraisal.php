@@ -63,7 +63,7 @@ class Appraisal extends CActiveRecord
 			'reportResumes' => array(self::HAS_MANY, 'ReportResume', 'appraisal_id'),
 			'reportScopeWorks' => array(self::HAS_MANY, 'ReportScopeWork', 'appraisal_id'),
 			'reportSignedCerts' => array(self::HAS_MANY, 'ReportSignedCert', 'appraisal_id'),
-			'sdAppendices' => array(self::HAS_MANY, 'SdAppendices', 'appraisal_id'),
+			'sdAppendices' => array(self::BELONGS_TO, 'SdAppendices', 'sd_appendices_id'),
 			'sdBibliography' => array(self::BELONGS_TO, 'SdBibliography', 'sd_bibliography_id'),
 			'sdExports' => array(self::HAS_MANY, 'SdExport', 'appraisal_id'),
 			'sdGlossaries' => array(self::HAS_MANY, 'SdGlossary', 'appraisal_id'),
@@ -137,7 +137,7 @@ class Appraisal extends CActiveRecord
 	}
 	
 	public static function getModel() {
-		if(isset($_GET['id']))				
+		if(isset($_GET['id']))		
 			$model = Appraisal::model()->findByAlias($_GET['id']);
 		if(!$model && isset($_GET['id']))
 			$model = Appraisal::model()->findByPk($_GET['id']);
@@ -219,7 +219,6 @@ class Appraisal extends CActiveRecord
 			// save id 
 			$this->sd_privacy_policy_id = $obj->id;
 			$this->save(false);
-			
 			return $obj;
 		}
 		else

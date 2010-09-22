@@ -181,7 +181,7 @@ class ClientController extends Controller
 	}
 	
 	/**
-	 * add new client, pupop 
+	 * add new client, popup 
 	 */
 	public function actionAjaxAdd() {
 		$result = array();
