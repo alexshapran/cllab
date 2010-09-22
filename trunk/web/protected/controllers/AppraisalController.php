@@ -262,19 +262,6 @@ die;
 		}
 	}
 	
-/*
-     *  Delete unnecessary sumbols
-     *  @param string from Search Form
-     *  @return array
-     */
-    protected function prepareKeyword($str) { 
-        $str = strip_tags($str);
-        $str = preg_replace('#([a-zа-я0-9\.]+)#isu', '%$1%', $str);
-//    	preg_match_all("/\w+/", $str, $arr);
-//    	$arr = array_splice($arr[0], 0, 4); // no more than five words
-        
-    	return $str;
-    }
     
     protected function makeSqlPart($field, $sKeyword) {
     	$condition = '`_object`.`' . $field . "` LIKE '" . $sKeyword . "' OR ";
@@ -304,8 +291,8 @@ die;
 	 *  create search condition 
 	 */
 	protected function createSearchCondition() {
-		$sKeyword = $this->prepareKeyword($_GET['s']);
-		$condition = '';
+		$sKeyword = Controller::prepareKeyword($_GET['s']);
+		$condition = ' AND (';
 		$aFields = Object::getSearchField();
 		
 		// create condition
@@ -317,7 +304,8 @@ die;
 		} elseif(array_key_exists($_GET['f'], $aFields)) { // check is get value is correct
 			$condition = $this->makeSqlPart($_GET['f'], $sKeyword);
 		}
-		$condition = substr($condition, 0, -3);			
+		$condition = substr($condition, 0, -3);
+		$condition .= ')';			
 		return $condition;
 	}
 	

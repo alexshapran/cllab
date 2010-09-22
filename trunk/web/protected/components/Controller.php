@@ -54,4 +54,18 @@ class Controller extends CController
 		$date = date($sFormat, strtotime($str));
 		return $date;
 	}
+	
+	/*
+     *  Delete unnecessary sumbols
+     *  @param string from Search Form
+     *  @return array
+     */
+    public static function prepareKeyword($str) { 
+        $str = strip_tags($str);
+        $str = preg_replace('#([a-zа-я0-9\.]+)#isu', '%$1%', $str);
+//    	preg_match_all("/\w+/", $str, $arr);
+//    	$arr = array_splice($arr[0], 0, 4); // no more than five words
+        
+    	return $str;
+    }
 }

@@ -29,7 +29,7 @@ $('.search-form form').submit(function(){
 		'onClick'=>'location.replace("/object/create/'. ($oAppraisal->alias ? $oAppraisal->alias : $oAppraisal->id) . '")', 
 		'class'=>'floatleft'))?>
 
-<?php echo CHtml::form(Yii::app()->createUrl('/appraisal/property'), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
+<?php echo CHtml::form(Yii::app()->createUrl('/appraisal/property/' . $oAppraisal->alias), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
 	<?php echo CHtml::dropDownList(
 		'f',
 		'', 
@@ -58,11 +58,11 @@ $('.search-form form').submit(function(){
 	array(	
 		'class'=>'',
 		'onchange'=>
-			'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property', array_merge($_GET, array('orderBy'=>''))) . '"+$("#orderBy").attr("value"))', 
+			'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property/' . $oAppraisal->alias, array_merge($_GET, array('orderBy'=>''))) . '"+$("#orderBy").attr("value"))', 
 		)
 )?>
 &nbsp;&nbsp;
-<?php echo CHtml::button('Apply Export Order', array('onClick'=>'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property', array_merge($_GET, array('exp'=>'order'))) . '")'))?>
+<?php echo CHtml::button('Apply Export Order', array('onClick'=>'location.replace("'.Yii::app()->controller->createUrl(	'appraisal/property/' . $oAppraisal->alias, array_merge($_GET, array('exp'=>'order'))) . '")'))?>
 
 &nbsp;&nbsp;
 <?php echo CHtml::link('Configure Order Settings', '/confgeneral')?>
@@ -77,7 +77,7 @@ $('.search-form form').submit(function(){
 		'location',
 		array(
              'name'=>'category_id',
-             'value'=>'$data->category->name',
+             'value'=>'$data->category ? $data->category->name : ""',
          ),
         'maker_artist',
 		'title',
