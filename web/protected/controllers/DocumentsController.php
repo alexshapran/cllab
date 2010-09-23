@@ -48,7 +48,7 @@ class DocumentsController extends Controller
 		$oAppraisal = Appraisal::getModel();
 		$oBibliography = $oAppraisal->sdBibliography;
 		if(!$oBibliography)
-			$oBibliography = $oAppraisal->createBibliography();
+			$oBibliography = $oAppraisal->createRelation('SdBibliography','sd_bibliography_id');
 
 		if(isset($_POST['ReportCoverLetter'])) {
 			$oBibliography->attributes = $_POST['ReportCoverLetter'];
@@ -66,7 +66,7 @@ class DocumentsController extends Controller
 		$oAppraisal = Appraisal::getModel();
 		$oPrivacyPolicy = $oAppraisal->sdPrivacyPolicy;
 		if(!$oPrivacyPolicy)
-			$oPrivacyPolicy = $oAppraisal->createPrivacyPolicy();
+			$oPrivacyPolicy = $oAppraisal->createRelation('sdPrivacyPolicy','sd_privacy_policy_id');
 
 		if(isset($_POST['SdPrivacyPolicy'])) {
 			$oPrivacyPolicy->attributes = $_POST['SdPrivacyPolicy'];

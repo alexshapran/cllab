@@ -109,7 +109,7 @@ $('.search-form form').submit(function(){
 	)?>
 	
 <script type='text/javascript'>
-
+	//<![CDATA[
 	<?php if(isset($_GET['orderBy'])) { ?>
 		$("#orderBy").val(<?php echo "'". $_GET['orderBy'] . "'" ?>);
 	<?php } ?>
@@ -148,5 +148,5 @@ $('.search-form form').submit(function(){
 			$("#search_form").submit();
 		}
 	}
-	
+	//]]>
 </script>

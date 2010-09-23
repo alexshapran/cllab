@@ -60,7 +60,7 @@ class Appraisal extends CActiveRecord
 			'reportCoverLetter' => array(self::BELONGS_TO, 'ReportCoverLetter', 'report_cover_letter_id'),
 			'reportDisclaimers' => array(self::HAS_MANY, 'ReportDisclaimers', 'appraisal_id'),
 			'reportMarketanalysis' => array(self::BELONGS_TO, 'ReportMarketAnalysis', 'report_market_analysis_id'),
-			'reportResumes' => array(self::HAS_MANY, 'ReportResume', 'appraisal_id'),
+			'reportResume' => array(self::BELONGS_TO, 'ReportResume', 'report_resume_id'),
 			'reportScopeWorks' => array(self::HAS_MANY, 'ReportScopeWork', 'appraisal_id'),
 			'reportSignedCerts' => array(self::HAS_MANY, 'ReportSignedCert', 'appraisal_id'),
 			'sdAppendices' => array(self::BELONGS_TO, 'SdAppendices', 'sd_appendices_id'),
@@ -146,85 +146,27 @@ class Appraisal extends CActiveRecord
 		return $model;
 	}
 	
-	public function createCoverLetter(){
-		if(!$this->reportCoverLetter) {
+	/**
+	 * 
+	 * @param unknown_type $name
+	 * @param unknown_type $relationField
+	 */
+	public function createRelation($name, $relationField) {
+		if(!$this->$name) {
 			// create new model
-			$obj = new ReportCoverLetter;
+			$obj = new $name;
 			$obj->is_active = 1;
 			$obj->save(false);
 			// save id 
-			$this->report_cover_letter_id = $obj->id;
+			$this->$relationField = $obj->id;
 			$this->save(false);
 			
 			return $obj;
 		}
 		else
-			return $this->reportCoverLetter;
+			return $this->$name;			
 	}
-	
-	public function createBiohistContext(){
-		if(!$this->reportBiohistContext) {
-			// create new model
-			$obj = new ReportBiohistContext;
-			$obj->is_active = 1;
-			$obj->save(false);
-			// save id 
-			$this->report_biohist_context_id = $obj->id;
-			$this->save(false);
-			
-			return $obj;
-		}
-		else
-			return $this->reportBiohistContext;
-	}
-	
-	public function createMarketAnalysis(){
-		if(!$this->reportMarketanalysis) {
-			// create new model
-			$obj = new ReportMarketAnalysis;
-			$obj->is_active = 1;
-			$obj->save(false);
-			// save id 
-			$this->report_market_analysis_id = $obj->id;
-			$this->save(false);
-			
-			return $obj;
-		}
-		else
-			return $this->reportMarketanalysis;
-	}
-	
-	public function createBibliography(){
-		if(!$this->sdBibliography) {
-			// create new model
-			$obj = new SdBibliography;
-			$obj->is_active = 1;
-			$obj->save(false);
-			// save id 
-			$this->sd_bibliography_id = $obj->id;
-			$this->save(false);
-			
-			return $obj;
-		}
-		else
-			return $this->sdBibliography;
-	}
-	
-	public function createPrivacyPolicy(){
-		if(!$this->sdPrivacyPolicy) {
-			// create new model
-			$obj = new SdPrivacyPolicy;
-			$obj->is_active = 1;
-			$obj->save(false);
-			// save id 
-			$this->sd_privacy_policy_id = $obj->id;
-			$this->save(false);
-			return $obj;
-		}
-		else
-			return $this->SdPrivacyPolicy;
-	}
-	
+		
 	public function getPopulateProperty() {
 		$arr = $this->getObjectsByOrder();
 		$str = '';
