@@ -33,7 +33,7 @@ class AppraisalreportController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('coverLetter', 'biohistcontext', 'marketanalysis', 'resume', 'property'),
+				'actions'=>array('coverLetter', 'biohistcontext', 'marketanalysis', 'resume', 'ResumeDelete'),
 				'roles'=>array('Superadmin'),
 			),
 			array('deny',  // deny all users
@@ -127,5 +127,11 @@ class AppraisalreportController extends Controller
 			'aResumes'=>$aResumes,
 			'oAppraisal'=>$oAppraisal,
 		));
+	}
+	
+	public function actionResumeDelete() {
+		if(isset($_GET['resume_id'])) {
+			ReportResumeData::model()->findByPk((int)$_GET['resume_id'])->delete();	
+		}
 	}
 }
