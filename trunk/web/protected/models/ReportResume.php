@@ -36,8 +36,7 @@ class ReportResume extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('appraisal_id', 'required'),
-			array('appraisal_id, is_active', 'numerical', 'integerOnly'=>true),
+			array('is_active', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -53,7 +52,7 @@ class ReportResume extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'appraisal' => array(self::BELONGS_TO, 'Appraisal', 'appraisal_id'),
+			'reportResumeData' => array(self::HAS_MANY, 'ReportResumeData', 'report_resume_id'),
 		);
 	}
 
@@ -64,9 +63,8 @@ class ReportResume extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'appraisal_id' => 'Appraisal',
 			'is_active' => 'Is Active',
-			'title' => 'Title',
+			'title' => 'Section Title',
 		);
 	}
 
@@ -92,5 +90,28 @@ class ReportResume extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * @return array of ReportResumeData or empty 
+	 */
+	public function getResumeData() {
+		$aResumes = '';
+		if(!($this->reportResumeData)) {
+			if($aResumes = ConfResumeSettings::getResumesByConfId()){
+				$arr = array();
+				foreach($aResumes as $i => $obj){
+					$oResumeData = new ReportResumeData();
+					$oResumeData->report_resume_id = $this->id;
+					$oResumeData->save();
+					$arr[] = $oResumeData; 
+				}
+				$aResumes = $arr;
+			} else
+				$aResumes = '';
+		} else {
+			$aResumes = $this->reportResumeData	;
+		}
+		return $aResumes;	
 	}
 }
