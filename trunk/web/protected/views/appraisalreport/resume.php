@@ -25,16 +25,24 @@
 		<?php if($aResumes):?>
 			<?php foreach($aResumes as $i => $oResume) { ?>
 				<?php $iNewTinyId = $iNewTinyId+($i+1)?>
-				Resume #<?php echo $i+1 ?>
 				<div class="tinymce" id="<?php echo $oResume->id ?>">
+					Resume #<?php echo $i+1 ?>
 					<?php $this->widget('application.extensions.tinymce.ETinyMce', 
 					array(
 						'name'=>"Resume[$oResume->id]",
 						'value'=>$oResume->text,
 						'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
+				
+					<?php 
+						echo CHtml::ajaxButton('Delete',
+											yii::app()->controller->createUrl('appraisalreport/resumedelete', array('resume_id'=>$oResume->id)),
+											array('success'=>'removeEl('.$oResume->id.')'),
+											array( 'onClick' => "if(!confirm('Are you sure you want to delete this item?')) return false; ")
+											);
+					?>
+					<br />
 				</div>
-				<?php echo CHtml::link('Delete', 'javascript:', array('onClick'=>'addAnother(); return false;', 'id'=>'add-another'))?>
-				<br />
+				
 			<?php } ?>
 		<?php else:?>
 		
@@ -70,6 +78,10 @@
 		$('#newTinyId').val(newVal); 
 		return val;
 	}
+
+	function removeEl(id) {
+		$("#"+id).remove();
+	}	
 	//]]>
 </script>
 
