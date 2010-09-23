@@ -9,7 +9,7 @@ class WebUser extends CWebUser {
 		}
 	}
 
-	private function getModel(){
+	public function getModel(){
 /*		if (!$this->isGuest && $this->_model === null){
 			$this->_model = User::model()->findByPk($this->id , array('select' => 'privilege_id' ) );
 		}

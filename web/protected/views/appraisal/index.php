@@ -1,29 +1,19 @@
 <?php
-$this->breadcrumbs=array(
-	'Appraisals'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Appraisal', 'url'=>array('index')),
-	array('label'=>'Create Appraisal', 'url'=>array('create')),
-);
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('appraisal-grid', {
-		data: $(this).serialize()
+	Yii::app()->clientScript->registerScript('search', "
+	$('.search-button').click(function(){
+		$('.search-form').toggle();
+		return false;
 	});
-	return false;
-});
-");
+	$('.search-form form').submit(function(){
+		$.fn.yiiGridView.update('appraisal-grid', {
+			data: $(this).serialize()
+		});
+		return false;
+	});
+	");
 ?>
 
-
+<?php echo CHtml::button('Create New Appraisal', array('onclick'=>'window.location = "'.yii::app()->createUrl('/appraisal/').'"')) ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'appraisal-grid',
