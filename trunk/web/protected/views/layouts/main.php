@@ -29,16 +29,49 @@
 
 	<div id="mainmenu">   
 		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(  
-				array('label'=>'Configuration', 'url'=>array( '/confgeneral/update' )), 
-				array('label'=>'Manage Accounts', 'url'=>array('/user/accounts') ),
-				array('label'=>'Manage Users', 'url'=>array('/user/users') ),
+			'items'=>array(
 				array('label'=>'Manage Appraisals ', 'url'=>array('/appraisal')),
 				array('label'=>'Manage Clients', 'url'=>array('/client')),
+				array('label'=>'Configuration', 'url'=>array( '/confgeneral/update' )), 
+				array('label'=>'Admin', 'url'=>array('/user/accounts') ),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
 	</div><!-- mainmenu -->
+
+	<div id="menulevel2">
+	<?php
+	$menu = $this->generateMenu();
+	if($menu)
+	{
+		$this->beginWidget('zii.widgets.CPortlet', array(
+				'title'=>'',
+			));
+			$this->widget('zii.widgets.CMenu', array(
+				'items'=>$menu,
+				'htmlOptions'=>array('class'=>'menu_level2'),
+			));
+		$this->endWidget();
+	}
+	?>
+	</div>
+	
+	<div id="menulevel3">
+	<?php
+	$menu = $this->generateSubMenu();
+	if($menu)
+	{
+		$this->beginWidget('zii.widgets.CPortlet', array(
+				'title'=>'',
+			));
+			$this->widget('zii.widgets.CMenu', array(
+				'items'=>$menu,
+				'htmlOptions'=>array('class'=>'menu_level3'),
+			));
+		$this->endWidget();
+	}
+	?>
+	</div>
 
 			<?php if(Yii::app()->user->hasFlash('success')): ?>
 			    <div class="flash-success">

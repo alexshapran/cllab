@@ -139,4 +139,15 @@ class Client extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public static function getAllAttributes()
+	{
+		$model = new Client;
+		$arKeys = array_keys($model->attributes);
+		$arText = array();
+		foreach($arKeys as $key)
+			$arText[] = Controller::nameFromAttribute($key);
+
+		return array_combine($arKeys, $arText);
+	}
 }

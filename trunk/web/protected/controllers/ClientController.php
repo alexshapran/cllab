@@ -33,16 +33,8 @@ class ClientController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('ajaxAdd','index', 'view'),
+				'actions'=>array('ajaxAdd','index', 'view', 'edit' ,'update', 'create', 'delete'),
 				'roles'=>array('Superadmin'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('edit','update'),
-				'roles'=>array('Superadmin'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -74,8 +66,9 @@ class ClientController extends Controller
 		if(isset($_POST['Client']))
 		{
 			$model->attributes=$_POST['Client'];
+			$model->account_id = yii::app()->user->getModel()->account_id;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect($this->createUrl('/client'));
 		}
 
 		$this->render('create',array(
@@ -96,9 +89,14 @@ class ClientController extends Controller
 
 		if(isset($_POST['Client']))
 		{
-			$model->attributes=$_POST['Client'];
+//		echo '<pre>';
+//		var_dump($_POST['Client']);
+//		die();
+		
+			$model->attributes = $_POST['Client'];
+			$model->date_added = Controller::convertDateFormat($_POST['Client']['date_added']);
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect($this->createUrl('/client'));
 		}
 
 		$this->render('update',array(
@@ -130,7 +128,29 @@ class ClientController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Client');
+		$criteria = new CDbCriteria;
+		$user = yii::app()->user->getModel();
+		
+		$criteria->condition = 'account_id = '.$user->account_id;
+		
+		if(isset($_POST['search_text']) && $_POST['search_text'])
+		{
+			if($_POST['search_field'])
+			{
+				$criteria = Controller::addWhereToCriteria(	$_POST['search_text'], 
+															$_POST['search_field'], 
+															$criteria);
+			}
+			else
+			{
+				$criteria = Controller::addWhereToCriteria(	$_POST['search_text'], 
+															array_keys(Client::getAllAttributes()), 
+															$criteria);
+			}
+			
+		}
+		
+		$dataProvider=new CActiveDataProvider('Client', array('criteria'=>$criteria));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -178,7 +198,7 @@ class ClientController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
+	} 
 	
 	/**
 	 * add new client, popup 

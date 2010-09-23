@@ -402,3 +402,49 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 .addendums LI{padding-top:5px;}
 .addendums LI INPUT{margin-left:30px;}
 /* Appendicies END */
+
+/* CLIENT FORM */
+
+#clientform INPUT
+{
+	margin-left:120px;
+	margin-top:-15px;
+}
+#clientform .column1
+{
+	margin-right:80px;
+}
+/* CLIENT FORM END */
+
+/* MENU LEVEL 2 */
+.menu_level2 LI
+{
+	float:left; 
+	margin-right:10px;
+}
+.menu_level2 .active
+{
+	background-color:#DDD;
+}
+.menu_level2 LI:hover
+{
+	background-color:yellow;
+}
+/* MENU LEVEL 2 END */
+
+
+/* MENU LEVEL 3 */
+.menu_level3 LI
+{
+	float:left; 
+	margin-right:10px;
+}
+.menu_level3 .active
+{
+	background-color:#DDD;
+}
+.menu_level3 LI:hover
+{
+	background-color:yellow;
+}
+/* MENU LEVEL 3 END */
