@@ -41,7 +41,7 @@ class AppraisalController extends Controller
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('edit','update'),
+				'actions'=>array('edit','update', 'create'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -63,7 +63,7 @@ class AppraisalController extends Controller
 			'model'=>$this->loadModel(),
 		));
 	}
-
+	
 //	/**
 //	 * Creates a new model.
 //	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -71,6 +71,9 @@ class AppraisalController extends Controller
 	public function actionEdit()
 	{
 		$model = $this->loadModel();
+		if(!$model)
+			$model = new Appraisal;
+			
 		$oBasicParams = $model->getBasicParamsModel();
 		
 		if(isset($_POST['Appraisal']) && isset($_POST['BasicReportParameters']))
@@ -120,7 +123,8 @@ class AppraisalController extends Controller
 	
 	public function actionProperty()
 	{
-		$model = $this->loadModel();
+		if(!$model = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
 		
 		$condition = '_object.appraisal_id = ' . $model->id;
 		$order = '_object.id';

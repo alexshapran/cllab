@@ -43,7 +43,9 @@ class AppraisalreportController extends Controller
 	}
 	
 	public function actionCoverLetter(){
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
+			
 		$oCoverLetter = $oAppraisal->reportCoverLetter;
 		if(!$oCoverLetter)
 			$oCoverLetter = $oAppraisal->createRelation('reportCoverLetter', 'report_cover_letter_id');
@@ -61,7 +63,9 @@ class AppraisalreportController extends Controller
 	}
 	
 	public function actionBiohistcontext(){
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
+			
 		$oBiohistContext = $oAppraisal->reportBiohistContext;
 		if(!$oBiohistContext)
 			$oBiohistContext = $oAppraisal->createRelation('reportBiohistContext', 'report_biohist_context_id');
@@ -79,7 +83,9 @@ class AppraisalreportController extends Controller
 	}
 	
 	public function actionMarketanalysis(){
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
+			
 		$oMarketAnalysis = $oAppraisal->reportMarketanalysis;
 		if(!$oMarketAnalysis)
 			$oMarketAnalysis = $oAppraisal->createRelation('reportMarketanalysis', 'report_market_analysis_id');
@@ -97,7 +103,9 @@ class AppraisalreportController extends Controller
 	}
 	
 	public function actionResume() {
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
+			
 		$oResume = $oAppraisal->reportResume;
 		
 		if(!$oResume)

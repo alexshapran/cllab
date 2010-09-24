@@ -13,7 +13,7 @@
 	");
 ?>
 
-<?php echo CHtml::button('Create New Appraisal', array('onclick'=>'window.location = "'.yii::app()->createUrl('/appraisal/').'"')) ?>
+<?php echo Appraisal::createNewLink(); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'appraisal-grid',

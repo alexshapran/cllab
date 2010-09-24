@@ -68,17 +68,16 @@ class PurposeController extends Controller
 																	array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
 																'pagination'=>false));
 
+		$response = array();
 		if(isset($_POST['ConfPurpose']))
 		{
 			$model->attributes=$_POST['ConfPurpose'];
+			$model->conf_gen_id = Yii::app()->user->getConfigId();
 			if($model->save())
-			{
-				$this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
-				die();
-			}
+				$response['arrIdVal'] = array('id'=>$model->id, 'value'=>$model->value);
 		}
-
-		$this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
+		$response['gridView'] = $this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider), true, true);
+		echo CJSON::encode($response);
 	}
 
 	/**

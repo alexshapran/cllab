@@ -63,25 +63,7 @@
 		<?php echo $form->textField($oBasicParams,'year',array('size'=>60,'maxlength'=>255, 'style'=>'width:50px')); ?>
 		<?php echo $form->error($oBasicParams,'year'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($oBasicParams,'purposes_id'); ?>
-		<?php echo $form->dropDownList( $oBasicParams,
-										'purposes_id', 
-										CHtml::listData($aPurpose, 'id','value'),
-										array('prompt'=>'-Select-')); ?>
-		<?php echo $form->error($oBasicParams,'purposes_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($oBasicParams,'types_of_value_id'); ?>
-		<?php echo $form->dropDownList( $oBasicParams,
-										'types_of_value_id', 
-										CHtml::listData($aValueTypes, 'id','name'),
-										array('prompt'=>'-Select-')); ?>
-		<?php echo $form->error($oBasicParams,'types_of_value_id'); ?>
-	</div>
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($oBasicParams,'types_of_report_id'); ?>
 		<?php echo $form->dropDownList( $oBasicParams,
@@ -89,6 +71,36 @@
 										CHtml::listData($aReportTypes, 'id','value'),
 										array('prompt'=>'-Select-')); ?>
 		<?php echo $form->error($oBasicParams,'types_of_report_id'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($oBasicParams,'types_of_value_id'); ?>
+		<?php echo $form->dropDownList( $oBasicParams,
+										'types_of_value_id', 
+										CHtml::listData($aValueTypes, 'id','name'),
+										array('prompt'=>'-Select-')); ?>
+		<?php  
+			echo CHtml::button('Add New', array(
+		    	'onclick'=>'$("#add-typeOfValue").dialog("open"); return false;',
+				'style'=>'width:85px;'
+		    ));
+	 	?>
+		<?php echo $form->error($oBasicParams,'types_of_value_id'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($oBasicParams,'purposes_id'); ?>
+		<?php echo $form->dropDownList( $oBasicParams,
+										'purposes_id', 
+										CHtml::listData($aPurpose, 'id','value'),
+										array('prompt'=>'-Select-')); ?>
+		<?php  
+			echo CHtml::button('Add New', array(
+		    	'onclick'=>'$("#add-purporse").dialog("open"); return false;',
+				'style'=>'width:85px;'
+		    ));
+	 	?>
+		<?php echo $form->error($oBasicParams,'purposes_id'); ?>
 	</div>
 
 	<div class="row">
@@ -224,19 +236,50 @@ User value???
 <?php $this->endWidget(); ?>
 
 <?php 
-		$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-			'id'=>'add-client-dialog',
-			'options'=>array(
-				'title'=>'Add cLient form',
-				'autoOpen'=>false,
-				'width'=>'500px',
-			),
-		));
-	?>
-		
-		<?php echo $this->renderPartial('_client_form', array('model' => $oClient )); ?>
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+		'id'=>'add-client-dialog',
+		'options'=>array(
+			'title'=>'Add cLient form',
+			'autoOpen'=>false,
+			'width'=>'500px',
+		),
+	));
+?>
+	
+	<?php echo $this->renderPartial('_client_form', array('model' => $oClient )); ?>
  
-	<?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
+<?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
+
+<?php 
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+		'id'=>'add-purporse',
+		'options'=>array(
+			'title'=>'Add New Purporse',
+			'autoOpen'=>false,
+			'width'=>'500px',
+		),
+	));
+?>
+	
+	<?php echo $this->renderPartial('_purpose_form', array('model' => new ConfPurpose )); ?>
+ 
+<?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
+
+<?php 
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+		'id'=>'add-typeOfValue',
+		'options'=>array(
+			'title'=>'Add New Purporse',
+			'autoOpen'=>false,
+			'width'=>'500px',
+		),
+	));
+?>
+	
+	<?php echo $this->renderPartial('_typeofvalue_form', array('model' => new ConfPurpose )); ?>
+ 
+<?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
+
 
 </div><!-- form -->
 

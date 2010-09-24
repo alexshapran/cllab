@@ -21,6 +21,7 @@
 		<?php echo CHtml::ajaxSubmitButton("Add new",
                               CController::createUrl('purpose/createAjax'), 
                               array( //'update'=>'#allpurposes',
+                              		'dataType'=>'json',
                               		'success'=>'function(transport) { addPurpose(transport) }'),
                               array('onclick'=>'busy()'));
 		 ?>
