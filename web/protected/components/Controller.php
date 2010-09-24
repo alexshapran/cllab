@@ -127,88 +127,173 @@ class Controller extends CController
     
     protected function allMenu()
     {
-//    	$menu = array
-//    	(
-//    		'appraisal'		=>	array(),
-//    		'client'		=>	array(),
-//    		'confgeneral'	=>	array()
-//    	)
-		$menu['confgeneral'] = array(	'update',
-										'fontsandimages',
-										'propertysettings',
-										'signedcertification',
-										'scopeofsettings',
-										'disclaimersettings',
-										'resumesettings',
-										'glossarysettings');
+    	/**
+    	 *	$menu['maincontroller'] = array(
+    	 *										array(	'label'=>'',
+    	 *												'action'=>'action_name',
+    	 *												'controller'=>'controller_name'  -- if not set, uses maincontroller
+    	 *											),
+    	 *										array(...)
+    	 *										'disableToActions'=>array('index') -- required, dissalow menu to action 'index' in maincontroller
+    	 *										'appraisalModel' => true(boolean) -- not required. only when appraisal model->alias must be added to generated url
+    	 *									);
+    	 */
+		$menu['confgeneral'] = array(
+									array(	'label'	=>'General Parameters',
+											'action'	=>'update'),
+									array(	'label'	=>'Fonts & Images',
+											'action'	=>'fontsandimages'),
+									array(	'label' =>'Property Settings',	
+											'action'	=>'propertysettings'),
+									array(	'label'	=>'Signed Certification Settings',
+											'action'	=>'signedcertification'),
+									array(	'label'	=>'Scope of Work Settings',
+											'action'	=>'scopeofsettings'),
+									array(	'label'	=>'Disclaimer Settings',	
+											'action'	=>'disclaimersettings'),
+									array(	'label'	=>'Resume Settings',
+											'action'	=>'resumesettings'),
+									array(	'label'	=>'Glossary Settings',
+											'action'	=>'glossarysettings'),
+									'disabledToActions'	=> array(''));
+									
+		$menu['appraisal'] = array(
+									array(	'label'	=>'Basic Info',
+											'action'	=>'edit'),
+									array(	'label'	=>'Property',
+											'action'	=>'property'),
+									array(	'label'	=>'Appraisal Report',
+											'controller'=>'appraisalreport',
+											'action'=>'coverletter'
+											),
+									array(	'label'	=>'Supporting Documents',
+											'controller'=>'documents',
+											'action'=>'bibliography'
+											),
+									'appraisalModel'=>true,
+									'disabledToActions' => array('index'),
+									);
+		
+		$menu['user']	= array(
+									array(	'label'	=>'Accounts',
+											'action'=>'accounts'),
+									array(	'label'	=>'Users',
+											'action'=>'users'),
+									'disabledToActions'	=> array('')
+									);
+									
+		return $menu;
+    }
+    
+    protected function allSubMenu($controller, $action)
+    {
+    	$menu = array();
+    	
+    	/**
+    	 * if($controller == 'controller_name' && $action == 'action_name') - submenu must be displayed for this controller & action
+    	 * {
+    	 * 	$menu = array(	'label'=>'Manage label'
+    	 * 					'controller'=>'' -- not required, if absent uses parent controller name
+    	 * 					'action'=>'action_name',
+    	 * 					'modelAlias'=> false(boolean) -- if Appraisal::model()->alias is required in url)
+    	 * }
+    	 */
+    	if($controller == 'appraisal' && $action == 'property' && $action == 'index' || $controller == 'property')
+    	{
+    		$menu = array(
+    						array(	'label'=>'Manage Property',
+    								'controller'=>'appraisal',
+    								'action'=>'property'
+    							),
+    						array(	'label'=> 'Configure Export Order',
+    								'controller'=>'property',
+    								'action'=>'configureExportOrder'
+    							),
+    						'modelAlias'=>true //$model->alias
+    						);
+    	}
+    	if($controller == 'appraisalreport')
+    	{
+    		$menu = array(
+			    		array(	'label'=> 'Cover Letter', 
+    							'controller'=>'appraisalreport',
+    							'action'=>'coverletter'
+			    			),
+			    		array(	'label'=> 'Bio/Hist.Context',
+    							'controller'=> 'appraisalreport',
+			    				'action'=>'biohistcontext'
+    						),
+    					array(	'label'=> 'Market Analysis',
+    							'controller'=>'appraisalreport',
+    							'action'=>'marketanalysis'
+    						),
+    					array(	'label'=>'Resume',
+    							'controller'=>'appraisalreport',
+    							'action'=>'resume'),
+    					'modelAlias'=>true //$model->alias
+    					);
+    	}
+    	if($controller == 'documents')
+    	{
+    		$model = Appraisal::getModel();
+    		$menu = array(
+    					array(	'label'	=> 	'Supporting Documents',
+    							'controller'=>'documents',
+    							'action'=>'bibliography',
+    						),
+    					array(	'label'	=>	'Privacy Policy', 
+    							'controller'=>	'documents',
+    							'action'=>	'privacypolicy'
+    						),
+    					array(	'label'	=>	'Appendicies', 
+    							'controller'=>	'documents',
+    							'action'=>	'appendicies'
+    						),
+    					'modelAlias'=>true //$model->alias
+    					);
+    	}
+    	
+    	return $menu;
+    }
+
+    protected function getParentCategory($controller)
+    {
+    	$allMenu = $this->allMenu();
+    	$allControllers = array();
+    	foreach ($allMenu as $key => $menu1)
+    	{
+    		foreach($menu1 as $menu2)
+    			if(isset($menu2['controller']) && $menu2['controller'] == $controller)
+    				return $key;
+    	}
     }
     
     public function generateMenu() 
     {
     	$menu = array();
     	$actionName = $this->getAction()->getId();
-
-    	if(in_array($this->id, array('confgeneral')))
-    	{
-    		$menu = array(	
-    			array(	'label'=>'General Parameters',
-    					'url'=>Yii::app()->controller->createUrl('/confgeneral/update/'),
-    					'active'=> $actionName == 'update' ? 1 : 0 ),
-    			array(	'label'=>'Fonts & Images',
-    					'url'=>Yii::app()->controller->createUrl('/confgeneral/fontsandimages'),
-    					'active'=> $actionName == 'fontsandimages' ? 1 : 0),
-    			array(  'label'=>'Property Settings',
-    					'url'=>Yii::app()->controller->createUrl('/confgeneral/propertysettings'),
-    					'active'=> $actionName == 'propertysettings' ? 1 : 0),
-				array( 	'label'=>'Signed Certification Settings', 
-						'url' => Yii::app()->controller->createUrl('/confgeneral/signedcertification'),
-						'active'=> $actionName == 'signedcertification' ? 1 : 0),
-				array(	'label'=>'Scope of Work Settings', 
-						'url'=>Yii::app()->controller->createUrl('/confgeneral/scopeofsettings'),
-						'active'=> $actionName == 'scopeofsettings' ? 1 : 0),
-				array(	'label'=>'Disclaimer Settings', 
-						'url'=>Yii::app()->controller->createUrl('/confgeneral/disclaimersettings'),
-						'active'=> $actionName == 'disclaimersettings' ? 1 : 0),
-				array(  'label'=>'Resume Settings', 
-						'url'=>Yii::app()->controller->createUrl('/confgeneral/resumesettings'),
-						'active'=> $actionName == 'resumesettings' ? 1 : 0),
-				array(	'label'=>'Glossary Settings', 
-						'url'=>Yii::app()->controller->createUrl('/confgeneral/glossarysettings'),
-						'active'=> $actionName == 'glossarysettings' ? 1 : 0)
-    			);
-    	}
-    	elseif ( in_array($this->id, array('appraisal', 'documents', 'property', 'appraisalreport')) && $actionName != 'index')
-    	{
-    		$model = Appraisal::getModel();
-    		$menu = array(
-    					array(	'label'=>'Basic Info',
-    							'url'=> $this->createUrl('/appraisal/edit/' . $model->alias),
-    							'active' => $actionName == 'edit' ? 1 : 0
-    					),
-    					array(	'label'=> 'Property',
-			    				'url'=> $this->createUrl('/appraisal/property/' . $model->alias),
-    							'active' => in_array($actionName, array('property', '')) == 'property' ? 1 : 0
-    					),
-    					array(	'label'=> 'Appraisal Report', 
-    							'url'=> $this->createUrl('/appraisalreport/coverletter/' . $model->alias),
-    							'active' => $actionName == 'coverletter' ? 1 : 0
-    					),
-    					array(	'label'	=> 'Supporting Documents', 
-    							'url'	=> $this->createUrl('/documents/bibliography/' . $model->alias),
-    							'active' => $actionName == 'bibliography' ? 1 : 0
-    					),
-    		);
-    	}
-    	elseif(in_array($this->id, array('user')))
-    	{
-    		$menu = array(
-    					array(	'label'=>'Accounts', 
-    							'url'=> $this->createUrl('/user/accounts')),
-    					array(	'label'=>'Users',
-    							'url'=>	$this->createUrl('/user/users')));
-    	}
-    	;
-
+    	$defMenu = $this->allMenu();
+    	
+    		$level1 = $this->id;
+    		if($this->getParentCategory($this->id))
+    			$level1 = $this->getParentCategory($this->id);
+    	
+	    	if(isset($defMenu[$level1]['appraisalModel']) && !in_array($actionName, $defMenu[$level1]['disabledToActions']) )
+	    					$model = Appraisal::getModel();
+	    	
+	    	
+	    	if( array_key_exists($level1, $defMenu) && !in_array($actionName, $defMenu[$level1]['disabledToActions']))
+	    	{
+	    		foreach($defMenu[$level1] as $cMenu)
+	    			if(isset($cMenu['label']))
+	    			{
+	    			$menu[] = array('label'	=> $cMenu['label'],
+	    							'url'	=> $this->createUrl( ((isset($cMenu['controller']) ? 
+	    															$cMenu['controller'] : $level1 /*$this->id*/) 
+	    															.'/'.$cMenu['action'])). (isset($model) ? '/'.$model->alias : '' )  ,
+	    							'active'=> isset($cMenu['controller']) && $cMenu['controller'] == $this->id ? 1 : 0 );
+	    			}
+	    	}
     	return $menu;
     }
     
@@ -221,51 +306,29 @@ class Controller extends CController
     public function generateSubMenu() 
     {
     	$menu = array();
-    	$actionName = $this->getAction()->getId();
-    	if($this->id == 'appraisal' && $actionName == 'property' || $this->id == 'property')
+    	$actionName = $this->getAction()->getId();   	
+    	$preMenu = $this->allSubMenu($this->id, $actionName);
+
+    	if($preMenu)
     	{
-    		$model = Appraisal::getModel();
-    		$menu = array(
-    					array(	'label'=> 'Manage property',
-			    				'url'=> Yii::app()->controller->createUrl('/appraisal/property/' . $model->alias)
-    					),
-    					array(	'label'=> 'Configure Export Order',
-			    				'url'=> Yii::app()->controller->createUrl('/property/configureExportOrder' . $model->alias)
-    					),
-    				);
-    	}elseif($this->id == 'documents')
-    	{
-    		$model = Appraisal::getModel();
-    		$menu = array(
-    					array(	'label'	=> 	'Supporting Documents', 
-    							'url'	=> 	Yii::app()->createUrl('/documents/bibliography/' . $model->alias),
-    							'active'=>	$actionName == 'bibliography' ? 1 : 0
-    						),
-    					array(	'label'	=>	'Privacy Policy', 
-    							'url'	=>	Yii::app()->createUrl('/documents/privacypolicy/' . $model->alias),
-    							'active'=>	$actionName == 'privacypolicy' ? 1 : 0
-    						),
-    					array(	'label'	=>	'Appendicies', 
-    							'url'	=>	Yii::app()->createUrl('/documents/appendicies/' . $model->alias),
-    							'active'=>	$actionName == 'appendicies' ? 1 : 0
-    						)
-    					);
-    	}elseif($this->id == 'appraisalreport')
-    	{
-    		$model = Appraisal::getModel();
-    		$menu = array(
-			    		array(	'label'=> 'Cover Letter', 
-    							'url'=> $this->createUrl('/appraisalreport/coverletter/' . $model->alias),
-			    				'active'=>	$actionName == 'coverletter' ? 1 : 0
-			    			),
-			    		array(	'label'=> 'Bio/Hist.Context',
-    							'url'=> $this->createUrl('/appraisalreport/biohistcontext/' . $model->alias),
-			    				'active'=>	$actionName == 'biohistcontext' ? 1 : 0
-    						),
-    					);
+    		$model = null;
+    		if(isset($preMenu['modelAlias']) && $preMenu['modelAlias'])
+    			$model = Appraisal::getModel();
+
+	    	foreach($preMenu as $cMenu)
+	    	{
+	    		if(is_array($cMenu))
+	    		{
+	    			$menu[] = array(	'label'=>$cMenu['label'],
+	    								'url'=> $this->createUrl($cMenu['controller'].'/'.$cMenu['action']).
+	    												($model ? '/'.$model->alias : ''),
+	    								'active'=> 	$this->id == $cMenu['controller'] && 
+	    											$actionName == $cMenu['action'] ? 1 : 0
+	    						);
+	    		}
+	    	}
     	}
     	 	
-    	
     	return $menu;
     }
 }

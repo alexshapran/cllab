@@ -428,7 +428,7 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 }
 .menu_level2 LI:hover
 {
-	background-color:yellow;
+	background-color:pink;
 }
 /* MENU LEVEL 2 END */
 
@@ -445,6 +445,6 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 }
 .menu_level3 LI:hover
 {
-	background-color:yellow;
+	background-color:pink;
 }
 /* MENU LEVEL 3 END */
