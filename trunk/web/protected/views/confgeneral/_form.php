@@ -125,7 +125,8 @@ function displayEdit(id)
 <script type='text/javascript'>
 function addPurpose(transport)
 {
-	$('#allpurposes').html(transport);
+	if(transport.gridView)
+	$('#allpurposes').html(transport.gridView);
 	unbusy();
 }
 </script>
