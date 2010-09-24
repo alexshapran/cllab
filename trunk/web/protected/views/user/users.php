@@ -1,13 +1,5 @@
 <?php $filterBy = isset($_GET['filterBy']) ? $_GET['filterBy'] : 0 ?>
-<?php
-$this->breadcrumbs=array(
-	'Users',
-);
-//$this->menu=array(
-//array('label'=>'Create User', 'url'=>array('create')),
-//array('label'=>'Manage User', 'url'=>array('admin')),
-//);
-?>
+
 <div style='min-width:600px;'>
 <?php echo CHtml::button('Add User', array('onClick'=>'location.replace(\''.yii::app()->createUrl("user/update").'\')')) ?>
 <?php echo CHtml::dropDownList('sortBy','', 
@@ -35,7 +27,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 </div>
 <?php if($filterBy) { ?>
-<script type='text/javascript'>
-$("#sortBy").val(<?php echo $filterBy ?>);
-</script>
+	<script type='text/javascript'>
+		$("#sortBy").val(<?php echo $filterBy ?>);
+	</script>
 <?php } ?>
