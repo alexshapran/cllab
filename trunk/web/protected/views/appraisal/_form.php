@@ -276,7 +276,7 @@ User value???
 	));
 ?>
 	
-	<?php echo $this->renderPartial('_typeofvalue_form', array('model' => new ConfPurpose )); ?>
+	<?php echo $this->renderPartial('/conftypeofvalue/_typeofvalue_form', array('model' => new ConfTypeOfValue )); ?>
  
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
 

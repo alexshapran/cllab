@@ -32,7 +32,7 @@ class ConftypeofvalueController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update', 'delete'),
+				'actions'=>array('update', 'delete', 'ajaxcreate'),
 				'roles'=>array('Superadmin')
 			),
 			array('deny',  // deny all users
@@ -50,6 +50,25 @@ class ConftypeofvalueController extends Controller
 //			'model'=>$this->loadModel(),
 //		));
 //	}
+	public function actionAjaxCreate() {
+		$result = array();
+		$response = '';
+		if(isset($_POST['ConfTypeOfValue']))
+		{
+			$model = new ConfTypeOfValue;
+			$model->attributes=$_POST['ConfTypeOfValue'];
+			if($model->validate()){
+				$model->save();
+				$model->update();
+				$result['success'] = array('id'=>$model->id, 'name'=>$model->name);
+				$response = array('result' => $result);
+			} else {
+				$response = array('form' => $this->renderPartial('/conftypeofvalue/_typeofvalue_form', array('model' => $model ), true , true));		
+			}
+		}
+		echo CJSON::encode($response);
+	}
+	
 
 	/**
 	 * Updates a particular model.
@@ -65,6 +84,7 @@ class ConftypeofvalueController extends Controller
 		if(isset($_POST['ConfTypeOfValue']))
 		{
 			$model->attributes=$_POST['ConfTypeOfValue'];
+			$model->conf_gen_id = Yii::app()->user->getConfigId();
 			if($model->save())
 				$this->redirect(Yii::app()->controller->createUrl('/confgeneral/update'));
 		}

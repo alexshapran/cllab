@@ -45,7 +45,9 @@ class DocumentsController extends Controller
 	}
 	
 	public function actionBibliography() {
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
+		
 		$oBibliography = $oAppraisal->sdBibliography;
 		if(!$oBibliography)
 			$oBibliography = $oAppraisal->createRelation('SdBibliography','sd_bibliography_id');
@@ -63,7 +65,9 @@ class DocumentsController extends Controller
 	}
 	
 	public function actionPrivacyPolicy(){
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
+			
 		$oPrivacyPolicy = $oAppraisal->sdPrivacyPolicy;
 		if(!$oPrivacyPolicy)
 			$oPrivacyPolicy = $oAppraisal->createRelation('sdPrivacyPolicy','sd_privacy_policy_id');
@@ -87,7 +91,8 @@ class DocumentsController extends Controller
 	{
 		if(isset($_POST['SdAppendicesList']))
 		{
-			$oAppraisal = Appraisal::getModel();
+			if(!$oAppraisal = Appraisal::getModel())
+				$this->redirect('/appraisal/edit/');
 			foreach($oAppraisal->sdAppendices->sdAppendicesLists as $oApp)
 			{
 					$oApp->text = $_POST['SdAppendicesList'][$oApp->id]['text'];
@@ -99,7 +104,8 @@ class DocumentsController extends Controller
 			}
 		}
 		
-		$oAppraisal = Appraisal::getModel();
+		if(!$oAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/edit/');
 		$this->render('appendicies', array('oAppend'=>$oAppraisal->sdAppendices, 'oAppraisal'=>$oAppraisal));
 	}
 	public function actionCreateappend()
