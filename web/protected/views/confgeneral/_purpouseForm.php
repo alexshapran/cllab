@@ -15,8 +15,6 @@
 		<?php echo $form->error($model,'value'); ?>
 	</div>
 
-		<?php echo $form->hiddenField($model, 'conf_gen_id', array('value'=>Yii::app()->user->getConfigId())) ?>
-
 	<div style='float:left; margin-left:20px;'>
 		<?php echo CHtml::ajaxSubmitButton("Add new",
                               CController::createUrl('purpose/createAjax'), 

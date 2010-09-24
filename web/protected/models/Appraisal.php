@@ -137,6 +137,7 @@ class Appraisal extends CActiveRecord
 	}
 	
 	public static function getModel() {
+		$model = null;
 		if(isset($_GET['id']))		
 			$model = Appraisal::model()->findByAlias($_GET['id']);
 		if(!$model && isset($_GET['id']))
@@ -187,7 +188,7 @@ class Appraisal extends CActiveRecord
 	}
 	
 	public static function createNewLink(){
-		return CHtml::link('Create New Appraisal', Yii::app()->createUrl('/appraisal/'));
+		return CHtml::button('Create New Appraisal', array('onclick'=>'window.location = "'.yii::app()->createUrl('/appraisal/edit').'"'));
 	}
 	
 }
