@@ -15,7 +15,7 @@
 
 <div class='clear' id='addBefore'></div>
 
-<div style='width:94px; margin: 20px auto;'>
+<div class='resumeAddMoreDiv'>
 	<?php 
 		echo CHtml::ajaxLink(	'Add More',
 								CController::createUrl('confresumesettings/create'),
@@ -26,7 +26,7 @@
 </div>
 
 
-<div class="row buttons" style='margin: 0 auto; width:20%;'>
+<div class="row buttons resumeSaveButton">
 	<?php echo CHtml::ajaxSubmitButton(
 				'Save', 
 				Yii::app()->controller->createUrl('/confresumesettings/update'),

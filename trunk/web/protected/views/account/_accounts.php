@@ -7,7 +7,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'ajaxUpdate'=>true,
 	'columns' => array('value',
 						array(	'class'			=>'CButtonColumn',
-								'htmlOptions'	=>array('style'=>'width:63px;'),
+								'htmlOptions'	=>array('class'=>'buttonsUpdateDelete'),
 								'template'		=>'{update} | {delete}',
 								'updateButtonUrl'	=>'Yii::app()->controller->createUrl("account/update", array("id"=>$data->id))',
 								'deleteButtonUrl'	=>'Yii::app()->controller->createUrl("account/delete", array("id"=>$data->id))',

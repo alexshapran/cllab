@@ -17,17 +17,6 @@
 						'style'=>'margin-top:15px;',
 						'onclick'=>'busy()')
 				)
-
-//	echo CHtml::button('Delete',
-//					array('onclick'=>"jQuery.ajax({
-//						'dataType':'json',
-//						'url':'".Yii::app()->controller->createUrl('/confglossarysettings/delete', array('id' => $model->id))."',
-//						'success': function(transport){ removeMe(transport); },
-//						'cache':false
-//						});
-//						return false;",
-//						'id'=>'deleteButton'.$model->id,
-//						'style'=>'margin-top:15px;')) 
 ?>
 	</div>
 </div>

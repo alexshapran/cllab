@@ -24,7 +24,7 @@
 																'allowtitle'=>$model->add_has_name));
 ?>
 
-<div id='addBefore<?php echo $model->id ?>' style='width:15%; margin: 0 auto 20px;'>
+<div class='sosAddBefore' id='addBefore<?php echo $model->id ?>'>
 	<?php if($model->allow_add_more) { ?>
 	<?php 
 			echo CHtml::ajaxLink(

@@ -12,7 +12,7 @@
 		array(	'onclick'=>"jQuery.ajax({	
 				'method':'GET', 
 				'success': function(){ toggle($model->id); $('#settName$model->id').html( $('#newText$model->id').val() ) } ,
-				'url':'".Yii::app()->controller->createUrl('confdisclaimersettings/update')."&newtext='+$(\"#newText".$model->id."\").val()+'&id=".$model->id."',
+				'url':'".Yii::app()->controller->createUrl('confdisclaimersettings/update')."?newtext='+$(\"#newText".$model->id."\").val()+'&id=".$model->id."',
 				'cache':false}); return false;")); ?>
 </span>
 
@@ -21,7 +21,7 @@
 			$this->renderPartial('/confdisclaimervalue/_form', array('model'=>$oValue));
 ?>
 
-<div id='disclaimer<?php echo $model->id ?>' style='width:30%; margin:0 auto 20px;'>
+<div class='disclaimerel' id='disclaimer<?php echo $model->id ?>'>
 <?php
 echo CHtml::ajaxLink(
 		'Add More', 

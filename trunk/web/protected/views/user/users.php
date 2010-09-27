@@ -7,7 +7,7 @@
 								array(	
 									'prompt'=> $filterBy ? 'Disable filter' : 'Filter by Account', 
 									'onchange'=>'location.replace("'.Yii::app()->controller->createUrl(	'/user/users', array(	'filterBy'=>'')).'"+$("#sortBy").attr("value"))', 
-																												'style'=>'float:right' )) ?>
+																												'class'=>'floatright' )) ?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'accountsTable',
