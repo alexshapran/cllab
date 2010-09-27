@@ -114,9 +114,11 @@ function displayEdit(id)
 			<div class='confgeneralsect'>
 			Purpose of Appraisal - Configure Options
 			</div>
-			<?php echo $this->renderPartial('_purpouseForm', array('model'=>new ConfPurpose)); ?>
+			<?php echo $this->renderPartial('_purpouseForm', 
+											array('model'=>new ConfPurpose)); ?>
 				<div id="allpurposes">
-				<?php $this->renderPartial('/purpose/create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider)); ?>
+				<?php $this->renderPartial('/purpose/create', 
+									array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider)); ?>
 				</div>
 			</div>
 		</div>

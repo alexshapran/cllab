@@ -12,7 +12,7 @@
 			array('onclick'=>"busy(); jQuery.ajax({	
 			'method':'GET', 
 			'success': function(){ unbusy(); toggle($model->id); $('#settName$model->id').html( $('#newText$model->id').val() ) } ,
-			'url':'".Yii::app()->controller->createUrl('/confscopeofsettings/update')."&newtext='+$(\"#newText".$model->id."\").val()+'&id=".$model->id."',
+			'url':'".Yii::app()->controller->createUrl('/confscopeofsettings/update')."?newtext='+$(\"#newText".$model->id."\").val()+'&id=".$model->id."',
 			'cache':false}); return false;")); ?>
 </span>
 
