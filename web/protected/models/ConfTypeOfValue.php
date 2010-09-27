@@ -37,7 +37,7 @@ class ConfTypeOfValue extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('conf_gen_id', 'required'),
+			array('name, conf_gen_id', 'required'),
 			array('conf_gen_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			array('definition, source', 'safe'),

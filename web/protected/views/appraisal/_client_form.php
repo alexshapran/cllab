@@ -93,17 +93,17 @@
 			Yii::app()->controller->createUrl('client/AjaxAdd'),
 			array(
 				'dataType'=> 'json',
-				'success'=> 'function (transport) { setOnsuccess(transport) }', 
+				'success'=> 'function (transport) { setClientSuccess(transport) }', 
 				'error'=>'function (transport) {if (transport.status != 200) alert(\'Sorry, but some error occured. Try again please\');}',
 			),
-			array('id'=>'popup_button_id')
+			array('id'=>'client_button_id')
 		); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 <script type="text/javascript">
-	function setOnsuccess(transport) {
+	function setClientSuccess(transport) {
 		if(transport.form) {
 			$(".client_popup_form").html(" ");
 			$(".client_popup_form").html(transport.form);

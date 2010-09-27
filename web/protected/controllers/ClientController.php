@@ -210,6 +210,7 @@ class ClientController extends Controller
 		{
 			$model = new Client;
 			$model->attributes=$_POST['Client'];
+			$model->account_id = Yii::app()->user->getConfigId();
 			if($model->validate()){
 				$model->save();
 				$model->update();

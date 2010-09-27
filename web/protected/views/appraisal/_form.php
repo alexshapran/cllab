@@ -37,7 +37,7 @@
 				'style'=>'width:85px;'
 		    ));
 	 	?>
-		<?php echo $form->dropDownList($model,'client_id', CHtml::listData($aClient, 'id','name')); ?>
+		<?php echo $form->dropDownList($model,'client_id', CHtml::listData(Client::getClientsByAccount(Yii::app()->user->getConfigId()), 'id','name')); ?>
 		<?php echo $form->error($model,'client_id'); ?>
 	</div>
 	
