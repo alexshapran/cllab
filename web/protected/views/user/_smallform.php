@@ -8,13 +8,13 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div style='float:left;'>
+	<div class='floatleft'>
 		<?php // echo $form->labelEx($model,'value'); ?>
 		<?php echo $form->textField($model,'value',array('size'=>30,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'value'); ?>
 	</div>
 
-	<div style='float:left; margin-left:20px;'>
+	<div class='floatleft' style='margin-left:20px;'>
 		<?php echo CHtml::ajaxSubmitButton("Add new",
                               CController::createUrl('account/createAjax'), 
                               array('update'=>'#accountsTable'));

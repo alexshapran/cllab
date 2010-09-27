@@ -10,8 +10,7 @@
 			echo CHtml::dropDownList('search_field', 
 									null, 
 									$attributeList, 
-									array(	'style' => 	'padding-left: 2px; margin-right: 10px;', 
-											'class' => 	'floatleft',
+									array(	'class' => 	'searchField floatleft',
 											'prompt'=>	'Search All Fields'
 									));
 			echo CHtml::textField('search_text','',array());

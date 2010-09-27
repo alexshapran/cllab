@@ -33,7 +33,7 @@
       			),
       			'delete'=>array(
 	                'label'=>'delete',
-      				'imageUrl'=>'',    
+      				'imageUrl'=>'',
       			),
       			'duplicate'=>array(
 	                'label'=>'duplicate',

@@ -1,4 +1,4 @@
-<div class="row" style='clear:both' id="resume<?php echo $model->id ?>">
+<div class="row clear" id="resume<?php echo $model->id ?>">
 	<?php echo MCHtml::activeTextArea($model, 'value', array('rows'=>6, 'cols'=>50, 'preName'=>$model->id, 'style'=>'float:left')); ?>
 	<?php echo CHtml::ajaxButton('Delete', 
 						Yii::app()->controller->createUrl('confresumesettings/delete', array('id'=>$model->id)), 

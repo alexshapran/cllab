@@ -1,3 +1,4 @@
+<!-- Simple form to add Purposes  -->
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
