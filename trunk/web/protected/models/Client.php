@@ -49,6 +49,7 @@ class Client extends CActiveRecord
 		return array(
 			array('zip', 'numerical', 'integerOnly'=>true),
 			array('name, email', 'required'),
+			array('email','unique','message'=>'This username is occypied'),
 			array('email', 'email'),
 			array('phone, fax', 'length', 'max'=>45),
 			array('date_added, note', 'safe'),
@@ -149,5 +150,13 @@ class Client extends CActiveRecord
 			$arText[] = Controller::nameFromAttribute($key);
 
 		return array_combine($arKeys, $arText);
+	}
+	
+	public static function getClientsByAccount($id) {
+		if(intval($id)) {
+			return Client::model()->findAllByAttributes(array('account_id'=>$id));
+		} else {
+			return '';
+		}
 	}
 }

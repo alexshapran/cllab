@@ -94,4 +94,12 @@ class ConfCategory extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public static function getParentCategories() {
+		return ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
+	}
+
+	public static function getChildrenCategory($catId) {
+		return ConfCategory::model()->findAllByAttributes(array('parent_id'=>$catId));
+	}
 }

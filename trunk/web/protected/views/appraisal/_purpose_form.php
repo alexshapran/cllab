@@ -18,13 +18,13 @@
 	<div class="row buttons">
 		<?php echo CHtml::ajaxSubmitButton(
 			'Save', 
-			Yii::app()->controller->createUrl('purpose/createajax'),
+			'/purpose/createajax',
 			array(
 				'dataType'=> 'json',
 				'success'=> 'function (transport) { setOnsuccess(transport) }', 
 				'error'=>'function (transport) {if (transport.status != 200) alert(\'Sorry, but some error occured. Try again please\');}',
 			),
-			array('id'=>'popup_button_id', 'onClick'=>'checkValue()')
+			array('id'=>'purporse_button_id', 'onClick'=>'checkValue()')
 		); ?>
 	</div>
 

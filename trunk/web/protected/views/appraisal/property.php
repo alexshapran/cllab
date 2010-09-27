@@ -127,7 +127,7 @@ $('.search-form form').submit(function(){
 		    alert('Only integer!');
 		    return false;
 	    }
-	    location.replace('/object/'+goToVal);
+	    location.replace('<?php echo Yii::app()->createUrl("object/create", array_merge($_GET, array("object"=>'')))?>'+goToVal);
 	}
 
 	function submitSearch() {

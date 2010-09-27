@@ -109,7 +109,6 @@ class AppraisalController extends Controller
 		
 		$this->render('edit',array(
 			'model'=>$model,
-			'aClient'=>$aClient,
 			'oClient'=>$oClient,
 			'oBasicParams'=>$oBasicParams,
 			'aPurpose'=>$aPurpose,
