@@ -107,6 +107,23 @@ function unbusy()
 {
 	$("#greybox").fadeOut(2000);
 }
+
+	// TRIM FUNCTIONS for JS
+	
+//Убирает пробельные символы слева
+function ltrim(str) {
+	var ptrn = /\s*((\S+\s*)*)/;
+	return str.replace(ptrn, "$1");
+}
+// Убирает пробельные символы справа
+function rtrim(str) {
+	var ptrn = /((\s*\S+)*)\s*/;
+	return str.replace(ptrn, "$1");
+}
+// Убирает пробельные символы с обоих концов
+function trim(str) {
+	return ltrim(rtrim(str));
+}
 </script>
 </body>
 </html>

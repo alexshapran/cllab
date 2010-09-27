@@ -24,7 +24,7 @@
 							yii::app()->controller->createUrl("confcategory/ajaxcreate"), 
 							array('success'=>'function(transport){ floodDiv(transport) }'), 
 							array(	'id'=>'simpleFormSubmit',
-									'onclick'=>'busy()')); ?>
+									'onclick'=>'if(! trim($("#ConfCategory_name").val())) { alert("Enter category name before!"); return false; }; busy()')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
