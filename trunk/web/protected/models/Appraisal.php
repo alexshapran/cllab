@@ -68,6 +68,8 @@ class Appraisal extends CActiveRecord
 			'sdExports' => array(self::HAS_MANY, 'SdExport', 'appraisal_id'),
 			'sdGlossaries' => array(self::HAS_MANY, 'SdGlossary', 'appraisal_id'),
 			'sdPrivacyPolicy' => array(self::BELONGS_TO, 'SdPrivacyPolicy', 'sd_privacy_policy_id'),
+			'appSignedCert' => array(self::BELONGS_TO, 'AppSignedCert', 'app_signed_cert_id'),
+			'scopeOfWork'	=> array(self::BELONGS_TO, 'AppScopeOfWork', 'app_scope_of_work_id')
 		);
 	}
 
