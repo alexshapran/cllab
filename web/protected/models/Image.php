@@ -10,6 +10,7 @@
  */
 class Image extends CActiveRecord
 {
+	public $_file; 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Image the static model class
@@ -87,5 +88,27 @@ class Image extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function loadImage() {
+		if (is_object($this->_file)) {
+			$pathPrefix = Yii::app()->getBasePath().'/../uploads/images/';
+			$fileName = $this->_file->getName();
+			$fileFullName = $pathPrefix . $fileName;
+			
+			if (file_exists($fileFullName)) {
+				$fileName = substr(md5(time()),0,10);
+				$this->name = $fileName;
+				$this->path = $pathPrefix;
+				$fileFullName = $pathPrefix . $fileName;
+			} 
+			$this->_file->saveAs($fileFullName);
+			if (file_exists($fileFullName)) {
+//				   Thumb::createThumb($fileFullName,$fileFullName,270,202);	
+//				$this->generateThumbnails();
+			}
+		} else {
+			return false;
+		}
 	}
 }

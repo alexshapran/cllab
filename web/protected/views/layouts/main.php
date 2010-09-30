@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+<?php Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('application.views').'/layouts/assets/jquery.form.js'));?>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -170,17 +171,17 @@ function unbusy()
 
 	// TRIM FUNCTIONS for JS
 	
-//Убирает пробельные символы слева
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 function ltrim(str) {
 	var ptrn = /\s*((\S+\s*)*)/;
 	return str.replace(ptrn, "$1");
 }
-// Убирает пробельные символы справа
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function rtrim(str) {
 	var ptrn = /((\s*\S+)*)\s*/;
 	return str.replace(ptrn, "$1");
 }
-// Убирает пробельные символы с обоих концов
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 function trim(str) {
 	return ltrim(rtrim(str));
 }

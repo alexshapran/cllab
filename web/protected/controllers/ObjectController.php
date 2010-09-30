@@ -37,7 +37,7 @@ class ObjectController extends Controller
 //				'roles'=>array('Superadmin'),
 //y			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','GetChildrenCategory'),
+				'actions'=>array('create','update','GetChildrenCategory', 'AddComparableAjax', 'DeleteAjax'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -70,15 +70,26 @@ class ObjectController extends Controller
 			$model = Object::model()->findByPk($_GET['object']);
 		if(!$model)
 			$model = new Object;
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
+		$aComparableSales = $model->getComparableSales();
+		
 		if(isset($_POST['Object'])) {
 			$oAppraisal = Appraisal::getModel();
 			$model->appraisal_id = $oAppraisal->id;
 			$model->attributes=$_POST['Object'];
 			if($model->validate()) {
 				if($model->save()) {
+					if(isset($_POST['ComparableSales']) || isset($_POST['NewImgId'])) {
+						foreach($aComparableSales as $i => $obj) {
+							if(isset($_POST['ComparableSales']) && isset($_POST['ComparableSales'][$obj->id]))
+								$obj->description = $_POST['ComparableSales'][$obj->id];
+									
+							if(isset($_POST['NewImgId']) && isset($_POST['NewImgId'][$obj->id]))
+								$obj->img_id = $_POST['NewImgId'][$obj->id];
+								
+							$obj->save();
+						}
+					}
 					// if clicked save and create new redirect else save current and show it
 					if(isset($_POST['save_location']) && $_POST['save_location'] == 'new') {
 						$model=new Object;
@@ -90,6 +101,7 @@ class ObjectController extends Controller
 		
 		$this->render('create',array(
 			'model'=>$model,
+			'aComparableSales'=>$aComparableSales,
 		));
 	}
 
@@ -198,6 +210,30 @@ class ObjectController extends Controller
 			}
 			$response = array('html' => $html);
 			echo CJSON::encode($response);
+		}
+	}
+	
+	public function actionAddComparableAjax(){
+		if(isset($_GET['object']) && intval($_GET['object'])) {
+			$obj = new ComparableSales;
+			$obj->object_id = $_GET['object'];
+			$obj->save();
+			$response = array('form'=>$this->renderPartial('/object/_comparable_sales', array('obj' => $obj),true, true));
+			echo CJSON::encode($response);
+			
+		}
+	}
+	
+	public function actionDeleteAjax(){
+		if(isset($_GET['comparableSale']) && intval($_GET['comparableSale'])) {
+			$obj = ComparableSales::model()->findByPk($_GET['comparableSale']);
+			if($obj) {
+				$id = $obj->id;
+				if($obj->delete()){
+					echo $id;
+					die;	
+				}
+			}
 		}
 	}
 }
