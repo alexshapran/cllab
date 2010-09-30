@@ -17,11 +17,21 @@
 	<div class='floatleft' style='margin-left:20px;'>
 		<?php echo CHtml::ajaxSubmitButton("Add new",
                               CController::createUrl('account/createAjax'), 
-                              array('update'=>'#accountsTable'));
+                              array('dataType'=>'json',
+                              		'success'=>'function(transport) { catchRequest(transport); }',
+                              		'update'=>'#accountsTable'));
 		 ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
 </div><!-- form -->
+<script type='text/javascript'>
+function catchRequest(transport)
+{
+	if(transport.form)
+		$("#accountsTable").html(transport.form);
+	if(transport.errors)
+		displayAjaxError(transport.errors);
+}
+</script>
 <div class='clear'></div>

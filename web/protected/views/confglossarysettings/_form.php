@@ -15,8 +15,8 @@
 						'success' => 'function(transport){ removeMe(transport); unbusy() }'),
 				array(	'id'=>'deleteButton'.$model->id,
 						'style'=>'margin-top:15px;',
-						'onclick'=>'busy()')
+						'onclick'=>'if(!confirm("Are you sure?")) return false; busy()')
 				)
-?>
+	?>
 	</div>
 </div>

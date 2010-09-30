@@ -141,6 +141,11 @@
 
 </div><!-- page -->
 <script type='text/javascript'>
+//function displayScroll()
+//{
+//	alert($("body").scrollTop());
+//	alert($("html").scrollTop());
+//}
 function displayAjaxError(text)
 {
 	$('#ajaxErrors').dialog('open');
@@ -152,7 +157,8 @@ function displayAjaxMessage(text)
 	$('#messageText').html(text);
 }
 function busy()
-{
+{	
+//	alert($("body").scrollTop());
 	$("#greybox").css('top', $("body").scrollTop());
 	$("#greybox").fadeIn(400);
 }

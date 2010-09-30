@@ -1,42 +1,40 @@
 <div>
-<h4>Resume</h4>
-<div id='resumeSettings'>
-	<?php $form=$this->beginWidget('CActiveForm', array(
-		'id'=>'conf-resume-settings-form',
-		'enableAjaxValidation'=>true,
-	)); ?>
-
+	<h4>Resume</h4>
+	<div id='resumeSettings'>
+		<?php $form=$this->beginWidget('CActiveForm', array(
+			'id'=>'conf-resume-settings-form',
+			'enableAjaxValidation'=>true,
+		)); ?>
+	
 		<?php
 		if($aResumes){ 
-		foreach($aResumes as $oResume) {
-		$this->renderPartial('/confresumesettings/_form', array('model'=>$oResume));
+			foreach($aResumes as $oResume) {
+				$this->renderPartial('/confresumesettings/_form', array('model'=>$oResume));
 		}} ?>
-
-
-<div class='clear' id='addBefore'></div>
-
-<div class='resumeAddMoreDiv'>
-	<?php 
-		echo CHtml::ajaxLink(	'Add More',
-								CController::createUrl('confresumesettings/create'),
-								array(	'success'=>'function(transport){ addElement(transport); }',
-										'dataType'=>'json'),
-								array(	'id'=>'addMore',
-										'onclick'=>'busy()')) ?>
-</div>
-
-
-<div class="row buttons resumeSaveButton">
-	<?php echo CHtml::ajaxSubmitButton(
-				'Save', 
-				Yii::app()->controller->createUrl('/confresumesettings/update'),
-				array('success'=>'saveComplete()'),
-				array('onclick'=>'busy()')); ?>
-</div>
-
-<?php $this->endWidget(); ?>
-
-</div>
+	
+	
+		<div class='clear' id='addBefore'></div>
+		
+		<div class='resumeAddMoreDiv'>
+			<?php 
+				echo CHtml::ajaxLink(	'Add More',
+										CController::createUrl('confresumesettings/create'),
+										array(	'success'=>'function(transport){ addElement(transport); }',
+												'dataType'=>'json'),
+										array(	'id'=>'addMore',
+												'onclick'=>'busy()')) ?>
+		</div>
+		
+		<div class="row buttons resumeSaveButton">
+			<?php echo CHtml::ajaxSubmitButton(
+						'Save', 
+						Yii::app()->controller->createUrl('/confresumesettings/update'),
+						array('success'=>'saveComplete()'),
+						array('onclick'=>'busy()')); ?>
+		</div>
+		<?php $this->endWidget(); ?>
+	
+	</div>
 </div>
 <script type='text/javascript'>
 function addElement(transport)
@@ -56,5 +54,6 @@ function removeElement(transport)
 function saveComplete()
 {
 	unbusy();
+	displayAjaxMessage('Sussesfully saved!');
 }
 </script>

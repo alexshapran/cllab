@@ -20,7 +20,7 @@
 					Yii::app()->controller->createUrl('/confscopeofvalue/delete', array('val_id'=>$model->id)),
 					array(	'success'=>'function(html){ unbusy(); $("#scopevalue'.$model->id.'").remove(); }'),
 					array(	'style'=>'margin:9px 0 0 9px;',
-							'onclick'=>'busy()'));
+							'onclick'=>'if(!confirm("Are you sure?")) return false;  busy()'));
 		?>
 	</div>
 	<div class='clear'></div>
