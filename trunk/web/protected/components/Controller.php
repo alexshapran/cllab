@@ -131,7 +131,7 @@ class Controller extends CController
     	 *	$menu['maincontroller'] = array(
     	 *										array(	'label'=>'',
     	 *												'action'=>'action_name',
-    	 *												'controller'=>'controller_name'  -- if not set, uses maincontroller
+    	 *												'controller'=>'controller_name'  -- if not set, uses maincontroller, but not highlighted
     	 *											),
     	 *										array(...)
     	 *										'disableToActions'=>array('index') -- required, dissalow menu to action 'index' in maincontroller
@@ -140,20 +140,28 @@ class Controller extends CController
     	 */
 		$menu['confgeneral'] = array(
 									array(	'label'	=>'General Parameters',
+//											'controller'=>'confgeneral',
 											'action'	=>'update'),
 									array(	'label'	=>'Fonts & Images',
+//											'controller'=>'confgeneral',
 											'action'	=>'fontsandimages'),
-									array(	'label' =>'Property Settings',	
+									array(	'label' =>'Property Settings',
+//											'controller'=>'confgeneral',	
 											'action'	=>'propertysettings'),
 									array(	'label'	=>'Signed Certification Settings',
+//											'controller'=>'confgeneral',
 											'action'	=>'signedcertification'),
 									array(	'label'	=>'Scope of Work Settings',
+//											'controller'=>'confgeneral',
 											'action'	=>'scopeofsettings'),
-									array(	'label'	=>'Disclaimer Settings',	
+									array(	'label'	=>'Disclaimer Settings',
+//											'controller'=>'confgeneral',	
 											'action'	=>'disclaimersettings'),
 									array(	'label'	=>'Resume Settings',
+//											'controller'=>'confgeneral',
 											'action'	=>'resumesettings'),
 									array(	'label'	=>'Glossary Settings',
+//											'controller'=>'confgeneral',
 											'action'	=>'glossarysettings'),
 									'disabledToActions'	=> array(''));
 									
@@ -227,9 +235,15 @@ class Controller extends CController
     							'controller'=>'appraisalreport',
     							'action'=>'marketanalysis'
     						),
+    					array(	'label'=>'Signed Cert.',
+    							'controller'=>'appraisalreport',
+    							'action'=>'signedcert'),
     					array(	'label'=>'Resume',
     							'controller'=>'appraisalreport',
     							'action'=>'resume'),
+    					array(	'label'=>'Scope of Work',
+    							'action'=>'scopeofwork',
+    							'controller'=>'appraisalreport'),
     					'modelAlias'=>true //$model->alias
     					);
     	}
