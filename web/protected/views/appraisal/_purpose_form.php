@@ -21,7 +21,7 @@
 			'/purpose/createajax',
 			array(
 				'dataType'=> 'json',
-				'success'=> 'function (transport) { setOnsuccess(transport) }', 
+				'success'=> 'function (transport) { addPurpose(transport) }', 
 				'error'=>'function (transport) {if (transport.status != 200) alert(\'Sorry, but some error occured. Try again please\');}',
 			),
 			array('id'=>'purporse_button_id', 'onClick'=>'checkValue()')
@@ -39,12 +39,12 @@
 		}
 	}
 
-	function setOnsuccess(transport) {
+	function addPurpose(transport) {
 		if(transport.arrIdVal) {
 			$("#BasicReportParameters_purposes_id").append( $('<option value="'+transport.arrIdVal.id+'">'+transport.arrIdVal.value+'</option>') );
-			$("#add-purporse").dialog("close");
 			$("#BasicReportParameters_purposes_id").val(transport.arrIdVal.id); $("#Appraisal_client_id").change(); 
 			alert("Purpose was succesfully added");
 		}
+		$("#add-purporse").dialog("close");
 	}
 </script>

@@ -29,7 +29,7 @@
 			'buttons'=>array(
            		'edit'=>array(
 	                'label'=>'edit',
-					'url'=>'Yii::app()->controller->createUrl("appraisal/edit", array("id"=>$data->id))',
+					'url'=>'Yii::app()->controller->createUrl("appraisal/edit", array("id"=>$data->alias))',
       			),
       			'delete'=>array(
 	                'label'=>'delete',

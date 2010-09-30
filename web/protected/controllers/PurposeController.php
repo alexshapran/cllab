@@ -75,8 +75,8 @@ class PurposeController extends Controller
 								array(	'criteria'=>array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
 										'pagination'=>false));
 
-				$response['gridView'] = $this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
 				$response['arrIdVal'] = array('id'=>$model->id, 'value'=>$model->value);
+				$response['gridView'] = $this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider), true, true);
 			}
 			else 
 			{

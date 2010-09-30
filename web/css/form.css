@@ -217,8 +217,9 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 }
 
 /* Configuration Property Settings FORM END */
-=======
-/* USER EDITING FORM END */ /* Appraisal Styles */
+
+/* USER EDITING FORM END */ 
+/* Appraisal Styles */
 .appraisal_info_form {
 	width: 800px;
 	position: relative;
@@ -241,6 +242,14 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	width: 220px;
 }
 
+.appraisal_info_form .radio_list LABEL {
+	width: 50px;
+}
+.appraisal_info_form .radio_list INPUT {
+	width: 20px;
+}
+
+
 .order_report_sections {
 	position: absolute;
 	border: 1px solid;
@@ -259,8 +268,9 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	font-size: 1.3em;
 	padding: 0 0 5px 0;
 }
-
-/* END Appraisal Styles */ /* Client Styles */
+/* END Appraisal Styles */
+ 
+/* Client Styles */
 .client_popup_form {
 	width: 400px;
 }

@@ -114,7 +114,16 @@
 		<?php echo $form->dropDownList($oBasicParams,'sec_img_size_id', $aImagesSize); ?>
 		<?php echo $form->error($oBasicParams,'sec_img_size_id'); ?>
 	</div>
-User value???
+	
+	<div class="row">
+		<?php echo $form->labelEx($oBasicParams,'value'); ?>
+		<div class="radio_list floatleft">
+			<?php echo $form->radioButtonList($oBasicParams,'value', array(1=>'Value #1', 2=>'Value #2')); ?>
+		</div>
+		<div class="clear"></div>
+		<?php echo $form->error($oBasicParams,'value'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($oBasicParams,'currency_symbol'); ?>
 		<?php echo $form->textField($oBasicParams,'currency_symbol',array('size'=>45,'maxlength'=>45, 'style'=>'width:50px')); ?>
@@ -256,7 +265,7 @@ User value???
 		'options'=>array(
 			'title'=>'Add New Purporse',
 			'autoOpen'=>false,
-			'width'=>'500px',
+			'width'=>'700px',
 		),
 	));
 ?>
@@ -271,7 +280,7 @@ User value???
 		'options'=>array(
 			'title'=>'Add New Purporse',
 			'autoOpen'=>false,
-			'width'=>'500px',
+			'width'=>'700px',
 		),
 	));
 ?>
