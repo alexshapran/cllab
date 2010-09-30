@@ -48,14 +48,19 @@ class ConfGeneral extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('global_font_type', 'required'),
+			array(	'global_font_type, company_name, phone, email, address, header, footer,
+					 city, state, zip, default_currency', 'required'),
 			array('account_id', 'numerical', 'integerOnly'=>true),
 			array('company_name, phone, email, website, address, city, state', 'length', 'max'=>255),
 			array('zip, default_currency', 'length', 'max'=>45),
+			array('email', 'email'),
 			array('header, footer, privacy_policy, attr_exp_order', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, company_name, phone, email, website, address, city, state, zip, default_currency, header, footer, privacy_policy, global_font_type, account_id, attr_exp_order', 'safe', 'on'=>'search'),
+			array(	'id, company_name, phone, email, website, address, city, state, 
+					zip, default_currency, header, footer, privacy_policy, global_font_type, 
+					account_id, attr_exp_order',
+					'safe', 'on'=>'search'),
 		);
 	}
 
@@ -152,5 +157,47 @@ class ConfGeneral extends CActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
 		));
+	}
+	public static function getConfig()
+	{
+		return ConfGeneral::model()->findByPk(yii::app()->user->getConfigId());
+	}
+	
+	
+	/**
+	 * function returns ScopeOfSettings according to config_general->id of current user
+	 * @param: int $id, not required.
+	 * @return: array(), if $id - returns object (with this $id);
+	 */
+	public static function getScopeOfSettings($id = NULL)
+	{
+		$criteria = new CDbCriteria();
+		$criteria->condition = "conf_gen_id = ".yii::app()->user->getConfigId();
+		if($id != NULL)
+		{
+			$criteria->addCondition("id = $id", 'AND');
+			return ConfScopeOfSettings::model()->find($criteria);	
+		}
+			return ConfScopeOfSettings::model()->findAll($criteria);
+		
+		
+	}
+	
+	/**
+	 * function returns ConfCategories according to config_general->id of current user
+	 * @param: int $id, not required.
+	 * @return: array(), if $id - returns object (with this $id);
+	 */
+	public static function getConfCategories($id = NULL)
+	{
+		$criteria = new CDbCriteria();
+		$criteria->condition = "conf_gen_id = ".yii::app()->user->getConfigId();
+
+		return ConfCategory::model()->findAll($criteria);
+	}
+	
+	public static function getDisclaimerSettings()
+	{
+		return ConfDisclaimerSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
 	}
 }
