@@ -99,4 +99,9 @@ class ConfTypeOfValue extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function getObjectById($id)
+	{
+		return ConfTypeOfValue::model()->findByPk($id);
+	}
 }
