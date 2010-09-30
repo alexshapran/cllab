@@ -109,7 +109,13 @@ class MCHtml extends CHtml
 	public static function resolveNameID($model,&$attribute,&$htmlOptions)
 	{
 		if(!isset($htmlOptions['name']))
-		$htmlOptions['name']=self::resolveName($model,$attribute, $htmlOptions['preName']);
+		{
+			if(!isset($htmlOptions['category']))
+				$htmlOptions['name']=self::resolveName($model,$attribute, $htmlOptions['preName']);
+			else
+				$htmlOptions['name']=self::resolveName($model,$attribute, $htmlOptions['preName'], $htmlOptions['category']);
+			
+		}
 		if(!isset($htmlOptions['id']))
 		$htmlOptions['id']=parent::getIdByName($htmlOptions['name']);
 		else if($htmlOptions['id']===false)
@@ -125,16 +131,16 @@ class MCHtml extends CHtml
 	 * @return string the input name
 	 * @since 1.0.2
 	 */
-	public static function resolveName($model, &$attribute, $preName)
+	public static function resolveName($model, &$attribute, $preName, $category = NULL)
 	{
-		if(($pos=strpos($attribute,'['))!==false)
+		if(($pos = strpos($attribute,'['))!==false)
 		{
 			if($pos!==0)  // e.g. name[a][b]
 			return get_class($model).'['.substr($attribute,0,$pos).']'.substr($attribute,$pos);
-			if(($pos=strrpos($attribute,']'))!==false && $pos!==strlen($attribute)-1)  // e.g. [a][b]name
+			if(($pos = strrpos($attribute,']'))!==false && $pos!==strlen($attribute)-1)  // e.g. [a][b]name
 			{
-				$sub=substr($attribute,0,$pos+1);
-				$attribute=substr($attribute,$pos+1);
+				$sub = substr($attribute,0,$pos+1);
+				$attribute = substr($attribute,$pos+1);
 				return get_class($model).$sub.'['.$attribute.']';
 			}
 			if(preg_match('/\](\w+\[.*)$/',$attribute,$matches))
@@ -145,7 +151,12 @@ class MCHtml extends CHtml
 			}
 		}
 		else
-		return get_class($model).'['.$preName.']'.'['.$attribute.']';
+		{
+			if(!$category)
+				return get_class($model).'['.$preName.']'.'['.$attribute.']';
+			else
+				return get_class($model).'['.$category.']'.'['.$preName.']'.'['.$attribute.']';
+		}
 	}
 
 	/**
