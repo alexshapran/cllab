@@ -85,20 +85,45 @@
 			<?php endif; ?>
 			
 			
+			<!--	Ajax Errors Widget		-->
 			<?php 
-			$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-				    'id'=>'ajaxErrors',
-//				    additional javascript options for the dialog plugin
-				    'options'=>array(
-				        'title'=>'Error',
-				        'autoOpen'=>false,
-				    ),
-					)); ?>
+				$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+					    'id'=>'ajaxErrors',
+//					    additional javascript options for the dialog plugin
+					    'options'=>array(
+					        'title'=>'Error',
+					        'autoOpen'=>false,
+					    ),
+						)); 
+			?>
 			
-			<div id='errorText'></div>
+				<div id='errorText'></div>
+				
+				<div style='margin:30px auto; width:30px;'>
+					<?php echo CHtml::button('Ok', array('onclick'=>'$("#ajaxErrors").dialog("close")')) ?>
+				</div>
+
+			<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
+			
+			
+			<!--	Ajax Message Widget		-->
+			<?php 
+				$this->beginWidget(	'zii.widgets.jui.CJuiDialog', 
+									array(
+								   		'id'=>'ajaxMessage',
+									    'options'=>array(
+								        				'title'=>'Message',
+								        				'autoOpen'=>false,
+    										 			),
+											)
+									); 
+			?>
+			
+			<div id='messageText'></div>
 			<div style='margin:30px auto; width:30px;'>
-			<?php echo CHtml::button('Ok', array('onclick'=>'$("#ajaxErrors").dialog("close")')) ?>
+				<?php echo CHtml::button('Ok', array('onclick'=>'$("#ajaxMessage").dialog("close")')) ?>
 			</div>
+
 			<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
 			
 		
@@ -121,8 +146,14 @@ function displayAjaxError(text)
 	$('#ajaxErrors').dialog('open');
 	$('#errorText').html(text);
 }
+function displayAjaxMessage(text)
+{
+	$('#ajaxMessage').dialog('open');
+	$('#messageText').html(text);
+}
 function busy()
 {
+	$("#greybox").css('top', $("body").scrollTop());
 	$("#greybox").fadeIn(400);
 }
 

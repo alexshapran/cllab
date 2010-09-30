@@ -13,7 +13,7 @@ foreach($aSignCertSetts as $oSect)
 <?php echo CHtml::ajaxSubmitButton(
 				'Save', 
 				Yii::app()->controller->createUrl('/confsigncerttext/submit'),
-				array('success'=>'unbusy'),
+				array('success'=>'function() { unbusy(); displayAjaxMessage("Succesfully Saved"); }'),
 				array(	'id' => 'submittext',
 						'onclick'=>'busy()')); ?>
 </div>
@@ -27,8 +27,8 @@ function displayElement(transport)
 }
 function hide(id)
 {
-	alert(id);
-	alert($('#valueform'+ id));
+//	alert(id);
+//	alert($('#valueform'+ id));
 	$('#valueform'+ id).remove();
 	unbusy();
 }

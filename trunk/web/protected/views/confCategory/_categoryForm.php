@@ -22,7 +22,7 @@
 		<?php echo CHtml::ajaxSubmitButton(
 							'Add new', 
 							yii::app()->controller->createUrl("confcategory/ajaxcreate"), 
-							array('success'=>'function(transport){ floodDiv(transport) }'), 
+							array(	'success'=>'function(transport){ floodDiv(transport) }'), 
 							array(	'id'=>'simpleFormSubmit',
 									'onclick'=>'if(! trim($("#ConfCategory_name").val())) { alert("Enter category name before!"); return false; }; busy()')); ?>
 	</div>

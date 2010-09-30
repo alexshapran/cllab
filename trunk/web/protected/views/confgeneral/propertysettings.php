@@ -1,5 +1,5 @@
 <div id='allcategories'><?php
-$this->renderPartial('/confcategory/_allCategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats, 'oNewCategory'=>$oNewCategory));
+$this->renderPartial('/confcategory/_allcategories', array('aParentCategories'=>$aParentCategories, 'aChildCats'=>$aChildCats, 'oNewCategory'=>$oNewCategory));
 ?></div>
 <div id='attr_exp_order'>
 	<?php
