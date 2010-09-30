@@ -331,12 +331,126 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 /* CONF GENERAL PROPERTY SETTINGS (CATEGORIES) */ 
 
 
+/* Conf GENERAL FONTS AND IMAGES */
+.allFonts
+{
+	margin:15px 0 15px 0;
+}
+.simpleFont
+{
+	border: dotted grey 1px; 
+	float:left; 
+	min-width:150px; 
+	padding:10px;
+}
+.forHr
+{
+	margin-top:170px;
+}
+.forHr HR
+{
+	height:3px; 
+	width:100%; 
+	color:black; 
+}
+.allImages
+{
+	border: dotted grey 1px; 
+	min-width:300px; 
+	padding:10px; 
+	clear:both;
+}
+.simpleImage
+{
+	border: dotted grey 1px; 
+	float:left; 
+	min-width:120px; 
+	padding:10px;
+}
+.simpleImage .maxheight
+{
+	height:12px;
+}
+.simpleImage .maxwidth
+{
+	margin-left:7px; 
+	height:12px;
+}
+.faiSaveButton
+{
+	margin: 30px auto;
+	width:6%;
+}
+/* CONF GENERAL FONTS AND IMAGES END */
+
+/* CONF GENERAL RESUME SETTINGS */
+.resumeAddMoreDiv
+{
+	width:94px; 
+	margin: 20px auto;
+}
+.resumeSaveButton
+{
+	margin: 0 auto; 
+	width:20%;
+}
+/* CONF GENERAL RESUME SETTINGS END */
+
+/* CONF GENERAL SIGNED CERTIFICATION */
+.scSection
+{
+	border: 1px dotted grey; 
+	min-width: 100%; 
+	padding: 10px;
+}
+.scSaveButton
+{
+	width:38px; 
+	margin: 20px auto;
+}
+/* CONF GENERAL SIGNED CERTIFICATION END */
+
+/* CONF GENERAL SCOPE OF SETTINGS */
+.sosAddBefore
+{
+	width:15%; margin: 0 auto 20px;
+}
+/* CONF GENERAL SCOPE OF SETTINGS END */
+
 /* MANAGE USERS */
 
 .backlink {	margin: 10px 0 10px 0; }
 .backlink A{ text-decoration:none; }
 
 /* MANAGE USERS END */
+
+/* MANAGE ACCOUNTS */
+.buttonsUpdateDelete
+{
+	width:54px;
+}
+/* MANAGE ACCOUNTS END */
+
+/* CLIENT INDEX */
+.searchField
+{
+	padding-left: 2px; 
+	margin-right: 10px;
+}
+/* CLIENT INDEX END */
+
+/* Conf Disclaimer Settings */
+.disclaimerel
+{
+	width:30%; 
+	margin:0 auto 20px;
+}
+.discSaveButton
+{
+	width:30%; 
+	margin: 30px auto;
+}
+/* Conf Disclaimer Settings END */
 
 /* Object */
 .object_form {
@@ -364,7 +478,7 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	width: 410px;
 	padding: 10px 0;
 }
-.tinymce SPAN, TEXTAREA{
+.tinymce SPAN, .tinymce TEXTAREA{
 	width: 410px;
 }
 /* Object end */
@@ -392,7 +506,7 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	width: 610px;
 	padding: 10px 0;
 }
-.tinymce SPAN, TEXTAREA{
+.tinymce SPAN, .tinymce TEXTAREA{
 	width: 410px;
 }
 /* Object end */
@@ -448,3 +562,10 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	background-color:pink;
 }
 /* MENU LEVEL 3 END */
+
+/* APP REPORT SIGNED CERT NAMES */
+.confSignName
+{
+	margin: 20px 0 20px 0;
+}
+/* APP REPORT SIGNED CERT NAMES END */
