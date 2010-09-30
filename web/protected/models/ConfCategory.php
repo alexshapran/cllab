@@ -36,7 +36,7 @@ class ConfCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('conf_gen_id', 'required'),
+			array('conf_gen_id, name', 'required'),
 			array('parent_id, conf_gen_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
