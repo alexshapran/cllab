@@ -82,6 +82,7 @@ class Object extends CActiveRecord
 			'category' => array(self::BELONGS_TO, 'ConfCategory', 'category_id', 'alias'=>'_category'),
 			'subCategory' => array(self::BELONGS_TO, 'Category', 'sub_category_id'),
 			'objectImages' => array(self::HAS_MANY, 'ObjectImages', 'object_id'),
+			'comparableSales' => array(self::HAS_MANY, 'ComparableSales', 'object_id'),
 		);
 	}
 
@@ -217,6 +218,16 @@ class Object extends CActiveRecord
 		$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id < ' . $this->id;
 		$obj = Object::model()->find($criteria);
 		return $obj;	
+	}
+	
+	public function getComparableSales() {
+		if(!$this->comparableSales){
+			$obj = new ComparableSales;
+			$obj->object_id = $this->id;
+			$obj->save();		
+		}
+		return  $this->comparableSales;
+		
 	}
 	
 }

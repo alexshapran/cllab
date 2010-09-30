@@ -9,6 +9,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 	
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'category_id'); ?>
 		<?php echo $form->dropDownList( $model,
@@ -31,7 +32,7 @@
 										)); ?>
 		<?php echo $form->error($model,'sub_category_id'); ?>
 	</div>
-
+<?php /*
 	<div class="row">
 		<?php echo $form->labelEx($model,'location'); ?>
 		???<?php //echo $form->textArea($model,'location',array('rows'=>6, 'cols'=>50)); ?>
@@ -76,7 +77,6 @@
 			array(
 				'model'=>$model, 
 				'attribute'=>'description',
-				/*'editorTemplate'=>'full',**/
 				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
@@ -87,7 +87,6 @@
 			array(
 				'model'=>$model, 
 				'attribute'=>'provenance',
-				/*'editorTemplate'=>'full',**/
 				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'provenance'); ?>
 	</div>
@@ -98,7 +97,6 @@
 			array(
 				'model'=>$model, 
 				'attribute'=>'exhibited',
-				/*'editorTemplate'=>'full',**/
 				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'exhibited'); ?>
 	</div>
@@ -109,7 +107,6 @@
 			array(
 				'model'=>$model, 
 				'attribute'=>'literature',
-				/*'editorTemplate'=>'full',**/
 				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'literature'); ?>
 	</div>
@@ -192,13 +189,26 @@
 			array(
 				'model'=>$model, 
 				'attribute'=>'notes',
-				/*'editorTemplate'=>'full',**/
 				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
-	
-	<div class="row">
-		IMAGES !!!!!!!!!!!!!1 TODO
+	*/?>
+	<div class="comparable_sales">
+		<img style="float:left" src="/uploads/images/thumbnail_50_50_p/0c1c708c5c" />
+		<?php foreach($aComparableSales as $id => $obj) { ?>
+			<?php $this->renderPartial('_comparable_sales', array('obj'=>$obj))?>
+		<?php } ?>
+		<?php echo CHtml::hiddenField('img_position','', array('id'=>'img_position'))?>
+		
+		<?php 
+			 echo CHtml::ajaxLink(
+				'Add more',
+				yii::app()->controller->createUrl('AddComparableAjax', array('object'=>$model->id)),
+				array(
+					'dataType'=>'json',
+					'success'=>'function (transport) { insertSales(transport) }')
+				);
+		?>
 	</div>
 	
 	<?php echo CHtml::hiddenField('save_location', '', array('id'=>'save_location'))?>
@@ -209,6 +219,20 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+
+<?php 
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+		'id'=>'upload_image',
+		'options'=>array(
+			'title'=>'Upload New Image',
+			'autoOpen'=>false,
+		),
+	));
+?>
+	
+	<?php echo $this->renderPartial('/object/_image', array('model' => new AjaxUploadImageForm)); ?>
+ 
+<?php $this->endWidget('zii.widgets.jui.CJuiDialog');?>
 
 </div><!-- form -->
 
@@ -234,6 +258,18 @@
 			  <?php } ?>
 		  }
 		});
+	}
+
+	function insertSales(transport) {
+		if(transport.form) {
+			$("#img_position").before(transport.form);
+		}
+	}
+	
+	function deleteSale(transport) {
+		if(transport) {
+			$("#cs_"+transport).remove();
+		}
 	}
 	
 </script>

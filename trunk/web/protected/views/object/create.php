@@ -54,7 +54,7 @@ $this->menu=array(
 <?php endif;?>
 <div class="clear"></div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'aComparableSales'=>$aComparableSales,)); ?>
 
 <script type='text/javascript'>
 

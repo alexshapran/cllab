@@ -36,8 +36,8 @@ class ComparableSales extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('objects_id', 'required'),
-			array('objects_id, img_id', 'numerical', 'integerOnly'=>true),
+			array('object_id', 'required'),
+			array('object_id, img_id', 'numerical', 'integerOnly'=>true),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -53,6 +53,7 @@ class ComparableSales extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'image' => array(self::BELONGS_TO, 'Image', 'img_id'),
 		);
 	}
 
