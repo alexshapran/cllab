@@ -1,10 +1,9 @@
 <!-- Simple form to add Purposes  -->
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'account-form',
 	'enableAjaxValidation'=>false,
-//	'action' => 'account/create',
 	'method' => 'post'
 )); ?>
 
@@ -18,14 +17,28 @@
 
 	<div style='float:left; margin-left:20px;'>
 		<?php echo CHtml::ajaxSubmitButton("Add new",
-                              CController::createUrl('purpose/createAjax'), 
+                              CController::createUrl('purpose/createajax'),
                               array( //'update'=>'#allpurposes',
                               		'dataType'=>'json',
-                              		'success'=>'function(transport) { addPurpose(transport) }'),
+                              		'success'=>'function(transport) { addPurpose(transport); } '),
                               array('onclick'=>'busy()'));
 		 ?>
 	</div>
 <?php $this->endWidget(); ?>
+
+<script type='text/javascript'>
+function addPurpose(transport)
+{
+	if(transport.gridView)
+		$('#allpurposes').html(transport.gridView);
+	else
+	{
+		displayAjaxError(transport.error);
+	}
+
+	unbusy();
+}
+</script>
 
 </div><!-- form -->
 <div class='clear'></div>
