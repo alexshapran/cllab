@@ -37,8 +37,8 @@ class ConfImg extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('size, conf_gen_id', 'required'),
-			array('conf_gen_id', 'numerical', 'integerOnly'=>true),
+			array('size, conf_gen_id, max_height, max_width', 'required'),
+			array('conf_gen_id, max_height, max_width', 'numerical', 'integerOnly'=>true),
 			array('size, max_height, max_width', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
