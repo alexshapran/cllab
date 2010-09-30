@@ -4,6 +4,6 @@
 						Yii::app()->controller->createUrl('confresumesettings/delete', array('id'=>$model->id)), 
 						array(	'success'=>'function(transport){ removeElement(transport) }',
 								'dataType'=>'json'),
-						array(	'onclick'=>'busy()',
+						array(	'onclick'=>'if(!confirm("Are you sure?")) return false; busy()',
 								'style'=>'margin:40px 0 0 10px;')) ?>
 </div><!-- form -->

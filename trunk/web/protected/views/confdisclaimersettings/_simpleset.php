@@ -1,13 +1,17 @@
 <span id='settLine<?php echo $model->id ?>'>
-<span id='settName<?php echo $model->id ?>'><?php	echo $model->name; ?></span>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<?php echo CHtml::link('edit', 'javascript:', array(
-												'onclick'=>'toggle('.$model->id.')',
-												'id'=>'link'.$model->id)) ?>
+	<span id='settName<?php echo $model->id ?>'><?php echo $model->name; ?></span>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php 
+		echo CHtml::link('edit', 'javascript:', array(
+													'onclick'=>'toggle('.$model->id.')',
+													'id'=>'link'.$model->id)) 
+	?>
 </span>
+
 <span id='settText<?php echo $model->id ?>' class='hidden'>
 	<?php echo CHtml::activeTextField($model, 'name', array('id'=>'newText'.$model->id)) ?>
 	<?php
+	
 	echo CHtml::button(	'Save',  
 		array(	'onclick'=>"jQuery.ajax({	
 				'method':'GET', 
@@ -22,14 +26,15 @@
 ?>
 
 <div class='disclaimerel' id='disclaimer<?php echo $model->id ?>'>
-<?php
-echo CHtml::ajaxLink(
-		'Add More', 
-		Yii::app()->controller->createUrl('/confdisclaimervalue/create', array('sos_id'=>$model->id)),
-		array(
-			'dataType'=>'json',
-			'success'=>'function(transport){ addForm(transport) }'),
-		array(	'onclick'	=>'busy()',
-				'id'		=>'addmore'.$model->id));
-?>
+	<?php
+		echo CHtml::ajaxLink(
+						'Add More', 
+						Yii::app()->controller->createUrl(	'/confdisclaimervalue/create', 
+															array('sos_id'=>$model->id)),
+						array(
+								'dataType'=>'json',
+								'success'=>'function(transport){ addForm(transport) }'),
+						array(	'onclick'	=>'busy()',
+								'id'		=>'addmore'.$model->id));
+	?>
 </div>

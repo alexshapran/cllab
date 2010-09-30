@@ -2,11 +2,11 @@
 echo CHtml::beginForm(Yii::app()->controller->createUrl('/confsigncerttext/submit'));
 
 if($aSignCertSetts)
-foreach($aSignCertSetts as $oSect)
-{ ?>
-<div class='scSection' id='section<?php echo $oSect->id ?>'>
-<?php $this->renderPartial('/confsigncerttext/create', array('oSect'=>$oSect)); ?>
-</div>
+	foreach($aSignCertSetts as $oSect)
+	{ ?>
+		<div class='scSection' id='section<?php echo $oSect->id ?>'>
+			<?php $this->renderPartial('/confsigncerttext/create', array('oSect'=>$oSect)); ?>
+		</div>
 <?php } ?>
 
 <div class='scSaveButton'>
@@ -27,8 +27,6 @@ function displayElement(transport)
 }
 function hide(id)
 {
-//	alert(id);
-//	alert($('#valueform'+ id));
 	$('#valueform'+ id).remove();
 	unbusy();
 }
