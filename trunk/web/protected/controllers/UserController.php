@@ -56,11 +56,13 @@ class UserController extends Controller
 
 			if($model->password)
 			{
+//				if password need to be update we encrypt it
 					$model->password = md5($model->password);
 					$model->password_repeat = md5($model->password_repeat);
 			}
 			else
 			{
+//				if don't - we load it encrypted from database
 				$thisModel = User::model()->findByPk($model->id);
 				$model->password = $thisModel->password;
 				$model->password_repeat = $model->password;
@@ -71,9 +73,9 @@ class UserController extends Controller
 				if($model->save(false))
 				$this->redirect(array('user/users'));
 			}
-
 		}
 
+//		if $model is not saved, we clear password field
 		$model->password = $model->password_repeat = '';
 
 		$this->render('update',array(

@@ -59,12 +59,12 @@ class ConfdisclaimersettingsController extends Controller
 	{
 	$aSOS = ConfDisclaimerSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
 		if($aSOS)
-			foreach($aSOS as $oSetting)
-				foreach($oSetting->confDisclaimerValues as $oValue)
+			foreach($aSOS as $oSetting)	// For each Setting ...
+				foreach($oSetting->confDisclaimerValues as $oValue) // ...we get All values and foreach value...
 					if($_POST['ConfDisclaimerValue'][$oValue->id])
 					{
 						$oValue->attributes = $_POST['ConfDisclaimerValue'][$oValue->id];
-						$oValue->save();
+						$oValue->save(); // ...we save it
 					}
 	}
 }

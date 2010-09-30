@@ -57,27 +57,47 @@ class ConfgeneralController extends Controller
 
 		if($oConfGeneral)
 		{
-		$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
+			$oPurpose = ConfPurpose::model()->findByAttributes(array('conf_gen_id'=>$oConfGeneral->id));
+	
+			$aConfTypeDataProvider = new CActiveDataProvider(
+											'ConfTypeOfValue',
+											array(
+												'criteria'=>array(
+															'condition'=>'conf_gen_id = '.$oConfGeneral->id)));
 
-		$aConfTypeDataProvider = new CActiveDataProvider('ConfTypeOfValue',
-		array('criteria'=>array('condition'=>'conf_gen_id = '.$oConfGeneral->id)));
-		
-		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose',
-		array('criteria'=>array('condition'=>'conf_gen_id = '.$oConfGeneral->id),
-																'pagination'=>false));
-
-		if(isset($_POST['ConfGeneral']))
-		{
-			$oConfGeneral->attributes=$_POST['ConfGeneral'];
-			if($oConfGeneral->save())
-				Yii::app()->user->setFlash('success', 'Saved!');
-		}
-
-		$this->render('update',array(
-			'model'=>$oConfGeneral,
-			'aConfTypeDataProvider'=> $aConfTypeDataProvider,
-			'aConfPurposeDataProvider'=> $aConfPurposeDataProvider,
-		));
+			$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose',
+													array(
+														'criteria'=>array(
+																	'condition'=>'conf_gen_id = '.$oConfGeneral->id),
+																	'pagination'=>false));
+	
+			if(isset($_POST['ConfGeneral']))
+			{
+				$oConfGeneral->attributes=$_POST['ConfGeneral'];
+				if($oConfGeneral->save())
+					Yii::app()->user->setFlash('success', 'Saved!');
+				else
+					$errors = $oConfGeneral->getErrors();
+			
+				if(!isset($errors))
+					yii::app()->user->setFlash('success','Successfully saved!');
+				else 
+				{
+						$out='';
+						foreach($errors as $key=>$erText)
+						{
+								$out.= '<br /><b>'.$key.'</b> : '.$erText[0];
+						}
+								
+					yii::app()->user->setFlash('error','Not saved!'.$out);
+				}
+			}
+	
+			$this->render('update',array(
+									'model'=>$oConfGeneral,
+									'aConfTypeDataProvider'=> $aConfTypeDataProvider,
+									'aConfPurposeDataProvider'=> $aConfPurposeDataProvider,
+			));
 		}
 	}
 
@@ -106,14 +126,13 @@ class ConfgeneralController extends Controller
 	public function actionFontsandimagessubmit()
 	{
 		// Saving General Font
-		$errors = 0;
-		
+		$errs = array();
 		$oConfGeneral = ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
 		if(isset($_POST['ConfGeneral']['global_font_type']))
 			$oConfGeneral->global_font_type = $_POST['ConfGeneral']['global_font_type'];
 		
 		if(!$oConfGeneral->save())
-			$errors = 1;
+			$errs[] = $oConfGeneral->getErrors();
 		// Saving General Font END
 
 		// Saving Fonts Configuration
@@ -124,7 +143,7 @@ class ConfgeneralController extends Controller
 				$oFc->attributes = $_POST['ConfFonts'][$oFc->section];
 			
 			if(!$oFc->save())
-				$errors = 2;
+				$errs[] = $oFc->getErrors();
 		}
 		// Saving Fonts Configuration END
 
@@ -137,14 +156,23 @@ class ConfgeneralController extends Controller
 				$oImage->attributes = $_POST['ConfImg'][$oImage->size];
 			
 			if(!$oImage->save())
-				$errors = 3;
+			{
+				$errs[$oImage->size] = $oImage->getErrors();
+			}
 		}
 		// Saving Image Configuration END
 
-			if(!$errors)
-				yii::app()->user->setFlash('success','Saved!');
+		
+			if(!$errs)
+				yii::app()->user->setFlash('success','Successfully saved!');
 			else 
-				yii::app()->user->setFlash('error','Not saved!');
+			{
+				$out = '';
+				foreach($errs as $key=>$erGroup)
+					foreach($erGroup as $erText)
+							$out .= '<br /><b>'.$key.'</b> : '.$erText[0];
+				yii::app()->user->setFlash('error','Not saved!'.$out);
+			}
 		
 		Yii::app()->controller->redirect(Yii::app()->controller->createUrl('/confgeneral/fontsandimages'));
 	}
@@ -193,7 +221,8 @@ class ConfgeneralController extends Controller
 	public function actionPropertysettings()
 	{
 		$oNewCategory = new ConfCategory;
-		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
+		$aParentCategories = ConfCategory::model()->findAllByAttributes(array(	'parent_id'=>NULL, 
+																				'conf_gen_id'=>Yii::app()->user->getConfigId()));
 		$aChildCats = array();
 
 		foreach ($aParentCategories as $oParent)
@@ -243,9 +272,8 @@ class ConfgeneralController extends Controller
 	 */
 	
 	public function actionDisclaimersettings() 
-	{
-		$aDiscSettings = ConfDisclaimerSettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
-		$this->render('discsettings', array('aDiscSettings' => $aDiscSettings));
+	{ 	
+		$this->render('discsettings', array('aDiscSettings' => ConfGeneral::getDisclaimerSettings()));
 	}
 	
 	/**

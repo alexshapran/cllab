@@ -61,7 +61,7 @@ class ConfcategoryController extends Controller
 	 */
 	public function actionAjaxcreate()
 	{
-		$model=new ConfCategory;
+		$model = new ConfCategory;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -154,7 +154,8 @@ class ConfcategoryController extends Controller
 	public function renderCategories() 
 	{
 		$oNewCategory = new ConfCategory;
-		$aParentCategories = ConfCategory::model()->findAllByAttributes(array('parent_id'=>NULL));
+		$aParentCategories = ConfCategory::model()->findAllByAttributes(array(	'parent_id'=>NULL,
+																				'conf_gen_id'=>Yii::app()->user->getConfigId()));
 		$aChildCats = array();
 
 		foreach ($aParentCategories as $oParent)
@@ -170,12 +171,12 @@ class ConfcategoryController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-category-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+//	protected function performAjaxValidation($model)
+//	{
+//		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-category-form')
+//		{
+//			echo CActiveForm::validate($model);
+//			Yii::app()->end();
+//		}
+//	}
 }

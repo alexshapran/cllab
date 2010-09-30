@@ -55,6 +55,11 @@ class ConfsigncerttextController extends Controller
 			$model->conf_sign_cert_settings_id = $_GET['settingId'];
 			$model->save();
 
+//			if($_GET['needRedirect'])
+//			{
+//				$this->redirect($this->createUrl('confgeneral/signedcertification'));
+//			}
+				
 			$response = array(
 				'form' 	=> $this->renderPartial('/confsigncerttext/_value', array('model'=>$model), true, true),
 				'id'	=> $model->conf_sign_cert_settings_id );
@@ -105,9 +110,9 @@ class ConfsigncerttextController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	private function actionMakeout($sectId)
-	{
-		$oSect = ConfSignCertSettings::model()->findByPk($sectId);
-		$this->renderPartial('create', array('oSect'=>$oSect));
-	}
+//	private function actionMakeout($sectId)
+//	{
+//		$oSect = ConfSignCertSettings::model()->findByPk($sectId);
+//		$this->renderPartial('create', array('oSect'=>$oSect));
+//	}
 }

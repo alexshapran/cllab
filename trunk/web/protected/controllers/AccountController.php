@@ -59,27 +59,25 @@ class AccountController extends Controller
 	{
 		$model=new Account;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Account']))
 		{
+			$response = array();
 			$model->attributes=$_POST['Account'];
 			if(!$model->save())
 			{
-				$data = array();
-				$data['errors'] = $model->getErrors();
-				$this->renderPartial('_errors', $data, false, true);
+				$errors = $model->getErrors();
+				$out='';
+				foreach($errors as $key=>$erText)
+						$out.= '<br /><b>'.$key.'</b> : '.$erText[0];
+				
+				$response['errors'] = $out;
 			}
 			else
 			{
 				$this->createConfig($model->id);
-				$this->renderPartial('_accounts');
+				$response['form'] = $this->renderPartial('_accounts', true, true);
 			}
-		}
-		else
-		{
-			$this->renderPartial('_accounts');
+		echo CJSON::encode($response);
 		}
 	}
 
@@ -90,9 +88,6 @@ class AccountController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Account']))
 		{
@@ -128,34 +123,35 @@ class AccountController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Account');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+//	public function actionIndex()
+//	{
+//		$dataProvider=new CActiveDataProvider('Account');
+//		$this->render('index',array(
+//			'dataProvider'=>$dataProvider,
+//		));
+//	}
 
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
-	{
-		$model=new Account('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Account']))
-			$model->attributes=$_GET['Account'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
+//	public function actionAdmin()
+//	{
+//		$model=new Account('search');
+//		$model->unsetAttributes();  // clear any default values
+//		if(isset($_GET['Account']))
+//			$model->attributes=$_GET['Account'];
+//
+//		$this->render('admin',array(
+//			'model'=>$model,
+//		));
+//	}
 
 	
 	/**
-	 * 
+	 * Creates new Configuration with default settings and sling it 
+	 * to nearly created Account with $acc_id
 	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
-	 * @param	int $model_id
+	 * @param	int $acc_id
 	 * @return	
 	 */
 	
@@ -168,6 +164,7 @@ class AccountController extends Controller
 		
 		if($confGen->save());
 		{
+//				Saves Fonts config
 			foreach (Yii::app()->params['defConfFont'] as $defFont)
 			{
 				$fontConf = new ConfFonts;
@@ -176,6 +173,7 @@ class AccountController extends Controller
 				$fontConf->save();
 			}
 
+//				Saves Images config
 			foreach(Yii::app()->params['defImageSize'] as $defImage)
 			{
 				$imageConf = new ConfImg;
@@ -183,6 +181,7 @@ class AccountController extends Controller
 				$imageConf->conf_gen_id = $confGen->id;
 				$imageConf->save();
 			}
+//				Saves Scope of Settings config
 			foreach (Yii::app()->params['defScopeOfSettings'] as $sOS)
 			{
 				$scopeSet = new ConfScopeOfSettings;
@@ -205,6 +204,7 @@ class AccountController extends Controller
 				}
 			}
 
+//				Saves Disclaimer Settings config
 			foreach(Yii::app()->params['Disclaimer Settings'] as $name)
 			{
 				$setting = new ConfDisclaimerSettings;
@@ -245,12 +245,12 @@ class AccountController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='account-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+//	protected function performAjaxValidation($model)
+//	{
+//		if(isset($_POST['ajax']) && $_POST['ajax']==='account-form')
+//		{
+//			echo CActiveForm::validate($model);
+//			Yii::app()->end();
+//		}
+//	}
 }
