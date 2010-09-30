@@ -37,6 +37,8 @@ class Account extends CActiveRecord
 		return array(
 			array('value', 'length', 'max'=>255),
 			array('date_created', 'safe'),
+			array('value', 'required'),
+			array('value', 'unique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, value, date_created', 'safe', 'on'=>'search'),
