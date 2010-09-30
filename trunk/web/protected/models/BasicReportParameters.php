@@ -50,12 +50,12 @@ class BasicReportParameters extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date_created, purposes_id, types_of_value_id, types_of_report_id', 'required'),
+			array('purposes_id, types_of_value_id, types_of_report_id', 'required'),
 			array('purposes_id, types_of_value_id, types_of_report_id', 'numerical', 'integerOnly'=>true),
 			array('client_name, city, year', 'length', 'max'=>255),
 			array('primary_img_size_id, sec_img_size_id', 'length', 'max'=>6),
 			array('currency_symbol, order_report_section', 'length', 'max'=>45),
-			array('eximmination_dates, research_dates_from, reseach_dates_to, effective_valuation_date, issue_date_report, date_type', 'safe'),
+			array('value, eximmination_dates, research_dates_from, reseach_dates_to, effective_valuation_date, issue_date_report, date_type', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, appraisal_id, date_created, client_name, city, year, purposes_id, types_of_value_id, types_of_report_id, primary_img_size_id, sec_img_size_id, currency_symbol, eximmination_dates, research_dates_from, reseach_dates_to, effective_valuation_date, issue_date_report, order_report_section', 'safe', 'on'=>'search'),
@@ -101,6 +101,7 @@ class BasicReportParameters extends CActiveRecord
 			'effective_valuation_date' => 'Effective Valuation Date',
 			'issue_date_report' => 'Issue Date Report',
 			'order_report_section' => 'Order Report Section',
+			'value'=>'Value Used',
 		);
 	}
 

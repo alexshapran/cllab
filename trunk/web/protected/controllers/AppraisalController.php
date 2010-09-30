@@ -89,12 +89,11 @@ class AppraisalController extends Controller
 				
 				$model->basic_report_parameters_id = $oBasicParams->id;
 				if($model->save())
-					$this->redirect('/appraisal/' . $model->alias);	
+					$this->redirect('/appraisal/edit/' . $model->alias);	
 			}
 		}
 		
 		// Prepare all data with we need
-		$aClient = Client::model()->findAll();
 		$oClient = new Client;
 		$aReportTypes = TypesOfReport::model()->findAll();
 		$aValueTypes = ConfTypeOfValue::model()->findAll();

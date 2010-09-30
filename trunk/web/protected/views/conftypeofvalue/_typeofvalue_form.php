@@ -1,4 +1,4 @@
-<div class="purporse_form">
+<div class="appraisal_info_form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'purporse_form',
