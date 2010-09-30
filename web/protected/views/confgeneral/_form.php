@@ -124,11 +124,3 @@ function displayEdit(id)
 		</div>
 	<div class="clear" ></div>
 </div><!-- form -->
-<script type='text/javascript'>
-function addPurpose(transport)
-{
-	if(transport.gridView)
-	$('#allpurposes').html(transport.gridView);
-	unbusy();
-}
-</script>

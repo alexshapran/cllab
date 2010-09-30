@@ -9,5 +9,6 @@ $this->renderPartial('/confsigncerttext/_value', array('model'=>$oText));
 								'dataType'=> 'json',
 								'success'=>'function(transport){ displayElement(transport) }' ),
 							array(	'id'=>'addLink'.$oSect->id,
-									'onclick'=>'busy()')); ?>
+									'onclick'=>'busy()',
+									'name'=>"$oSect->id")); ?>
 </div>

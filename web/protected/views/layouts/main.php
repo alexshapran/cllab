@@ -83,6 +83,24 @@
 			        <?php echo Yii::app()->user->getFlash('error'); ?>
 			    </div>
 			<?php endif; ?>
+			
+			
+			<?php 
+			$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+				    'id'=>'ajaxErrors',
+//				    additional javascript options for the dialog plugin
+				    'options'=>array(
+				        'title'=>'Error',
+				        'autoOpen'=>false,
+				    ),
+					)); ?>
+			
+			<div id='errorText'></div>
+			<div style='margin:30px auto; width:30px;'>
+			<?php echo CHtml::button('Ok', array('onclick'=>'$("#ajaxErrors").dialog("close")')) ?>
+			</div>
+			<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
+			
 		
 	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 		'links'=>$this->breadcrumbs,
@@ -98,6 +116,11 @@
 
 </div><!-- page -->
 <script type='text/javascript'>
+function displayAjaxError(text)
+{
+	$('#ajaxErrors').dialog('open');
+	$('#errorText').html(text);
+}
 function busy()
 {
 	$("#greybox").fadeIn(400);
