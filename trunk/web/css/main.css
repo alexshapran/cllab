@@ -254,7 +254,7 @@ div.search-form
 
 /* DEFAULT GREY BOX WHILE AJAX PROCESSING */
 #greybox{
-	background: url('../images/duck.gif') center no-repeat scroll #AFAFAF;
+	background: url('../images/wait30trans.gif') center no-repeat scroll #AFAFAF;
 	opacity: 0.5;
 	z-index: 10;
 	position:absolute;
