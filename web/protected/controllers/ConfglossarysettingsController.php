@@ -76,7 +76,7 @@ class ConfglossarysettingsController extends Controller
 		$aSettings = Confglossarysettings::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
 		if($aSettings)
 			foreach($aSettings as $oSet)
-				if($_POST['ConfGlossarySettings'][$oSet->id])
+				if($_POST['ConfGlossarySettings'][$oSet->id]) // If we $_POST this setting we save it
 				{
 					$oSet->attributes = $_POST['ConfGlossarySettings'][$oSet->id];
 					$oSet->save();

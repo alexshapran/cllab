@@ -57,26 +57,38 @@ class PurposeController extends Controller
 	 */
 	public function actionCreateajax()
 	{
-		$model=new ConfPurpose;
+		$model = new ConfPurpose;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$aConfPurposeDataProvider = new CActiveDataProvider('ConfPurpose', 
-															array(	
-																'criteria'=>
-																	array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
-																'pagination'=>false));
-
 		$response = array();
 		if(isset($_POST['ConfPurpose']))
 		{
-			$model->attributes=$_POST['ConfPurpose'];
-			$model->conf_gen_id = Yii::app()->user->getConfigId();
+			$model->attributes = $_POST['ConfPurpose'];
+			$model->conf_gen_id = yii::app()->user->getConfigId();
 			if($model->save())
+			{
+				$aConfPurposeDataProvider = 
+						new CActiveDataProvider(
+								'ConfPurpose', 
+								array(	'criteria'=>array('condition'=>'conf_gen_id = '.Yii::app()->user->getConfigId()),
+										'pagination'=>false));
+
+				$response['gridView'] = $this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider));
 				$response['arrIdVal'] = array('id'=>$model->id, 'value'=>$model->value);
+			}
+			else 
+			{
+				$request['error'] = '';
+				foreach($model->getErrors() as $error)
+				{
+					$request['error'].= $error[0].'<br />';
+				}
+			}
 		}
-		$response['gridView'] = $this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider), true, true);
+//		$response['gridView'] = $this->renderPartial('create', array('aConfPurposeDataProvider'=>$aConfPurposeDataProvider), true, true);
+		
 		echo CJSON::encode($response);
 	}
 
