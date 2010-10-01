@@ -15,7 +15,7 @@ $this->menu=array(
 <?php echo CHtml::button(
 	'Add New Object', 
 	array(
-		'onClick'=>'location.replace("/object/edit/'. (isset($_GET['id']) ? $_GET['id'] : '') . '")', 
+		'onClick'=>'location.replace("/object/new/'. ($oAppraisal->alias ? $oAppraisal->alias : $oAppraisal->id) . '")', 
 		'class'=>'floatleft'))?>
 
 <?php echo CHtml::form(Yii::app()->createUrl('/appraisal/property'), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
@@ -69,7 +69,7 @@ $this->menu=array(
 		    alert('Only integer!');
 		    return false;
 	    }
-	    location.replace('/object/'+goToVal);
+	    location.replace('<?php echo Yii::app()->createUrl("object/create", array_merge($_GET, array("object"=>'')))?>'+goToVal);
 	}
 
 	function submitSearch() {

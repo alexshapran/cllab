@@ -32,7 +32,7 @@
 										)); ?>
 		<?php echo $form->error($model,'sub_category_id'); ?>
 	</div>
-<?php /*
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'location'); ?>
 		???<?php //echo $form->textArea($model,'location',array('rows'=>6, 'cols'=>50)); ?>
@@ -192,7 +192,7 @@
 				'htmlOptions'=>array('rows'=>6, 'cols'=>50, 'class'=>'tinymce'))); ?>
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
-	*/?>
+	
 	<div class="comparable_sales">
 		<img style="float:left" src="/uploads/images/thumbnail_50_50_p/0c1c708c5c" />
 		<?php foreach($aComparableSales as $id => $obj) { ?>
