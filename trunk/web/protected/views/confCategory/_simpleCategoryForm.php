@@ -20,7 +20,13 @@
 		<?php } ?>
 	
 		<div class="row floatleft" style='margin: 2px 0 0 10px;'>
-			<?php  echo CHtml::ajaxSubmitButton('Save', yii::app()->controller->createUrl("/confcategory/ajaxsave"), array('update'=>'#allcategories'), array('id'=>'saveButton'.$model->id, 'name'=>'saveButton'.$model->id)); ?>
+			<?php  echo CHtml::ajaxSubmitButton('Save', 
+												yii::app()->controller->createUrl("/confcategory/ajaxsave"), 
+												array(	'dataType'=>'json',
+														'success'=>'function(transport){ floodDiv(transport); }'), 
+												array(	'id'=>'saveButton'.$model->id, 
+														'name'=>'saveButton'.$model->id)); ?>
+
 			<?php echo CHtml::button('Cancel', array('onClick' => '; changeView('.$model->id.')')); ?>
 		</div>
 	<?php $this->endWidget(); ?>

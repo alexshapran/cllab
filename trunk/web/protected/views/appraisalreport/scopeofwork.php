@@ -8,11 +8,11 @@
 </div>
 
 <div class='scope_row'>
-	Section Title : <?php echo CHtml::activeTextField($oScopeOfWork, 'sec_title'); ?>
+	<label>Section Title:</label><?php echo CHtml::activeTextField($oScopeOfWork, 'sec_title', array('class'=>'scope_textfield')); ?>
 </div>
 
 <div class='scope_row'>
-	Problem to Solve: <?php 
+	<label>Problem to Solve:</label><?php 
 		echo CHtml::activeDropDownList(	$oScopeOfWork, 
 										'problem_to_solve', 
 										CHtml::listData($aConfScopeOfSettings[0]->confScopeOfValues, 'id', 'name'),
@@ -40,26 +40,29 @@
 </div>
 
 <div class='scope_row'>
-Categories of Items Examined:<br />
+	<label>Categories of Items Examined:</label><br />
 	<?php echo CHtml::activeTextArea($oScopeOfWork, 'categories', array('class'=>'scope_textarea')); ?>
 </div>
 
 <div class='scope_row'>
-	Client:<?php echo CHtml::activeTextField($oScopeOfWork, 'client') ?>
+	<label>Client:</label>
+	<?php echo CHtml::activeTextField($oScopeOfWork, 'client', array('class'=>'scope_textfield')) ?>
 </div>
 
 <div class='scope_row'>
-	Owner of the Collection/Artwork:<?php echo CHtml::activeTextField(	$oScopeOfWork, 
+	<label>Owner of the Collection/Artwork:</label>
+	<?php echo CHtml::activeTextField(	$oScopeOfWork, 
 																		'owner', 
-																		array('class'=>'scope_textarea')) ?>
+																		array('class'=>'scope_textfield')) ?>
 </div>
 
 <div class='scope_row'>
-	Intended Use:<?php echo CHtml::activeTextField($oScopeOfWork, 'int_use') ?>
+	<label>Intended Use:</label><?php echo CHtml::activeTextField($oScopeOfWork, 'int_use', array('class'=>'scope_textfield')) ?>
 </div>
 
 <div class='scope_row'>
-	Intended User(s):<?php 
+	<label>Intended User(s):</label>
+	<?php 
 		echo CHtml::activeDropDownList(	$oScopeOfWork, 
 										'int_users', 
 										CHtml::listData($aConfScopeOfSettings[1]->confScopeOfValues, 'id', 'name'),
@@ -86,23 +89,25 @@ Categories of Items Examined:<br />
 </div>
 
 <div class='scope_row'>
-Type of Value:<?php echo CHtml::activeTextField($oScopeOfWork, 'type_of_value'); ?>
+	<label>Type of Value:</label>
+	<?php echo CHtml::activeTextField($oScopeOfWork, 'type_of_value', array('class'=>'scope_textfield')); ?>
 </div>
 
 <div class='scope_row'>
-Definition of Value:<br />
+	<label>Definition of Value:</label><br />
 	<?php echo CHtml::activeTextArea($oScopeOfWork, 'def_of_value', array('class'=>'scope_textarea')) ?>
 </div>
 
 <div class='scope_row'>
-Source of Definition of Value:<br />
+	<label>Source of Definition of Value:</label><br />
 	<?php echo CHtml::activeTextArea($oScopeOfWork, 'source_of_def_value', array('class'=>'scope_textarea')) ?>
 </div>
 
 
 
 <div class='scope_row'>
-	Approach to Value: <?php 
+	<label>Approach to Value:</label>
+	<?php 
 		echo CHtml::activeDropDownList(	$oScopeOfWork, 
 										'app_to_value', 
 										CHtml::listData($aConfScopeOfSettings[2]->confScopeOfValues, 'id', 'name'),
@@ -130,7 +135,8 @@ Source of Definition of Value:<br />
 
 
 <div class='scope_row'>
-	Market Examined: <?php 
+	<label>Market Examined:</label>
+	<?php 
 		echo CHtml::activeDropDownList(	$oScopeOfWork, 
 										'mark_exam', 
 										CHtml::listData($aConfScopeOfSettings[3]->confScopeOfValues, 'id', 'name'),
@@ -155,11 +161,13 @@ Source of Definition of Value:<br />
 
 </div>
 
-<div class='scope_row'>Effective Valuation Date:
-	<?php echo CHtml::activeTextField($oScopeOfWork, 'eff_val_date'); ?>
+<div class='scope_row'>
+	<label>Effective Valuation Date:</label>
+	<?php echo CHtml::activeTextField($oScopeOfWork, 'eff_val_date', array('class'=>'scope_textfield')); ?>
 </div>
 
-<div>Assignment Conditions<br />
+<div class='scope_row'>
+	<label>Assignment Conditions</label><br />
 	<?php
 	$selected = explode(', ', $oScopeOfWork->ass_cond);
 		foreach($aConfScopeOfSettings[5]->confScopeOfValues as $oValue)
@@ -179,7 +187,8 @@ Source of Definition of Value:<br />
 	<?php } ?>
 </div>
 
-<div class='scope_row'>Extent of Physical Inspection<br />
+<div class='scope_row'>
+	<label>Extent of Physical Inspection:</label><br />
 	<?php
 	$selected = explode(', ',$oScopeOfWork->ext_of_phys_insp);
 	
@@ -199,14 +208,15 @@ Source of Definition of Value:<br />
 </div>
 
 <div class='scope_row'>
-Method of research:<br />
+	<label>Method of research:</label><br />
 	<?php echo CHtml::activeTextArea(	$oScopeOfWork, 
 										'meth_of_research', 
 										array('class'=>'scope_textarea')); ?>
 </div>
 
 
-<div class='scope_row'>Photography<br />
+<div class='scope_row'>
+	<label>Photography:</label><br />
 	<?php
 	$selected = explode(', ',$oScopeOfWork->photography);
 	
@@ -228,7 +238,7 @@ Method of research:<br />
 
 
 <div class='scope_row'>
-	USPAP Compilancy: 
+	<label>USPAP Compilancy:</label> 
 	<?php
 //		echo CHtml::activeDropDownList(	$oScopeOfWork, 
 //										'uspap_comp', 
@@ -257,11 +267,12 @@ Method of research:<br />
 
 
 
-<div class='scope_row'>Assumptions<br />
+<div class='scope_row'>
+	<label>Assumptions:</label><br />
 	<?php
 	$selected = explode(', ',$oScopeOfWork->assumps);
 	
-		foreach($aConfScopeOfSettings[9]->confScopeOfValues as $oValue)
+		foreach($aConfScopeOfSettings[10]->confScopeOfValues as $oValue)
 		{ 
 			$parameters = array('preName'=>$oValue->id,
 								'category'=>'assumps');
@@ -277,10 +288,11 @@ Method of research:<br />
 </div>
 
 
-<div class='scope_row'>Extraordinary Assumptions<br />
+<div class='scope_row'>
+	<label>Extraordinary Assumptions:</label><br />
 	<?php
 	$selected = explode(', ', $oScopeOfWork->extr_assumps);
-		foreach($aConfScopeOfSettings[10]->confScopeOfValues as $oValue)
+		foreach($aConfScopeOfSettings[11]->confScopeOfValues as $oValue)
 		{
 			$parameters = array('preName'=>$oValue->id,
 								'category'=>'extr_assumps');
@@ -297,11 +309,11 @@ Method of research:<br />
 	<?php } ?>
 </div>
 
-
-<div class='scope_row'>Hypothetical Conditions<br />
+<div class='scope_row'>
+	<label>Hypothetical Conditions:</label><br />
 	<?php
 	$selected = explode(', ', $oScopeOfWork->hypoth_cond);
-		foreach($aConfScopeOfSettings[11]->confScopeOfValues as $oValue)
+		foreach($aConfScopeOfSettings[12]->confScopeOfValues as $oValue)
 		{
 			$parameters = array('preName'=>$oValue->id,
 								'category'=>'hypoth_cond');

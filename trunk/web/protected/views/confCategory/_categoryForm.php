@@ -10,7 +10,7 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-		<?php echo $form->hiddenField($model, 'conf_gen_id', array('value'=>yii::app()->user->getConfigId())); ?>
+		<?php // echo $form->hiddenField($model, 'conf_gen_id', array('value'=>yii::app()->user->getConfigId())); ?>
 
 	<div class="row" style='margin-left:30px;'>
 		<label>Parent Category</label>
@@ -22,16 +22,23 @@
 		<?php echo CHtml::ajaxSubmitButton(
 							'Add new', 
 							yii::app()->controller->createUrl("confcategory/ajaxcreate"), 
-							array(	'success'=>'function(transport){ floodDiv(transport) }'), 
+							array(	'dataType'=>'json',
+									'success'=>'function(transport){ floodDiv(transport) }'), 
 							array(	'id'=>'simpleFormSubmit',
-									'onclick'=>'if(! trim($("#ConfCategory_name").val())) { alert("Enter category name before!"); return false; }; busy()')); ?>
+									'onclick'=>' busy()')); ?>
+									<!-- if(! trim($("#ConfCategory_name").val())) { alert("Enter category name before!"); return false; }; -->
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 <script type='text/javascript'>
 function floodDiv(transport)
 {
-	$('#allcategories').html(transport);
+	if(transport.form)
+		$('#allcategories').html(transport.form);
+
+	if(transport.errors)
+		displayAjaxError(transport.errors);
+	
 	unbusy();
 }
 </script>

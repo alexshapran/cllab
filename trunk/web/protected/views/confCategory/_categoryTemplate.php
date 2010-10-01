@@ -14,8 +14,8 @@ $this->renderPartial('/confCategory/_simpleCategoryForm',
 		echo CHtml::ajaxButton(
 				'Delete', 
 				Yii::app()->controller->createUrl("confcategory/ajaxdelete", array('id'=>$model->id)),
-				array('update'=>'#allcategories',
-						'success'=>'function(transport){ afterDelete(transport) }'), 
+				array(	'dataType'=>'json',
+						'success'=>'function(transport){ floodDiv(transport) }'), 
 				array(	'id'=>'delButton'.$model->id,
-						'onclick'=>'busy()')); ?>
+						'onclick'=>'if(!confirm("Are you sure?")) return false; busy()')); ?>
 </span>
