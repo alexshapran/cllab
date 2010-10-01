@@ -16,7 +16,7 @@ $('.search-form form').submit(function(){
 <?php echo CHtml::button(
 	'Add New Object', 
 	array(
-		'onClick'=>'location.replace("/object/create/'. ($oAppraisal->alias ? $oAppraisal->alias : $oAppraisal->id) . '")', 
+		'onClick'=>'location.replace("/object/new/'. ($oAppraisal->alias ? $oAppraisal->alias : $oAppraisal->id) . '")', 
 		'class'=>'floatleft'))?>
 
 <?php echo CHtml::form(Yii::app()->createUrl('/appraisal/property/' . $oAppraisal->alias), 'get', array('id'=>'search_form', 'class'=>'floatleft'))?>
