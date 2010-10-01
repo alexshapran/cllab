@@ -42,7 +42,6 @@ class ConfresumesettingsController extends Controller
 	}
 
 	/** Create resume field
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param	none	
 	 * @return	html	
 	 */
@@ -58,7 +57,6 @@ class ConfresumesettingsController extends Controller
 	}
 	
 	/** delete Resume
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param	resume_id	
 	 * @return	boolean
 	 */

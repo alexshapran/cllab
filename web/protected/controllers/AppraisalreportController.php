@@ -289,8 +289,15 @@ class AppraisalreportController extends Controller
 			
 			
 //			Save changes
-			$oScopeOfWork->save();
-			$oScopeOfWork->update();
+			if($oScopeOfWork->save())
+			{
+				$oScopeOfWork->update();
+				yii::app()->user->setFlash('success','Successfully saved!');
+			}
+			else
+			{
+				yii::app()->user->setFlash('error','Not saved!');
+			}
 		}
 		
 

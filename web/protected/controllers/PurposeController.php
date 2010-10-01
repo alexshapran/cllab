@@ -80,10 +80,10 @@ class PurposeController extends Controller
 			}
 			else 
 			{
-				$request['error'] = '';
+				$response['error'] = '';
 				foreach($model->getErrors() as $error)
 				{
-					$request['error'].= $error[0].'<br />';
+					$response['error'].= $error[0].'<br />';
 				}
 			}
 		}
