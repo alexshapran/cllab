@@ -124,7 +124,6 @@ class UserController extends Controller
 
 	/*
 	 * Provides Admin to manage accounts
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
 	 */
@@ -140,7 +139,6 @@ class UserController extends Controller
 	}
 	/*
 	 * Provides Admin to manage Users
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
 	 */

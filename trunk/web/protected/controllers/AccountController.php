@@ -97,9 +97,12 @@ class AccountController extends Controller
 				yii::app()->user->setFlash('success','Successfully saved!');
 				$this->redirect(array('user/accounts'));
 			}
+			else
+			{
+				yii::app()->user->setFlash('error','Not saved!');
+			}
 		}
 
-		yii::app()->user->setFlash('error','Not saved!');
 		$this->render('update',array(
 			'model'		=>$model,
 		));
@@ -120,37 +123,11 @@ class AccountController extends Controller
 		}
 	}
 
-	/**
-	 * Lists all models.
-	 */
-//	public function actionIndex()
-//	{
-//		$dataProvider=new CActiveDataProvider('Account');
-//		$this->render('index',array(
-//			'dataProvider'=>$dataProvider,
-//		));
-//	}
-
-	/**
-	 * Manages all models.
-	 */
-//	public function actionAdmin()
-//	{
-//		$model=new Account('search');
-//		$model->unsetAttributes();  // clear any default values
-//		if(isset($_GET['Account']))
-//			$model->attributes=$_GET['Account'];
-//
-//		$this->render('admin',array(
-//			'model'=>$model,
-//		));
-//	}
 
 	
 	/**
 	 * Creates new Configuration with default settings and sling it 
 	 * to nearly created Account with $acc_id
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param	int $acc_id
 	 * @return	
 	 */
@@ -241,16 +218,4 @@ class AccountController extends Controller
 		return $this->_model;
 	}
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-//	protected function performAjaxValidation($model)
-//	{
-//		if(isset($_POST['ajax']) && $_POST['ajax']==='account-form')
-//		{
-//			echo CActiveForm::validate($model);
-//			Yii::app()->end();
-//		}
-//	}
 }

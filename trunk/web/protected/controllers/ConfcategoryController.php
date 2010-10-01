@@ -68,10 +68,26 @@ class ConfcategoryController extends Controller
 		
 		if(isset($_POST['ConfCategory']))
 		{
-			$model->attributes=$_POST['ConfCategory'];
-			$model->save();
+			$model->attributes = $_POST['ConfCategory'];
+			$model->conf_gen_id = yii::app()->user->getConfigId();
+			
+			if($model->save())
+			{
+				$response['form'] = $this->renderCategories(true);
+			}
+			else 
+			{
+				$errors = $model->getErrors();
+				$response['errors'] = '';
+				foreach($errors as $key=>$er)
+				{
+					$response['errors'] .= $response['errors'].'<b>'.$key.'</b>:'.$er[0].'<br />';
+				}
+			}
+			
+			echo CJSON::encode($response);
 		}
-		self::renderCategories();
+		
 	}
 
 	/**
@@ -84,9 +100,23 @@ class ConfcategoryController extends Controller
 		{
 			$model = ConfCategory::model()->findByPk($_POST['ConfCategory']['id']);
 			$model->attributes=$_POST['ConfCategory'];
-			$model->save();
+			
+			if($model->save())
+			{
+				$response['form'] = $this->renderCategories(true);
+			}
+			else 
+			{
+				$errors = $model->getErrors();
+				$response['errors'] = '';
+				foreach($errors as $key=>$er)
+				{
+					$response['errors'] .= $response['errors'].'<b>'.$key.'</b>:'.$er[0].'<br />';
+				}
+			}
+			
+			echo CJSON::encode($response);
 		}
-		self::renderCategories();
 	}
 
 	/**
@@ -99,8 +129,23 @@ class ConfcategoryController extends Controller
 //		нужно ли делать уведомление?
 		$model = ConfCategory::model()->findByPk($_GET['id']);
 		if($model)
-			$model->delete();
-		self::renderCategories();
+		{
+			if($model->delete())
+			{
+				$response['form'] = $this->renderCategories(true);
+			}
+			else
+			{
+				$errors = $model->getErrors();
+				$response['errors'] = '';
+				foreach($errors as $key=>$er)
+				{
+					$response['errors'] .= $response['errors'].'<b>'.$key.'</b>:'.$er[0].'<br />';
+				}
+			}
+			
+			echo CJSON::encode($response);
+		}
 	}
 
 	/**
@@ -146,12 +191,11 @@ class ConfcategoryController extends Controller
 	}
 
 	/*
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		
 	 * @return		partial
 	 */
 	
-	public function renderCategories() 
+	public function renderCategories($for_ajax = false) 
 	{
 		$oNewCategory = new ConfCategory;
 		$aParentCategories = ConfCategory::model()->findAllByAttributes(array(	'parent_id'=>NULL,
@@ -161,22 +205,19 @@ class ConfcategoryController extends Controller
 		foreach ($aParentCategories as $oParent)
 			$aChildCats[$oParent->id] = ConfCategory::model()->findAllByAttributes(array('parent_id'=>$oParent->id));
 			
-		$this->renderPartial('/confCategory/_allCategories', 
-					array(	'aParentCategories'=>$aParentCategories, 
-							'aChildCats'=>$aChildCats, 
-							'oNewCategory'=>$oNewCategory), false, true);
+		if($for_ajax)
+		{
+			return $this->renderPartial(	'/confCategory/_allCategories', 
+								array(	'aParentCategories'=>$aParentCategories, 
+										'aChildCats'=>$aChildCats, 
+										'oNewCategory'=>$oNewCategory), 
+								true, true);
+		}
+			
+		$this->renderPartial(	'/confCategory/_allCategories', 
+								array(	'aParentCategories'=>$aParentCategories, 
+										'aChildCats'=>$aChildCats, 
+										'oNewCategory'=>$oNewCategory), 
+								$for_ajax, true);
 	}
-	
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-//	protected function performAjaxValidation($model)
-//	{
-//		if(isset($_POST['ajax']) && $_POST['ajax']==='conf-category-form')
-//		{
-//			echo CActiveForm::validate($model);
-//			Yii::app()->end();
-//		}
-//	}
 }

@@ -102,7 +102,6 @@ class ConfgeneralController extends Controller
 	}
 
 	/** Provides to Config Fonts and Images Settings
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
 	 */
@@ -118,7 +117,6 @@ class ConfgeneralController extends Controller
 
 
 	/**
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		array() ConfGeneral[]
 	 * @return
 	 */
@@ -179,7 +177,6 @@ class ConfgeneralController extends Controller
 
 
 	/**
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		array()
 	 * @return		null
 	 */
@@ -213,7 +210,6 @@ class ConfgeneralController extends Controller
 	}
 	
 	/** Provides anybody to config Property Settings
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
 	 */
@@ -237,7 +233,6 @@ class ConfgeneralController extends Controller
 	}
 
 	/** Signed Certifications Settings
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param
 	 * @return
 	 */
@@ -254,7 +249,6 @@ class ConfgeneralController extends Controller
 	
 	/**
 	 * Configuration - Scope of Work Settings
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		
 	 * @return		
 	 */
@@ -268,7 +262,6 @@ class ConfgeneralController extends Controller
 
 	/**
 	 * Configuration - Disclaimer Settings
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 */
 	
 	public function actionDisclaimersettings() 
@@ -278,7 +271,6 @@ class ConfgeneralController extends Controller
 	
 	/**
 	 * Configuration - Disclaimer Settings
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 */
 	
 	public function actionResumesettings() 

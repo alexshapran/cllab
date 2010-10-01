@@ -66,7 +66,6 @@ class ConfdisclaimervalueController extends Controller
 		}
 	}
 	/**
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param	int $val_id
 	 * @return 
 	 */		
