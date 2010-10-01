@@ -71,7 +71,6 @@ class Controller extends CController
     
     /**
      * replace '_' on ' ', make firt letters (after space) upper
-     * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
      * @param		string
      * @return		string
      */
@@ -85,7 +84,6 @@ class Controller extends CController
     
 
     /** add the same $crit_string into $criteria to array of $fields
-     * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
      * @param		mixed $fields, CDbCriteria $criteria
      * @return		CDbCriteria
      */
@@ -120,7 +118,6 @@ class Controller extends CController
     
     
     /**
-     * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
      * @param		none
      * @return		array
      */
@@ -312,7 +309,6 @@ class Controller extends CController
     }
     
     /**
-     * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
      * @param		none
      * @return		array
      */

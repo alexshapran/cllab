@@ -19,7 +19,6 @@ class WebUser extends CWebUser {
 	}
 
 	/*
-	 * @author	Malichenko Oleg [e-mail : aluminium1989@hotmail.com]
 	 * @param		none
 	 * @return		[int] General Config ID by the User_id->account_id
 	 */
