@@ -1,7 +1,7 @@
-<h1>Clients</h1>
-
 <?php echo CHtml::button('Add Client', 
-				array('onclick'=> 'window.location = "'.Yii::app()->controller->createUrl("/client/create").'"' )) ?>
+				array(	'onclick'=> 'window.location = "'.Yii::app()->controller->createUrl("/client/create").'"',
+						'style'=>'margin-bottom:10px;',
+						'class'=>'bigbutton' )) ?>
 
 <?php echo CHtml::beginForm( $this->createUrl('/client/index'), 'POST');
 

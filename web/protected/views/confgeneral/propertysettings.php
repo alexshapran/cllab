@@ -31,9 +31,4 @@ function changeView(id)
 	$("#catName" + id).toggleClass("hidden"); 
 	$("#catButtons" + id).toggleClass("hidden");
 }
-function afterDelete(transport)
-{
-	$("#allcategories").html(transport);
-	unbusy();
-}
 </script>
