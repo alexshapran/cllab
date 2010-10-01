@@ -204,20 +204,24 @@ class Object extends CActiveRecord
 	}
 	
 	public function getNextLink() {
-		$criteria = new CDbCriteria;
-		$criteria->limit = 1;
-		$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id > ' . $this->id;
-		$obj = Object::model()->find($criteria);
-		return $obj;
+		if(!$this->isNewRecord){
+			$criteria = new CDbCriteria;
+			$criteria->limit = 1;
+			$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id > ' . $this->id;
+			$obj = Object::model()->find($criteria);
+			return $obj;
+		}
 	}
 	
 	public function getPrevLink() {
-		$criteria = new CDbCriteria;
-		$criteria->limit = 1;
-		$criteria->order = 'id DESC';
-		$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id < ' . $this->id;
-		$obj = Object::model()->find($criteria);
-		return $obj;	
+		if(!$this->isNewRecord){
+			$criteria = new CDbCriteria;
+			$criteria->limit = 1;
+			$criteria->order = 'id DESC';
+			$criteria->condition = 'appraisal_id = ' . $this->appraisal->id . ' AND id < ' . $this->id;
+			$obj = Object::model()->find($criteria);
+			return $obj;
+		}	
 	}
 	
 	public function getComparableSales() {
