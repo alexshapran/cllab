@@ -37,7 +37,7 @@ class ObjectController extends Controller
 //				'roles'=>array('Superadmin'),
 //y			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','GetChildrenCategory', 'AddComparableAjax', 'DeleteAjax'),
+				'actions'=>array('new', 'create','update','GetChildrenCategory', 'AddComparableAjax', 'DeleteAjax'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -53,11 +53,17 @@ class ObjectController extends Controller
 	/**
 	 * Displays a particular model.
 	 */
-	public function actionView()
+	public function actionNew()
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
+		$oAppraisal = Appraisal::getModel();
+		if($oAppraisal) {
+			$model = new Object; 
+			$model->appraisal_id = $oAppraisal->id;
+			if($model->save(false)) {
+				$this->redirect(Yii::app()->createUrl("object/create", array_merge($_GET, array('object'=>$model->id))));
+			}
+		}
+		$this->redirect('/appraisal');
 	}
 
 	/**
@@ -66,15 +72,16 @@ class ObjectController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$model = null;
 		if(isset($_GET['object']))
 			$model = Object::model()->findByPk($_GET['object']);
 		if(!$model)
 			$model = new Object;
 
 		$aComparableSales = $model->getComparableSales();
+		$oAppraisal = Appraisal::getModel();
 		
 		if(isset($_POST['Object'])) {
-			$oAppraisal = Appraisal::getModel();
 			$model->appraisal_id = $oAppraisal->id;
 			$model->attributes=$_POST['Object'];
 			if($model->validate()) {
@@ -102,6 +109,7 @@ class ObjectController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'aComparableSales'=>$aComparableSales,
+			'oAppraisal'=>$oAppraisal,
 		));
 	}
 
