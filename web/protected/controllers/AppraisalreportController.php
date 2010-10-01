@@ -34,8 +34,7 @@ class AppraisalreportController extends Controller
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('coverLetter', 'biohistcontext', 'signedcert', 'getscopetext',
-									'marketanalysis', 'resume', 'property', 'scopeofwork'),
-				'actions'=>array('coverLetter', 'biohistcontext', 'marketanalysis', 'resume', 'ResumeDelete'),
+									'marketanalysis', 'resume', 'property', 'scopeofwork', 'resumedelete'),
 				'roles'=>array('Superadmin'),
 			),
 			array('deny',  // deny all users
@@ -250,6 +249,45 @@ class AppraisalreportController extends Controller
 //			$oScopeOfWork->uspap_comp = serialize($uspap_comp);
 			
 			
+//			Save Assumptions
+			if(isset($_POST['ConfScopeOfValue']['assumps']))
+			{
+				$array = $_POST['ConfScopeOfValue']['assumps'];
+				$selected = array();
+				foreach($array as $key=>$el)
+					if($el['value']=='1')
+						$selected[] = $key;
+			
+				$oScopeOfWork->assumps = implode(', ', $selected);
+			}
+			
+			
+//			Save Extraordinary Assumptions
+			if(isset($_POST['ConfScopeOfValue']['extr_assumps']))
+			{
+				$array = $_POST['ConfScopeOfValue']['extr_assumps'];
+				$selected = array();
+				foreach($array as $key=>$el)
+					if($el['value']=='1')
+						$selected[] = $key;
+			
+				$oScopeOfWork->extr_assumps = implode(', ', $selected);
+			}
+			
+			
+//			Save Hypothetical Conditions
+			if(isset($_POST['ConfScopeOfValue']['hypoth_cond']))
+			{
+				$array = $_POST['ConfScopeOfValue']['hypoth_cond'];
+				$selected = array();
+				foreach($array as $key=>$el)
+					if($el['value']=='1')
+						$selected[] = $key;
+			
+				$oScopeOfWork->hypoth_cond = implode(', ', $selected);
+			}
+			
+			
 //			Save changes
 			$oScopeOfWork->save();
 			$oScopeOfWork->update();
@@ -299,20 +337,6 @@ class AppraisalreportController extends Controller
 		$oScopeOfWork->save();
 		$oScopeOfWork->update();
 		
-//		If there is no scope of work - create it
-//		if(!$oScopeOfWork)
-//		{
-//			$oScopeOfWork = new AppScopeOfWork();
-//			$oScopeOfWork->save(); 
-//			$oAppraisal->app_scope_of_work_id = $oScopeOfWork->id;
-//			$oAppraisal->save();
-//		}
-		
-//		if(!$oScopeOfWork->problem_to_solve)
-//		{
-//			$oScopeOfWork->problem_to_solve = 
-//		}
-
 		
 		$this->render('scopeofwork', array(	'oAppraisal'=>$oAppraisal,
 													'oScopeOfWork'=>$oScopeOfWork,
