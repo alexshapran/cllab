@@ -86,13 +86,16 @@
 							array(
 						   		'id'=>'loginbox_dialog',
 							    'options'=>array(
-						        				'title'=>'Login',
+						        				'title'=>'Collectors LAB&nbsp;&nbsp;&nbsp;appraisal manager',
 						        				'autoOpen'=>false,
+//												'width'=>'300px',
     								 			),
 									)
 							); 
 ?>
+	<div style='padding:0 50px;'>
 		<?php echo $content; ?>
+	</div>
 <?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
 </div>
 
