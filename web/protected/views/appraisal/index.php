@@ -37,7 +37,7 @@
       			),
       			'duplicate'=>array(
 	                'label'=>'duplicate',
-      				'url'=>"Yii::app()->createUrl('appraisial')",
+      				'url'=>'Yii::app()->controller->createUrl("appraisal/duplicate", array("id"=>$data->alias))',
       			),
       			
       		),
