@@ -128,6 +128,13 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 	padding-left: 110px;
 }
 
+.bigbutton
+{
+	 min-width:130px;
+	 min-height:40px;
+}
+
+
 /* General parameters page and forms styles*/
 #confgen_form_left {
 	float: left;
@@ -581,8 +588,28 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 /* APP REPORT SIGNED CERT NAMES END */
 
 /* APPRAISAL REPORT - SCOPE OF WORK */
-.scopeofwork
+.scopeofwork DIV .dropdown
 {
-	
+	width:200px;
+}
+.scopeofwork .scope_row
+{
+	margin: 12px 5px 5px 10px;
+	clear:both;
+}
+.scopeofwork .scope_textarea
+{
+	margin-top:10px;
+	width:500px;
+}
+.scopeofwork .scope_textfield
+{
+	width:200px;
+}
+.scopeofwork .scope_row LABEL
+{
+	display:block;
+	float:left;
+	width:200px;
 }
 /* APPRAISAL REPORT - SCOPE OF WORK END */

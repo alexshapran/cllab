@@ -10,28 +10,26 @@ return array (
   'Account Admin' => 
   array (
     'type' => 2,
-    'description' => 'Moderator',
-    'bizRule' => NULL,
-    'data' => NULL,
-  ),
-  'Superadmin' => 
-  array (
-    'type' => 2,
-    'description' => 'Administrator',
+    'description' => 'Account Admin',
     'bizRule' => NULL,
     'data' => NULL,
     'assignments' => 
     array (
-      3 => 
+      9 => 
       array (
         'bizRule' => NULL,
         'data' => NULL,
       ),
-      2 => 
-      array (
-        'bizRule' => NULL,
-        'data' => NULL,
-      ),
+    ),
+  ),
+  'Superadmin' => 
+  array (
+    'type' => 2,
+    'description' => 'Superadmin',
+    'bizRule' => NULL,
+    'data' => NULL,
+    'assignments' => 
+    array (
       6 => 
       array (
         'bizRule' => NULL,
