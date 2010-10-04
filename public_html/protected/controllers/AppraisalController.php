@@ -88,8 +88,10 @@ class AppraisalController extends Controller
 				$oBasicParams->save();
 				
 				$model->basic_report_parameters_id = $oBasicParams->id;
-				if($model->save())
-					$this->redirect('/appraisal/edit/' . $model->alias);	
+				if($model->save()) {
+					$this->redirect('/appraisal/edit/' . $model->alias);
+					Yii::app()->user->setFlash('success','Appraisal was successfully saved!');
+				}	
 			}
 		}
 		
