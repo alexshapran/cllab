@@ -5,7 +5,7 @@
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'signed-cert-form',
 		'method'=>'POST',
-		'action'=>yii::app()->controller->createUrl('/appraisalreport/signedcert').'/'.$oAppraisal->alias,
+		'action'=>Yii::app()->controller->createUrl('/appraisalreport/signedcert').'/'.$oAppraisal->alias,
 		'enableAjaxValidation'=>false,
 	)); ?>
 
@@ -43,9 +43,9 @@
 										<div class='confSignName'>
 											<?php 	echo $text->confSignCertSettings->name;
 													echo CHtml::ajaxButton('Add New', 
-																			yii::app()->controller->createUrl('confsigncerttext/createajax', 
+																			Yii::app()->controller->createUrl('confsigncerttext/createajax', 
 																			array('settingId'=>$last_categ_id, 'needRedirect'=>'save')),
-																			array('success'=>'function(transport){ window.location="'.yii::app()->controller->createUrl("confgeneral/signedcertification").'#'.$last_categ_id.'"}')) ?>:
+																			array('success'=>'function(transport){ window.location="'.Yii::app()->controller->createUrl("confgeneral/signedcertification").'#'.$last_categ_id.'"}')) ?>:
 										</div>
 								<?php }	?>
 							<?php 	echo CHtml::checkBox("value[$text->id]", in_array($text->id, $selected_values)); 

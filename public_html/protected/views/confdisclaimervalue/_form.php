@@ -7,7 +7,7 @@
 	<div class="row floatleft">
 		<?php 
 		echo CHtml::ajaxButton('Delete',
-							yii::app()->controller->createUrl('confdisclaimervalue/delete', array('val_id'=>$model->id)),
+							Yii::app()->controller->createUrl('confdisclaimervalue/delete', array('val_id'=>$model->id)),
 							array(	'success'=>'function(){ onSuccess('.$model->id.') }'),
 							array(	'style'=>'margin:9px 0 0 9px;',
 									'onclick'=>'if(!confirm("Are you sure?")) return false; busy()')

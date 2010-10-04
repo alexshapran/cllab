@@ -19,7 +19,7 @@
 	<?php 
 		 echo CHtml::ajaxLink(
 			'Remove',
-			yii::app()->controller->createUrl('DeleteAjax', array('comparableSale'=>$obj->id)),
+			Yii::app()->controller->createUrl('DeleteAjax', array('comparableSale'=>$obj->id)),
 			array(
 				'dataType'=>'json',
 				'success'=>'function (transport) { deleteSale(transport) }')

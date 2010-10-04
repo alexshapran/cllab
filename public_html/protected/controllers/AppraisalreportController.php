@@ -54,7 +54,7 @@ class AppraisalreportController extends Controller
 		if(isset($_POST['ReportCoverLetter'])) {
 			$oCoverLetter->attributes = $_POST['ReportCoverLetter'];
 			if($oCoverLetter->save())
-				yii::app()->user->setFlash('success','Cover Letter was successfully saved!');
+				Yii::app()->user->setFlash('success','Cover Letter was successfully saved!');
 		}
 			
 		$this->render('cover_letter',array(
@@ -74,7 +74,7 @@ class AppraisalreportController extends Controller
 		if(isset($_POST['ReportBiohistContext'])) {
 			$oBiohistContext->attributes = $_POST['ReportBiohistContext'];
 			if($oBiohistContext->save())
-				yii::app()->user->setFlash('success','Biohist Context was successfully saved!');
+				Yii::app()->user->setFlash('success','Biohist Context was successfully saved!');
 		}
 			
 		$this->render('biohist_context',array(
@@ -94,7 +94,7 @@ class AppraisalreportController extends Controller
 		if(isset($_POST['ReportMarketAnalysis'])) {
 			$oMarketAnalysis->attributes = $_POST['ReportMarketAnalysis'];
 			if($oMarketAnalysis->save())
-				yii::app()->user->setFlash('success','Market Analysis was successfully saved!');
+				Yii::app()->user->setFlash('success','Market Analysis was successfully saved!');
 		}
 			
 		$this->render('market_analysis',array(
@@ -127,7 +127,7 @@ class AppraisalreportController extends Controller
 						ReportResumeData::saveDatat(false, $oResume->id, $text);	
 					}
 				}
-				yii::app()->user->setFlash('success','Resume was successfully saved!');
+				Yii::app()->user->setFlash('success','Resume was successfully saved!');
 			}
 		}
 		
@@ -155,7 +155,7 @@ class AppraisalreportController extends Controller
 		
 
 		$criteria = new CDbCriteria();
-		$criteria->condition="conf_general_id = ".yii::app()->user->getConfigId();
+		$criteria->condition="conf_general_id = ".Yii::app()->user->getConfigId();
 		$criteria->order='conf_sign_cert_settings_id';
 		$criteria->with='confSignCertSettings';
 
@@ -292,11 +292,11 @@ class AppraisalreportController extends Controller
 			if($oScopeOfWork->save())
 			{
 				$oScopeOfWork->update();
-				yii::app()->user->setFlash('success','Successfully saved!');
+				Yii::app()->user->setFlash('success','Successfully saved!');
 			}
 			else
 			{
-				yii::app()->user->setFlash('error','Not saved!');
+				Yii::app()->user->setFlash('error','Not saved!');
 			}
 		}
 		
@@ -304,8 +304,8 @@ class AppraisalreportController extends Controller
 //		Categories of item examinated
 		if(!$oScopeOfWork->categories)
 		{
-			$sql = "SELECT * FROM conf_category WHERE conf_gen_id = ".yii::app()->user->getConfigId();
-			$connection = yii::app()->db;
+			$sql = "SELECT * FROM conf_category WHERE conf_gen_id = ".Yii::app()->user->getConfigId();
+			$connection = Yii::app()->db;
 			$command = $connection->createCommand($sql);
 			$aCategories = $command->queryColumn();
 			$oScopeOfWork->categories = implode('; ', $aCategories);

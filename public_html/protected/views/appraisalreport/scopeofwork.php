@@ -1,5 +1,5 @@
 <div class='scopeofwork'>
-<?php echo CHtml::beginForm(yii::app()->controller->createUrl(	'appraisalreport/scopeofwork', 
+<?php echo CHtml::beginForm(Yii::app()->controller->createUrl(	'appraisalreport/scopeofwork', 
 																array(	'id'=>$oAppraisal->alias)), 
 																		'POST'); ?>
 
@@ -23,7 +23,7 @@
 //												'empty'=> current(array_keys(unserialize($oScopeOfWork->problem_to_solve))),
 												'onchange'=>"busy(); jQuery.ajax({
 																		'dataType':'json',
-																		url:'".yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
+																		url:'".Yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
 																													array(	'id'=>$oAppraisal->alias,
 																															'type'=>'problem',
 																															'sett_id'=>'')).
@@ -72,7 +72,7 @@
 												'empty'=>array(current(array_keys(unserialize($oScopeOfWork->int_users)))=>'-Choose One-'),
 												'onchange'=>"busy(); jQuery.ajax({
 																		'dataType':'json',
-																		url:'".yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
+																		url:'".Yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
 																													array(	'id'=>$oAppraisal->alias,
 																															'type'=>'int_users',
 																															'sett_id'=>'')).
@@ -116,7 +116,7 @@
 												'empty'=>array(current(array_keys(unserialize($oScopeOfWork->app_to_value)))=>'-Choose One-'),
 												'onchange'=>"busy(); jQuery.ajax({
 																		'dataType':'json',
-																		url:'".yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
+																		url:'".Yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
 																													array(	'id'=>$oAppraisal->alias,
 																															'type'=>'app_to_value',
 																															'sett_id'=>'')).
@@ -145,7 +145,7 @@
 												'empty'=>array(current(array_keys(unserialize($oScopeOfWork->mark_exam)))=>'-Choose One-'),
 												'onchange'=>"busy(); jQuery.ajax({
 																		'dataType':'json',
-																		url:'".yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
+																		url:'".Yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
 																													array(	'id'=>$oAppraisal->alias,
 																															'type'=>'mark_exam',
 																															'sett_id'=>'')).
@@ -247,7 +247,7 @@
 //												'empty'=>array(current(array_keys(unserialize($oScopeOfWork->uspap_comp)))=>'-Choose One-'),
 //												'onchange'=>"busy(); jQuery.ajax({
 //																		'dataType':'json',
-//																		url:'".yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
+//																		url:'".Yii::app()->controller->createUrl(	'appraisalreport/getscopetext',	
 //																													array(	'id'=>$oAppraisal->alias,
 //																															'type'=>'uspap_comp',
 //																															'sett_id'=>'')).

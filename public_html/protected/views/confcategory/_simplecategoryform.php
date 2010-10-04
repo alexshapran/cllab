@@ -4,7 +4,7 @@
 		'enableAjaxValidation'=>true
 	)); ?>
 	
-		<?php echo $form->hiddenField($model, 'conf_gen_id', array('value'=>yii::app()->user->getConfigId())); ?>
+		<?php echo $form->hiddenField($model, 'conf_gen_id', array('value'=>Yii::app()->user->getConfigId())); ?>
 		<?php echo $form->hiddenField($model, 'id'); ?>
 		<div class="row floatleft">
 			<?php echo $form->textField($model,'name', array('size'=>'12')); ?>
@@ -21,7 +21,7 @@
 	
 		<div class="row floatleft" style='margin: 2px 0 0 10px;'>
 			<?php  echo CHtml::ajaxSubmitButton('Save', 
-												yii::app()->controller->createUrl("/confcategory/ajaxsave"), 
+												Yii::app()->controller->createUrl("/confcategory/ajaxsave"), 
 												array(	'dataType'=>'json',
 														'success'=>'function(transport){ floodDiv(transport); }'), 
 												array(	'id'=>'saveButton'.$model->id, 

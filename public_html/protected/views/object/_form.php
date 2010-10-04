@@ -203,7 +203,7 @@
 		<?php 
 			 echo CHtml::ajaxLink(
 				'Add more',
-				yii::app()->controller->createUrl('AddComparableAjax', array('object'=>$model->id)),
+				Yii::app()->controller->createUrl('AddComparableAjax', array('object'=>$model->id)),
 				array(
 					'dataType'=>'json',
 					'success'=>'function (transport) { insertSales(transport) }')

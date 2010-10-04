@@ -66,7 +66,7 @@ class ClientController extends Controller
 		if(isset($_POST['Client']))
 		{
 			$model->attributes=$_POST['Client'];
-			$model->account_id = yii::app()->user->getModel()->account_id;
+			$model->account_id = Yii::app()->user->getModel()->account_id;
 			if($model->save())
 				$this->redirect($this->createUrl('/client'));
 		}
@@ -129,7 +129,7 @@ class ClientController extends Controller
 	public function actionIndex()
 	{
 		$criteria = new CDbCriteria;
-		$user = yii::app()->user->getModel();
+		$user = Yii::app()->user->getModel();
 		
 		$criteria->condition = 'account_id = '.$user->account_id;
 		

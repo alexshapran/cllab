@@ -1,10 +1,10 @@
 <?php
 
 // change the following paths if necessary
-$yiit=dirname(__FILE__).'/../../../../yii/framework/yiit.php';
+$Yiit=dirname(__FILE__).'/../../../../Yii/framework/Yiit.php';
 $config=dirname(__FILE__).'/../config/test.php';
 
-require_once($yiit);
+require_once($Yiit);
 require_once(dirname(__FILE__).'/WebTestCase.php');
 
 Yii::createWebApplication($config);

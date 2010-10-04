@@ -160,7 +160,7 @@ class ConfGeneral extends CActiveRecord
 	}
 	public static function getConfig()
 	{
-		return ConfGeneral::model()->findByPk(yii::app()->user->getConfigId());
+		return ConfGeneral::model()->findByPk(Yii::app()->user->getConfigId());
 	}
 	
 	
@@ -172,7 +172,7 @@ class ConfGeneral extends CActiveRecord
 	public static function getScopeOfSettings($id = NULL)
 	{
 		$criteria = new CDbCriteria();
-		$criteria->condition = "conf_gen_id = ".yii::app()->user->getConfigId();
+		$criteria->condition = "conf_gen_id = ".Yii::app()->user->getConfigId();
 		if($id != NULL)
 		{
 			$criteria->addCondition("id = $id", 'AND');
@@ -191,7 +191,7 @@ class ConfGeneral extends CActiveRecord
 	public static function getConfCategories($id = NULL)
 	{
 		$criteria = new CDbCriteria();
-		$criteria->condition = "conf_gen_id = ".yii::app()->user->getConfigId();
+		$criteria->condition = "conf_gen_id = ".Yii::app()->user->getConfigId();
 
 		return ConfCategory::model()->findAll($criteria);
 	}

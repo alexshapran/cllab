@@ -35,7 +35,7 @@
 				
 					<?php 
 						echo CHtml::ajaxButton('Delete',
-											yii::app()->controller->createUrl('appraisalreport/resumedelete', array('resume_id'=>$oResume->id)),
+											Yii::app()->controller->createUrl('appraisalreport/resumedelete', array('resume_id'=>$oResume->id)),
 											array('success'=>'removeEl('.$oResume->id.')'),
 											array( 'onClick' => "if(!confirm('Are you sure you want to delete this item?')) return false; ")
 											);

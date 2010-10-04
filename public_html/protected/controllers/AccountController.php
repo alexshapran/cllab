@@ -94,12 +94,12 @@ class AccountController extends Controller
 			$model->attributes=$_POST['Account'];
 			if($model->save())
 			{
-				yii::app()->user->setFlash('success','Successfully saved!');
+				Yii::app()->user->setFlash('success','Successfully saved!');
 				$this->redirect(array('user/accounts'));
 			}
 			else
 			{
-				yii::app()->user->setFlash('error','Not saved!');
+				Yii::app()->user->setFlash('error','Not saved!');
 			}
 		}
 

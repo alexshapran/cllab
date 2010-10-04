@@ -5,7 +5,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('object-grid', {
+	$.fn.YiiGridView.update('object-grid', {
 		data: $(this).serialize()
 	});
 	return false;
