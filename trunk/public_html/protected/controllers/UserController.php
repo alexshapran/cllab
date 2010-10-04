@@ -186,7 +186,7 @@ class UserController extends Controller
 		$criteria = new CDbCriteria();
 		$thisUser = Yii::app()->user->getModel();
 		
-		if(yii::app()->user->getRole() == 'Account Admin' )
+		if(Yii::app()->user->getRole() == 'Account Admin' )
 		{
 			$criteria->condition = 'account_id = ' . $thisUser->account_id;
 		}

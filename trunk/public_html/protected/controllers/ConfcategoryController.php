@@ -69,7 +69,7 @@ class ConfcategoryController extends Controller
 		if(isset($_POST['ConfCategory']))
 		{
 			$model->attributes = $_POST['ConfCategory'];
-			$model->conf_gen_id = yii::app()->user->getConfigId();
+			$model->conf_gen_id = Yii::app()->user->getConfigId();
 			
 			if($model->save())
 			{

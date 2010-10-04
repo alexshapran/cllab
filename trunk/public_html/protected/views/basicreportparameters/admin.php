@@ -15,7 +15,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('basic-report-parameters-grid', {
+	$.fn.YiiGridView.update('basic-report-parameters-grid', {
 		data: $(this).serialize()
 	});
 	return false;

@@ -92,7 +92,7 @@ function displayEdit(id)
 			Type of Value - Configure Options
 			</div>
 	<?php
-			echo CHtml::Button('Add new', array('onClick'=>"location.replace('".yii::app()->controller->createUrl("conftypeofvalue/update")."')"));
+			echo CHtml::Button('Add new', array('onClick'=>"location.replace('".Yii::app()->controller->createUrl("conftypeofvalue/update")."')"));
 			 
 			$this->widget('zii.widgets.grid.CGridView', array(
 				'id'=>'ConfTypeOfValueTable',

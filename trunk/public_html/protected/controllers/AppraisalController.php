@@ -152,7 +152,7 @@ class AppraisalController extends Controller
       	
       	if(isset($_GET['exp']) && $_GET['exp'] == 'order') {
       		$this->saveExportOrder($aObjects);
-      		yii::app()->user->setFlash('success','Export Order was successfully saved!');
+      		Yii::app()->user->setFlash('success','Export Order was successfully saved!');
       		$this->redirect('/appraisal/property/' . $model->alias ? $model->alias : $model->id);
       	}	
       	
@@ -253,12 +253,12 @@ die;
 		
 		$pdf->AddPage();
 		$pdf->setJPEGQuality(75);
-		$pdf->Image(yiiBase::getPathOfAlias('application').'\..\images\velo.jpeg', $x='', $y='', $w=10, $h=8, $type='jpeg', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
+		$pdf->Image(YiiBase::getPathOfAlias('application').'\..\images\velo.jpeg', $x='', $y='', $w=10, $h=8, $type='jpeg', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
 //		$pdf->Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false);
 
 		$pdf->AddPage();
-		$pdf->Image(yiiBase::getPathOfAlias('application').'\..\images\pants.jpeg', $x='', $y='', $w=3, $h=2, $type='jpeg', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
-		$pdf->Image(yiiBase::getPathOfAlias('application').'\..\images\duck.gif', $x='6', $y='2', $w=1, $h=1, $type='gif', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
+		$pdf->Image(YiiBase::getPathOfAlias('application').'\..\images\pants.jpeg', $x='', $y='', $w=3, $h=2, $type='jpeg', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
+		$pdf->Image(YiiBase::getPathOfAlias('application').'\..\images\duck.gif', $x='6', $y='2', $w=1, $h=1, $type='gif', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
 		
 		$pdf->SetFont("times", "BI", 20);
 		$pdf->Cell(0,10,"Example 002",1,1,'C');

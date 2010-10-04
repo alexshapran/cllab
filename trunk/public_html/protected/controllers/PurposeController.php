@@ -66,7 +66,7 @@ class PurposeController extends Controller
 		if(isset($_POST['ConfPurpose']))
 		{
 			$model->attributes = $_POST['ConfPurpose'];
-			$model->conf_gen_id = yii::app()->user->getConfigId();
+			$model->conf_gen_id = Yii::app()->user->getConfigId();
 			if($model->save())
 			{
 				$aConfPurposeDataProvider = 

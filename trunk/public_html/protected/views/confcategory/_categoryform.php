@@ -10,7 +10,7 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-		<?php // echo $form->hiddenField($model, 'conf_gen_id', array('value'=>yii::app()->user->getConfigId())); ?>
+		<?php // echo $form->hiddenField($model, 'conf_gen_id', array('value'=>Yii::app()->user->getConfigId())); ?>
 
 	<div class="row" style='margin-left:30px;'>
 		<label>Parent Category</label>
@@ -21,7 +21,7 @@
 	<div class="row buttons" style='margin:18px 0 0 30px;'>
 		<?php echo CHtml::ajaxSubmitButton(
 							'Add new', 
-							yii::app()->controller->createUrl("confcategory/ajaxcreate"), 
+							Yii::app()->controller->createUrl("confcategory/ajaxcreate"), 
 							array(	'dataType'=>'json',
 									'success'=>'function(transport){ floodDiv(transport) }'), 
 							array(	'id'=>'simpleFormSubmit',

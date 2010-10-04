@@ -8,7 +8,7 @@
 /**
  * ETinyMce is an input widget based on TinyMCE and the jQuery TinyMCE plugin.
  *
- * @author metayii
+ * @author metaYii
  */
 class ETinyMce extends CInputWidget
 {

@@ -25,7 +25,6 @@ class WebUser extends CWebUser {
 	{
 		$model = $this->getModel();
 		$oConfGeneral = ConfGeneral::model()->findByAttributes(array('account_id'=>$model->account_id));
-		
 		return $oConfGeneral->id;
 	}
 }

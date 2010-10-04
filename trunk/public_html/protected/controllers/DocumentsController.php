@@ -55,7 +55,7 @@ class DocumentsController extends Controller
 		if(isset($_POST['ReportCoverLetter'])) {
 			$oBibliography->attributes = $_POST['ReportCoverLetter'];
 			if($oBibliography->save())
-				yii::app()->user->setFlash('success','Cover Letter was successfully saved!');
+				Yii::app()->user->setFlash('success','Cover Letter was successfully saved!');
 		}
 			
 		$this->render('bibliography',array(
@@ -75,7 +75,7 @@ class DocumentsController extends Controller
 		if(isset($_POST['SdPrivacyPolicy'])) {
 			$oPrivacyPolicy->attributes = $_POST['SdPrivacyPolicy'];
 			if($oPrivacyPolicy->save())
-				yii::app()->user->setFlash('success','Market Analysis was successfully saved!');
+				Yii::app()->user->setFlash('success','Market Analysis was successfully saved!');
 		}
 			
 		$this->render('privacy_policy',array(

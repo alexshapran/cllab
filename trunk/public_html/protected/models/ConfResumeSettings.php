@@ -91,6 +91,6 @@ class ConfResumeSettings extends CActiveRecord
 	}
 	
 	public static function getResumesByConfId(){
-		return self::model()->findAllByAttributes(array('conf_gen_id'=>yii::app()->user->getConfigId()));
+		return self::model()->findAllByAttributes(array('conf_gen_id'=>Yii::app()->user->getConfigId()));
 	} 
 }

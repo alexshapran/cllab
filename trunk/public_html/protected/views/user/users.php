@@ -1,7 +1,7 @@
 <?php $filterBy = isset($_GET['filterBy']) ? $_GET['filterBy'] : 0 ?>
 
 <div style='min-width:600px;'>
-<?php echo CHtml::button('Add User', array('onClick'=>'location.replace(\''.yii::app()->createUrl("user/update").'\')')) ?>
+<?php echo CHtml::button('Add User', array('onClick'=>'location.replace(\''.Yii::app()->createUrl("user/update").'\')')) ?>
 <?php echo CHtml::dropDownList('sortBy','', 
 								CHtml::listData($accounts, 'id', 'value'), 
 								array(	

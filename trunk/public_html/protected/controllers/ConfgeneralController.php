@@ -80,7 +80,7 @@ class ConfgeneralController extends Controller
 					$errors = $oConfGeneral->getErrors();
 			
 				if(!isset($errors))
-					yii::app()->user->setFlash('success','Successfully saved!');
+					Yii::app()->user->setFlash('success','Successfully saved!');
 				else 
 				{
 						$out='';
@@ -89,7 +89,7 @@ class ConfgeneralController extends Controller
 								$out.= '<br /><b>'.$key.'</b> : '.$erText[0];
 						}
 								
-					yii::app()->user->setFlash('error','Not saved!'.$out);
+					Yii::app()->user->setFlash('error','Not saved!'.$out);
 				}
 			}
 	
@@ -162,14 +162,14 @@ class ConfgeneralController extends Controller
 
 		
 			if(!$errs)
-				yii::app()->user->setFlash('success','Successfully saved!');
+				Yii::app()->user->setFlash('success','Successfully saved!');
 			else 
 			{
 				$out = '';
 				foreach($errs as $key=>$erGroup)
 					foreach($erGroup as $erText)
 							$out .= '<br /><b>'.$key.'</b> : '.$erText[0];
-				yii::app()->user->setFlash('error','Not saved!'.$out);
+				Yii::app()->user->setFlash('error','Not saved!'.$out);
 			}
 		
 		Yii::app()->controller->redirect(Yii::app()->controller->createUrl('/confgeneral/fontsandimages'));

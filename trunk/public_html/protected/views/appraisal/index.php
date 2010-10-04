@@ -5,7 +5,7 @@
 		return false;
 	});
 	$('.search-form form').submit(function(){
-		$.fn.yiiGridView.update('appraisal-grid', {
+		$.fn.YiiGridView.update('appraisal-grid', {
 			data: $(this).serialize()
 		});
 		return false;

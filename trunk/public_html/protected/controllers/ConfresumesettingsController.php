@@ -49,7 +49,7 @@ class ConfresumesettingsController extends Controller
 	public function actionCreate() 
 	{
 		$model = new ConfResumeSettings;
-		$model->conf_gen_id = yii::app()->user->getConfigId();
+		$model->conf_gen_id = Yii::app()->user->getConfigId();
 		if($model->save())
 			$response['form'] = $this->renderPartial('_form', array('model'=>$model), true, true);
 		

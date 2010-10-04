@@ -190,7 +190,7 @@ class Appraisal extends CActiveRecord
 	}
 	
 	public static function createNewLink(){
-		return CHtml::button('Create New Appraisal', array('onclick'=>'window.location = "'.yii::app()->createUrl('/appraisal/edit').'"'));
+		return CHtml::button('Create New Appraisal', array('onclick'=>'window.location = "'.Yii::app()->createUrl('/appraisal/edit').'"'));
 	}
 	
 }
