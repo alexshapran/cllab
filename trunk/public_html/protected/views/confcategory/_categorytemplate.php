@@ -2,7 +2,7 @@
 <div class='catName' id='catName<?php echo $model->id ?>'><?php echo $model->name; ?></div>
 <?php 
 
-$this->renderPartial('/confCategory/_simpleCategoryForm', 
+$this->renderPartial('/confcategory/_simplecategoryform', 
 						array('model'=>$model, 
 						'aParCats'=>$aParentCategories)) ?>
 
