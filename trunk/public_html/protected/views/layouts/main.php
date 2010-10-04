@@ -35,7 +35,7 @@
 				array('label'=>'Manage Clients', 'url'=>array('/client')),
 				array('label'=>'Configuration', 'url'=>array( '/confgeneral/update' )), 
 				array('label'=>'Admin', 'url'=>array('/user/users') ),
-				array('label'=>'Generate PDF', 'url'=>array('/appraisal/generatepdf') ),
+//				array('label'=>'Generate PDF', 'url'=>array('/appraisal/generatepdf') ),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
@@ -172,17 +172,14 @@ function unbusy()
 
 	// TRIM FUNCTIONS for JS
 	
-//������� ���������� ������� �����
 function ltrim(str) {
 	var ptrn = /\s*((\S+\s*)*)/;
 	return str.replace(ptrn, "$1");
 }
-// ������� ���������� ������� ������
 function rtrim(str) {
 	var ptrn = /((\s*\S+)*)\s*/;
 	return str.replace(ptrn, "$1");
 }
-// ������� ���������� ������� � ����� ������
 function trim(str) {
 	return ltrim(rtrim(str));
 }
