@@ -50,7 +50,7 @@ class DocumentsController extends Controller
 		
 		$oBibliography = $oAppraisal->sdBibliography;
 		if(!$oBibliography)
-			$oBibliography = $oAppraisal->createRelation('SdBibliography','sd_bibliography_id');
+			$oBibliography = $oAppraisal->createRelation('sdBibliography','sd_bibliography_id');
 
 		if(isset($_POST['ReportCoverLetter'])) {
 			$oBibliography->attributes = $_POST['ReportCoverLetter'];
