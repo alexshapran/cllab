@@ -136,7 +136,7 @@
 	<?php echo $content; ?>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by swb-consulting <?php echo // CHtml::link('Piogroup Company', 'http://www.piogroup.net', array('target'=>'_blank')) ?>.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by swb-consulting <?php // echo CHtml::link('Piogroup Company', 'http://www.piogroup.net', array('target'=>'_blank')) ?>.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
