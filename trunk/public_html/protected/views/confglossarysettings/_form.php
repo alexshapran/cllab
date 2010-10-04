@@ -9,7 +9,7 @@
 	<?php
 		echo CHtml::ajaxButton(
 				'Delete',
-				Yii::app()->controller->createUrl(	'/confglossarysettings/delete', 
+				Yii::app()->controller->createUrl(	'confglossarysettings/delete', 
 													array('id' => $model->id)),
 				array(	'dataType'=>'json',
 						'success' => 'function(transport){ removeMe(transport); unbusy() }'),
