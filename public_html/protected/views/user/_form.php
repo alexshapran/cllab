@@ -34,11 +34,14 @@
 		<?php echo $form->error($model,'date_added'); ?>
 	</div>
 
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'account_id'); ?>
+		<?php if(Yii::app()->user->getRoles() == 'Superadmin'){ ?>
 		<?php echo $form->dropDownList($model, 'account_id', CHtml::listData($aAcc, 'id','value'), array()) ?>
 		<?php echo $form->error($model,'account_id'); ?>
 	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'privilege_id'); ?>

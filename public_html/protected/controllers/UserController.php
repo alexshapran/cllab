@@ -33,7 +33,7 @@ class UserController extends Controller
 		return 	array( 
 //						For AA
 						array(	'allow',
-								'actions'=>array('users', 'accounts'),
+								'actions'=>array('users', 'accounts', 'update'),
 								'roles'=>array('Account Admin')),
 //						For SA
 						array(	'allow', // allow admin to perform 'create' and 'update' actions
@@ -53,10 +53,37 @@ class UserController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
-
+		
+		
+//		At first we get all attributes
 		if(isset($_POST['User']))
 		{
 			$model->attributes = $_POST['User'];
+		}
+		
+//		At second if current user is account admin we add it's account and status client
+		$thisUser = Yii::app()->user->getModel();
+		
+		if(Yii::app()->user->getRole() == 'Account Admin')
+		{
+			$model->account_id = $thisUser->account_id;
+			
+//			Find privilege with 'client'
+			$priv = Privilege::model()->findByAttributes(array('value'=>'User'));
+			
+//			echo '<pre>';
+//			var_dump($priv);
+//			die();
+			
+			if($priv)
+			{
+				$model->privilege_id = $priv->id;
+			}
+		}
+		
+//		At third add another attributes
+		if(isset($_POST['User']))
+		{
 			$model->setAttribute('password_repeat',$_POST['User']['password_repeat']);
 
 			if($model->password)
