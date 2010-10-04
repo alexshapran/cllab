@@ -31,21 +31,26 @@ class UserIdentity extends CUserIdentity
 		$account = User::model()->findByAttributes(array('username'=>$this->username) );
 
 		if(!isset($account))
-		$this->errorCode=self::ERROR_USERNAME_INVALID;
+			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		elseif($account->password!==md5($this->password))
-		$this->errorCode=self::ERROR_PASSWORD_INVALID;
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else
 		{
+			$this->_id = $account->id;
+//			$this->username = 
 			$this->errorCode=self::ERROR_NONE;
 				
-			// AUTH
 			$auth=Yii::app()->authManager;
-			$auth->revoke($account->privilege->value, $account->id);
+			foreach($auth->getAuthAssignments($account->id) as $key=>$assign)
+			{
+				$auth->revoke($key, $account->id);
+			}
+			
 			$auth->assign($account->privilege->value, $account->id);
 			$auth->save();
 			// AUTH END
 
-			$this->_id = $account->id;
+//			$this->_id = $account->id;
 		}
 		return !$this->errorCode;
 	}

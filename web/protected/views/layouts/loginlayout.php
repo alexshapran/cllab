@@ -20,60 +20,13 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body>
+<body onLoad='displayLogin();'>
 <div id='greybox'></div>
-<div class="container" id="page">
+<div class="container">
 
-	<div id="header">
+	<div>
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
-
-	<div id="mainmenu">   
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Manage Appraisals ', 'url'=>array('/appraisal')),
-				array('label'=>'Manage Clients', 'url'=>array('/client')),
-				array('label'=>'Configuration', 'url'=>array( '/confgeneral/update' )), 
-				array('label'=>'Admin', 'url'=>array('/user/users') ),
-				array('label'=>'Generate PDF', 'url'=>array('/appraisal/generatepdf') ),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-
-	<div id="menulevel2">
-	<?php
-	$menu = $this->generateMenu();
-	if($menu)
-	{
-		$this->beginWidget('zii.widgets.CPortlet', array(
-				'title'=>'',
-			));
-			$this->widget('zii.widgets.CMenu', array(
-				'items'=>$menu,
-				'htmlOptions'=>array('class'=>'menu_level2'),
-			));
-		$this->endWidget();
-	}
-	?>
-	</div>
-	
-	<div id="menulevel3">
-	<?php
-	$menu = $this->generateSubMenu();
-	if($menu)
-	{
-		$this->beginWidget('zii.widgets.CPortlet', array(
-				'title'=>'',
-			));
-			$this->widget('zii.widgets.CMenu', array(
-				'items'=>$menu,
-				'htmlOptions'=>array('class'=>'menu_level3'),
-			));
-		$this->endWidget();
-	}
-	?>
-	</div>
 
 			<?php if(Yii::app()->user->hasFlash('success')): ?>
 			    <div class="flash-success">
@@ -127,27 +80,27 @@
 			</div>
 
 			<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
-			
-		
-	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-		'links'=>$this->breadcrumbs,
-	)); ?><!-- breadcrumbs -->
 
-	<?php echo $content; ?>
+<?php 
+		$this->beginWidget(	'zii.widgets.jui.CJuiDialog', 
+							array(
+						   		'id'=>'loginbox_dialog',
+							    'options'=>array(
+						        				'title'=>'Login',
+						        				'autoOpen'=>false,
+    								 			),
+									)
+							); 
+?>
+		<?php echo $content; ?>
+<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
+</div>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
 <script type='text/javascript'>
-//function displayScroll()
-//{
-//	alert($("body").scrollTop());
-//	alert($("html").scrollTop());
-//}
+function displayLogin()
+{
+	$("#loginbox_dialog").dialog("open");
+}
 function displayAjaxError(text)
 {
 	$('#ajaxErrors').dialog('open');
@@ -172,17 +125,16 @@ function unbusy()
 
 	// TRIM FUNCTIONS for JS
 	
-//������� ���������� ������� �����
 function ltrim(str) {
 	var ptrn = /\s*((\S+\s*)*)/;
 	return str.replace(ptrn, "$1");
 }
-// ������� ���������� ������� ������
+
 function rtrim(str) {
 	var ptrn = /((\s*\S+)*)\s*/;
 	return str.replace(ptrn, "$1");
 }
-// ������� ���������� ������� � ����� ������
+
 function trim(str) {
 	return ltrim(rtrim(str));
 }

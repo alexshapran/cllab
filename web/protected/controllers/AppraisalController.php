@@ -37,7 +37,7 @@ class AppraisalController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view', 'property'),
+				'actions'=>array('index', 'view', 'property', 'generatepdf'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -236,6 +236,35 @@ die;
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+	
+	
+	public function actionGeneratepdf()
+	{
+		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
+		                            'P', 'cm', 'A4', true, 'UTF-8');
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor("Nicola Asuni");
+		$pdf->SetTitle("TCPDF Example 002");
+		$pdf->SetSubject("TCPDF Tutorial");
+		$pdf->SetKeywords("TCPDF, PDF, example, test, guide");
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
+		$pdf->AliasNbPages();
+		
+		$pdf->AddPage();
+		$pdf->setJPEGQuality(75);
+		$pdf->Image(yiiBase::getPathOfAlias('application').'\..\images\velo.jpeg', $x='', $y='', $w=10, $h=8, $type='jpeg', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
+//		$pdf->Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false);
+
+		$pdf->AddPage();
+		$pdf->Image(yiiBase::getPathOfAlias('application').'\..\images\pants.jpeg', $x='', $y='', $w=3, $h=2, $type='jpeg', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
+		$pdf->Image(yiiBase::getPathOfAlias('application').'\..\images\duck.gif', $x='6', $y='2', $w=1, $h=1, $type='gif', $link='', $align='', $resize=true, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=1, $fitbox=false, $hidden=false, $fitonpage=false);
+		
+		$pdf->SetFont("times", "BI", 20);
+		$pdf->Cell(0,10,"Example 002",1,1,'C');
+		$pdf->Output("example_002.pdf", "I");
+		
 	}
 
 	/**

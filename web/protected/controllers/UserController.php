@@ -30,14 +30,19 @@ class UserController extends Controller
 	 */
 	public function accessRules()
 	{
-		return 	array(
-		array('allow', // allow admin to perform 'create' and 'update' actions
-				'actions'=>array( 'create', 'update', 'accounts','users', 'delete'),
-				'roles'=>array('Superadmin'),
-		),
-		array('deny',  // deny all users
-							'users'=>array('*'),
-		),
+		return 	array( 
+//						For AA
+						array(	'allow',
+								'actions'=>array('users', 'accounts'),
+								'roles'=>array('Account Admin')),
+//						For SA
+						array(	'allow', // allow admin to perform 'create' and 'update' actions
+								'actions'=>array( 'create', 'update', 'accounts','users', 'delete'),
+								'roles'=>array('Superadmin'),
+						),
+						array(	'deny',  // deny all users
+								'users'=>array('*'),
+						),
 		);
 	}
 
@@ -64,8 +69,11 @@ class UserController extends Controller
 			{
 //				if don't - we load it encrypted from database
 				$thisModel = User::model()->findByPk($model->id);
-				$model->password = $thisModel->password;
-				$model->password_repeat = $model->password;
+				if($thisModel)
+				{
+					$model->password = $thisModel->password;
+					$model->password_repeat = $model->password;
+				}
 			}
 
 			if($model->validate())
@@ -132,9 +140,9 @@ class UserController extends Controller
 	{
 		$accModel = new Account;
 		//$dataProvider = new CActiveDataProvider('Account');
-
 		$this->render('accounts',array(
 			'model'=>$accModel,
+			'dataProvider'=> new CActiveDataProvider('Account')
 		));
 	}
 	/*
@@ -147,6 +155,14 @@ class UserController extends Controller
 	{
 		$accounts = Account::model()->findAll();
 		$criteria = new CDbCriteria;
+		
+		$criteria = new CDbCriteria();
+		$thisUser = Yii::app()->user->getModel();
+		
+		if(yii::app()->user->getRole() == 'Account Admin' )
+		{
+			$criteria->condition = 'account_id = ' . $thisUser->account_id;
+		}
 
 		if(isset($_GET['filterBy']) && $_GET['filterBy'])
 				$criteria->condition = 'account_id = ' . $_GET['filterBy'];

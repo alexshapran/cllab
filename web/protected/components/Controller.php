@@ -180,10 +180,10 @@ class Controller extends CController
 									);
 		
 		$menu['user']	= array(
-									array(	'label'	=>'Accounts',
-											'action'=>'accounts'),
 									array(	'label'	=>'Users',
 											'action'=>'users'),
+									array(	'label'	=>'Accounts',
+											'action'=>'accounts'),
 									'disabledToActions'	=> array('')
 									);
 									
