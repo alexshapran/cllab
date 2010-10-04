@@ -37,7 +37,7 @@ class AppraisalController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view', 'property', 'generatepdf'),
+				'actions'=>array('index', 'view', 'property', 'Duplicate', 'generatepdf'),
 				'roles'=>array('Superadmin'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -238,8 +238,7 @@ die;
 		));
 	}
 	
-	
-	public function actionGeneratepdf()
+		public function actionGeneratepdf()
 	{
 		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
 		                            'P', 'cm', 'A4', true, 'UTF-8');
@@ -265,6 +264,104 @@ die;
 		$pdf->Cell(0,10,"Example 002",1,1,'C');
 		$pdf->Output("example_002.pdf", "I");
 		
+	}
+	
+	public function actionDuplicate() {
+		if(!$oldAppraisal = Appraisal::getModel())
+			$this->redirect('/appraisal/');
+
+			
+		$newAppraisal = new Appraisal;
+		/*
+
+		if($oldAppraisal->basicReportParameters) {
+			$new = new BasicReportParameters;
+			$new->attributes = $oldAppraisal->basicReportParameters->attributes;
+			$new->save(false);
+			$newAppraisal->basic_report_parameters_id = $new->id;
+		}
+		
+		if($oldAppraisal->reportCoverLetter) {
+			$new = new ReportCoverLetter;
+			$new->attributes = $oldAppraisal->reportCoverLetter->attributes;
+			$new->save(false);		
+			$newAppraisal->report_cover_letter_id = $new->id;
+		}
+		
+		if($oldAppraisal->reportBiohistContext) {
+			$new = new ReportBiohistContext;
+			$new->attributes = $oldAppraisal->reportBiohistContext->attributes;
+			$new->save(false);		
+			$newAppraisal->report_biohist_context_id = $new->id;
+		}
+		
+		if($oldAppraisal->reportMarketanalysis) {
+			$new = new ReportMarketAnalysis;
+			$new->attributes = $oldAppraisal->reportMarketanalysis->attributes;
+			$new->save(false);		
+			$newAppraisal->report_market_analysis_id = $new->id;
+		}
+		
+		if($oldAppraisal->sdBibliography) {
+			$new = new SdBibliography;
+			$new->attributes = $oldAppraisal->sdBibliography->attributes;
+			$new->save(false);		
+			$newAppraisal->sd_bibliography_id = $new->id;	
+		}
+		
+		if($oldAppraisal->sdPrivacyPolicy) {
+			$new = new SdPrivacyPolicy;
+			$new->attributes = $oldAppraisal->sdPrivacyPolicy->attributes;
+			$new->save(false);		
+			$newAppraisal->sd_privacy_policy_id = $new->id;	
+		}
+		
+		if($oldAppraisal->sdAppendices && ($arr = $oldAppraisal->sdAppendices->sdAppendicesLists)) {
+			$new = new SdAppendices;
+			$new->attributes = $oldAppraisal->sdAppendices->attributes;
+			$new->save(false);
+			$newAppraisal->sd_appendices_id = $new->id;
+			
+			foreach($oldAppraisal->sdAppendices->sdAppendicesLists as $i => $obj) {
+				$newObj = new SdAppendicesList;
+				$newObj->sd_appendices_id = $newAppraisal->sd_appendices_id;
+				$newObj->text = $obj->text;
+				$newObj->save(false);
+			}
+		}
+		
+		if($oldAppraisal->reportResume && ($arr = $oldAppraisal->reportResume->reportResumeData)) {
+			$new = new ReportResume;
+			$new->attributes = $oldAppraisal->reportResume->attributes;
+			$new->save(false);
+			$newAppraisal->report_resume_id = $new->id;
+			
+			foreach($oldAppraisal->reportResume->reportResumeData as $i => $obj) {
+				$newObj = new ReportResumeData;
+				$newObj->report_resume_id = $newAppraisal->report_resume_id;
+				$newObj->text = $obj->text;
+				$newObj->save(false);
+			}
+		}
+		
+		if($oldAppraisal->appSignedCert) {
+			$new = new AppSignedCert;
+			$new->attributes = $oldAppraisal->appSignedCert->attributes;
+			$new->save(false);		
+			$newAppraisal->app_signed_cert_id = $new->id;	
+		}
+		
+		if($oldAppraisal->scopeOfWork) {
+			$new = new AppScopeOfWork;
+			$new->attributes = $oldAppraisal->scopeOfWork->attributes;
+			$new->save(false);		
+			$newAppraisal->app_scope_of_work_id = $new->id;	
+		}
+		*/
+		
+		var_dump($newAppraisal->app_scope_of_work_id);
+		die;
+		die;
 	}
 
 	/**

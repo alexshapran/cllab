@@ -57,7 +57,7 @@ class AppScopeOfWork extends CActiveRecord
 		return array(
 			array('active', 'numerical', 'integerOnly'=>true),
 			array('sec_title, client, owner, int_use, type_of_value, source_of_def_value, eff_val_date, ass_cond, ext_of_phys_insp, photography, assumps, extr_assumps, hypoth_cond', 'length', 'max'=>255),
-			array('problem_to_solve, categories, def_of_value, app_to_value, mark_exam, type_of_app_report, meth_of_research, uspap_comp', 'safe'),
+			array('int_users, problem_to_solve, categories, def_of_value, app_to_value, mark_exam, type_of_app_report, meth_of_research, uspap_comp', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, active, sec_title, problem_to_solve, categories, client, owner, int_use, type_of_value, def_of_value, source_of_def_value, app_to_value, mark_exam, type_of_app_report, eff_val_date, ass_cond, ext_of_phys_insp, meth_of_research, photography, uspap_comp, assumps, extr_assumps, hypoth_cond', 'safe', 'on'=>'search'),
