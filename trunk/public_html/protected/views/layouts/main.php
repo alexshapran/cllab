@@ -132,9 +132,9 @@
 			?>
 			
 			<div id='messageText'></div>
-			<div style='margin:30px auto; width:30px;'>
-				<?php echo CHtml::button('Ok', array('onclick'=>'$("#ajaxMessage").dialog("close")')) ?>
-			</div>
+			<!-- 	<div style='margin:30px auto; width:30px;'>
+						<?php echo CHtml::button('Ok', array('onclick'=>'$("#ajaxMessage").dialog("close")')) ?>
+					</div> -->
 
 			<?php $this->endWidget('zii.widgets.jui.CJuiDialog'); ?>
 			
@@ -167,7 +167,12 @@ function displayAjaxMessage(text)
 {
 	$('#ajaxMessage').dialog('open');
 	$('#messageText').html(text);
-	$('#ajaxMessage').parent().fadeOut(4000);
+
+	setTimeout( 'hideAjaxMessage()', 2000);
+}
+function hideAjaxMessage()
+{
+	$('#ajaxMessage').dialog('close');
 }
 function busy()
 {	

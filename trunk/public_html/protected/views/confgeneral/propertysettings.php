@@ -17,8 +17,9 @@ $this->renderPartial('/confcategory/_allcategories', array('aParentCategories'=>
 			
 			echo CHtml::ajaxSubmitButton('Save',
 										Yii::app()->controller->createUrl('/confgeneral/submitattributeorder'), 
-										array(	'success'=>'unbusy()'),
+										array(	'success'=>'function() {unbusy(); displayAjaxMessage("Successfully saved!");}'),
 										array(
+												'class'=>'bigbutton',
 												'onclick'=>'busy(); $("#attrOrder").val( $(".ui-sortable").sortable("toArray").toString() )'
 										));
 		echo CHtml::endForm();

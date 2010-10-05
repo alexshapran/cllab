@@ -34,7 +34,10 @@
 function floodDiv(transport)
 {
 	if(transport.form)
+	{
 		$('#allcategories').html(transport.form);
+		displayAjaxMessage('Successfully added!');
+	}
 
 	if(transport.errors)
 		displayAjaxError(transport.errors);

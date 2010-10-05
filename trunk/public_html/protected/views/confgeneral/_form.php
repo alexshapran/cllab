@@ -111,9 +111,9 @@ function displayEdit(id)
 			</div>
 			
 			<div id="purpose_of_apparsial">
-			<div class='confgeneralsect'>
-			Purpose of Appraisal - Configure Options
-			</div>
+				<div class='confgeneralsect'>
+					Purpose of Appraisal - Configure Options
+				</div>
 			<?php echo $this->renderPartial('_purpouseForm', 
 											array('model'=>new ConfPurpose)); ?>
 				<div id="allpurposes">
