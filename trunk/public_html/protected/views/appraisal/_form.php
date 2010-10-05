@@ -7,6 +7,7 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($oBasicParams); ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
@@ -37,14 +38,14 @@
 				'style'=>'width:85px;'
 		    ));
 	 	?>
-		<?php echo $form->dropDownList($model,'client_id', CHtml::listData(Client::getClientsByAccount(Yii::app()->user->getConfigId()), 'id','name')); ?>
+	 	<?php $obj = Yii::app()->user->getModel(); ?>
+		<?php echo $form->dropDownList($model,'client_id', CHtml::listData(Client::getClientsByAccount($obj->account_id), 'id','name')); ?>
 		<?php echo $form->error($model,'client_id'); ?>
 	</div>
 	
 	<br />
 	<h3>Basic Report Parameters</h3>
 	
-	<?php echo $form->errorSummary($oBasicParams); ?>
 	<?php echo $form->hiddenField($oBasicParams,'order_report_section')?>
 	<div class="row">
 		<?php echo $form->labelEx($oBasicParams,'client_name'); ?>
