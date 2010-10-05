@@ -168,7 +168,7 @@ function displayAjaxMessage(text)
 	$('#ajaxMessage').dialog('open');
 	$('#messageText').html(text);
 
-	setTimeout( 'hideAjaxMessage()', 2000);
+	setTimeout( 'hideAjaxMessage()', 1000);
 }
 function hideAjaxMessage()
 {

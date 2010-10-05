@@ -27,6 +27,8 @@ function addForm(transport)
 function onSuccess(id)
 {
 	$("#discval" + id).remove();
+	displayAjaxMessage('Successfully deleted!');
+	
 	unbusy();
 }
 function toggle(a)

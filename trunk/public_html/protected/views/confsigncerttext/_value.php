@@ -14,7 +14,7 @@ echo CHtml::ajaxButton(
 					Yii::app()->controller->createUrl(	'confsigncerttext/deleteajax', 
 														array('textId'=>$model->id)),
 
-					array('success'=>'function(){ hide('.$model->id.')}'),
+					array('success'=>'function(){ hide('.$model->id.'); displayAjaxMessage("Successfully deleted!")}'),
 					array(	'style'=>'margin: 16px 0 0 5px; position: absolute',
 							'onclick'=>'if(!confirm("Are you sure?")) return false; busy()',
 							'id'=>'delButton'.$model->id)) ?>
