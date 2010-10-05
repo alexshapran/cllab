@@ -41,6 +41,8 @@ function addElement(transport)
 {
 	if(transport.form)
 		$("#addBefore").before(transport.form);
+
+	displayAjaxMessage('Successfully added!');
 	
 	unbusy();
 }
@@ -48,7 +50,9 @@ function removeElement(transport)
 {
 	if(transport.complete)
 		$("#resume" + transport.id).remove();
-
+	
+	displayAjaxMessage('Successfully deleted!');
+	
 	unbusy();
 }
 function saveComplete()
