@@ -30,14 +30,25 @@ if($aGlos)
 <script type='text/javascript'>
 function displayElement(transport)
 {
-	$('#addnewbefore').before(transport.form);
+	if(transport.form)
+		$('#addnewbefore').before(transport.form);
+	else
+		displayAjaxMessage(transport.error);
+
 	unbusy();
 }
 
 function removeMe(transport)
 {
 	if(transport.result == 'done')
+	{
 		$('#glossaryform' + transport.id).remove();
+		displayAjaxMessage('Successfully removed!');
+	}
+	else
+	{
+		displayAjaxError('Cann\'t remove this item!');
+	}
 	unbusy();
 }
 </script>

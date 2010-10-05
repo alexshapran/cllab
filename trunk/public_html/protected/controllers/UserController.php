@@ -33,7 +33,7 @@ class UserController extends Controller
 		return 	array( 
 //						For AA
 						array(	'allow',
-								'actions'=>array('users', 'accounts', 'update'),
+								'actions'=>array('users', 'update'),
 								'roles'=>array('Account Admin')),
 //						For SA
 						array(	'allow', // allow admin to perform 'create' and 'update' actions

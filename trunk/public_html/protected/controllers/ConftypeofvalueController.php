@@ -33,7 +33,7 @@ class ConftypeofvalueController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('update', 'delete', 'CreateAjax'),
-				'roles'=>array('Superadmin')
+				'roles'=>array('Superadmin', 'Account Admin')
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

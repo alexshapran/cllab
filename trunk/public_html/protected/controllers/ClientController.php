@@ -34,7 +34,7 @@ class ClientController extends Controller
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('ajaxAdd', 'index', 'update', 'create', 'delete'),
-				'roles'=>array('Superadmin'),
+				'roles'=>array('Superadmin', 'Account Admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

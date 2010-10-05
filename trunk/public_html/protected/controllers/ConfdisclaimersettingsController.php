@@ -33,7 +33,7 @@ class ConfdisclaimersettingsController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('update','submit'),
-				'roles'=>array('Superadmin'),
+				'roles'=>array('Superadmin', 'Account Admin'),
 			),
 		);
 	}

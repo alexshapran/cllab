@@ -36,7 +36,7 @@ class DocumentsController extends Controller
 				'actions'=>array(	'bibliography', 'getPropertyAjax', 
 									'marketanalysis', 'PrivacyPolicy',
 									'appendicies', 'createappend'),
-				'roles'=>array('Superadmin'),
+				'roles'=>array('Superadmin', 'Account Admin', 'User'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

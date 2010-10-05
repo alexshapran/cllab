@@ -23,7 +23,7 @@ class ImageController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('createAjax'),
-				'roles'=>array('Superadmin')
+				'roles'=>array('Superadmin', 'Account Admin', 'User')
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

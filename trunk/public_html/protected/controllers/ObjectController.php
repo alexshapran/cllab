@@ -38,7 +38,7 @@ class ObjectController extends Controller
 //y			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('new', 'create','update','GetChildrenCategory', 'AddComparableAjax', 'DeleteAjax'),
-				'roles'=>array('Superadmin'),
+				'roles'=>array('Superadmin', 'Account Admin', 'User'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),

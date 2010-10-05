@@ -35,7 +35,7 @@ class AppraisalreportController extends Controller
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('coverLetter', 'biohistcontext', 'signedcert', 'getscopetext',
 									'marketanalysis', 'resume', 'property', 'scopeofwork', 'resumedelete'),
-				'roles'=>array('Superadmin'),
+				'roles'=>array('Superadmin', 'Account Admin', 'User'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

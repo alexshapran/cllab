@@ -27,17 +27,27 @@
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
-
 	<div id="mainmenu">   
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
+		<?php 
+		$mainMenu = array(
 				array('label'=>'Manage Appraisals ', 'url'=>array('/appraisal')),
 				array('label'=>'Manage Clients', 'url'=>array('/client')),
 				array('label'=>'Configuration', 'url'=>array( '/confgeneral/update' )), 
-				array('label'=>'Admin', 'url'=>array('/user/users') ),
 //				array('label'=>'Generate PDF', 'url'=>array('/appraisal/generatepdf') ),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
+			);
+		
+		$role = Yii::app()->user->getRole();
+		if( $role == 'Superadmin' || $role == 'Account Admin')
+			$mainMenu[] = array('label'=>'Admin', 
+								'url'=>array('/user/users'));
+		
+		$mainMenu[] = array('label'=>'Logout ('.Yii::app()->user->name.')', 
+							'url'=>array('/site/logout'), 
+							'visible'=>!Yii::app()->user->isGuest);
+		
+		
+		$this->widget('zii.widgets.CMenu',array(
+			'items'=>$mainMenu
 		)); ?>
 	</div><!-- mainmenu -->
 
@@ -157,6 +167,7 @@ function displayAjaxMessage(text)
 {
 	$('#ajaxMessage').dialog('open');
 	$('#messageText').html(text);
+	$('#ajaxMessage').parent().fadeOut(4000);
 }
 function busy()
 {	
