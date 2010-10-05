@@ -316,7 +316,7 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 #allcategories {
 	border: 1px dashed black;
 	font-size: 14px;
-	width: 400px;
+	width: 500px;
 	min-width: 400px;
 	float: left;
 	padding: 10px;
@@ -325,8 +325,9 @@ div.wide.form .buttons,div.wide.form .hint,div.wide.form .errorMessage {
 .catName {
 	float: left;
 	min-width: 100px;
-	width: 100px;
+	width: 200px;
 	margin-top: 7px;
+	font-size:13px;
 }
 
 #childCategories UL {

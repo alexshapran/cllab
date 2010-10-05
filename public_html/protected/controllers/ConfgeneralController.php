@@ -44,7 +44,7 @@ class ConfgeneralController extends Controller
 													'resumesettings', 'glossarysettings'),
 								'roles'=>array('Superadmin', 'Account Admin'),
 							),
-						array('deny',  // deny all users
+						array(	'deny',  // deny all users
 								'users'=>array('*'),
 							),
 		);
@@ -88,6 +88,7 @@ class ConfgeneralController extends Controller
 					Yii::app()->user->setFlash('success','Successfully saved!');
 				else 
 				{
+//						Returning errors
 						$out='';
 						foreach($errors as $key=>$erText)
 						{

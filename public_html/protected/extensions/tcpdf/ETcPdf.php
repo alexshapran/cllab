@@ -3,7 +3,7 @@
  * ETcPdf class file.
  *
  * @author MetaYii
- * @link http://www.yiiframework.com/
+ * @link http://www.Yiiframework.com/
  * @copyright Copyright &copy; 2008 MetaYii
  * @license
  *

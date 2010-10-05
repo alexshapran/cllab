@@ -51,18 +51,19 @@ return array(
 		
 //		DATABASE CONFIG
  
-		'db'=>array(
-			'connectionString' => 'mysql:host=piogroup.net;dbname=piogroup_clab',
-			'emulatePrepare' => true,
-			'username' => 'piogroup_cluser',
-			'password' => 'nFtGQGLd9E32',
-			'charset' => 'utf8',
+//		'db'=>array(
+//			'connectionString' => 'mysql:host=piogroup.net;dbname=piogroup_clab',
+//			'emulatePrepare' => true,
+//			'username' => 'piogroup_cluser',
+//			'password' => 'nFtGQGLd9E32',
+//			'charset' => 'utf8',
 		
-			/*'connectionString' => 'mysql:host=localhost;dbname=cllab',
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=cllab',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',
-			'charset' => 'utf8',*/
+			'charset' => 'utf8'
 		),
 		
 		'errorHandler'=>array(
