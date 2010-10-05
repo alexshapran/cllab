@@ -33,7 +33,7 @@ class ConfglossarysettingsController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('delete', 'update', 'create'),
-				'roles'=>array('Superadmin'),
+				'roles'=>array('Superadmin', 'Account Admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -59,10 +59,25 @@ class ConfglossarysettingsController extends Controller
 	{
 		$model=new ConfGlossarySettings;
 		$model->conf_gen_id = Yii::app()->user->getConfigId();
-		$model->save();
 
-		$response = array(
-			'form' => $this->renderPartial('/confglossarysettings/_form', array('model'=>$model), true, true));
+		$response = array();
+		
+		if($model->save())
+		{
+			$response = array(
+				'form' => $this->renderPartial(	'/confglossarysettings/_form', 
+												array('model'=>$model), 
+												true, 
+												true));
+		}
+		else
+		{
+			$errors = $model->getErrors();
+			foreach($errors as $error)
+				$out = $error[0].'<br />';
+				
+			$response['errors'] = $out;
+		}
 
 		echo CJSON::encode($response);
 	}

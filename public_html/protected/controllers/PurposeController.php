@@ -33,7 +33,7 @@ class PurposeController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('createajax', 'update', 'delete'),
-				'roles'=>array('Superadmin')
+				'roles'=>array('Superadmin', 'Account Admin', 'User')
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

@@ -37,12 +37,9 @@ class AppraisalController extends Controller
 		return array(
 			
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'view', 'property', 'Duplicate', 'generatepdf'),
-				'roles'=>array('Superadmin'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('edit','update', 'create'),
-				'roles'=>array('Superadmin'),
+				'actions'=>array(	'index', 'view', 'property', 
+									'duplicate', 'generatepdf', 'edit','update', 'create'),
+				'roles'=>array('Superadmin', 'Account Admin', 'User'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),

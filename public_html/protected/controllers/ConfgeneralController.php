@@ -31,17 +31,22 @@ class ConfgeneralController extends Controller
 	public function accessRules()
 	{
 		return array(
-		array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(	'update', 'fontsandimages', 
-									'fontsandimagessubmit', 'propertysettings', 
-									'signedcertification', 'submitattributeorder',
-									'scopeofsettings', 'disclaimersettings',
-									'resumesettings', 'glossarysettings'),
-				'roles'=>array('Superadmin'),
-		),
-		array('deny',  // deny all users
-				'users'=>array('*'),
-		),
+//						array(	'allow',
+//								'actions'=>array('update'),
+//								'roles'=>array('Account Admin')
+//							),
+		
+						array(	'allow',  // allow all users to perform 'index' and 'view' actions
+								'actions'=>array(	'update', 'fontsandimages', 'fontsandimagessubmit',
+													'propertysettings', 'signedcertification', 
+													'submitattributeorder',
+													'scopeofsettings', 'disclaimersettings',
+													'resumesettings', 'glossarysettings'),
+								'roles'=>array('Superadmin', 'Account Admin'),
+							),
+						array('deny',  // deny all users
+								'users'=>array('*'),
+							),
 		);
 		
 	}
